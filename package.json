@@ -1,0 +1,26 @@
+{
+  "name": "claw-rl",
+  "version": "1.0.0",
+  "description": "OpenClaw-RL 自我改进核心系统",
+  "main": "scripts/activate.sh",
+  "scripts": {
+    "activate": "bash scripts/activate.sh",
+    "memory-inject": "bash scripts/memory_retrieval.sh auto",
+    "pre-flight": "bash scripts/pre_flight_check.sh",
+    "prm-judge": "bash scripts/prm_judge.sh",
+    "reward-collect": "bash scripts/reward_collector.sh",
+    "hint-extract": "bash scripts/hint_extractor.sh",
+    "train": "bash scripts/training_loop.sh run",
+    "test": "bash scripts/test_all.sh"
+  },
+  "config": {
+    "enabled": true,
+    "memory_inject": true,
+    "pre_flight_check": true,
+    "binary_rl": true,
+    "opd": true,
+    "training_interval": 300
+  },
+  "author": "Friday + Peter",
+  "license": "MIT"
+}

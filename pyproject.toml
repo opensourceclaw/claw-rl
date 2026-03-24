@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claw-rl"
+version = "0.5.0"
+description = "claw-rl - Reinforcement Learning System for OpenClaw (Product Brand: NeoMind)"
+readme = "README.md"
+license = "Apache-2.0"
+authors = [
+    {name = "Peter Cheng"}
+]
+keywords = [
+    "reinforcement-learning",
+    "ai",
+    "llm",
+    "agent",
+    "openclaw",
+    "harness-engineering",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.9"
+dependencies = [
+    # Start minimal, add as needed
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "pytest-benchmark",
+]
+
+[project.urls]
+Homepage = "https://github.com/opensourceclaw/claw-rl"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+addopts = "-v --cov=neorl --cov-report=html --cov-report=term-missing"

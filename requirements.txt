@@ -1,0 +1,5 @@
+# NeoMind RL (claw-rl) - Minimal Dependencies
+# Start minimal, add as needed
+
+# No external dependencies for v0.5.0
+# Using only Python standard library

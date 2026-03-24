@@ -1,0 +1,25 @@
+# Data files (user-specific)
+data/rewards/*.jsonl
+data/hints/*.jsonl
+data/learnings/*.md
+data/*.jsonl
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

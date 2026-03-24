@@ -1,0 +1,160 @@
+Metadata-Version: 2.4
+Name: claw-rl
+Version: 0.5.0
+Summary: claw-rl - Reinforcement Learning System for OpenClaw (Product Brand: NeoMind)
+Author: Peter Cheng
+License-Expression: Apache-2.0
+Project-URL: Homepage, https://github.com/opensourceclaw/claw-rl
+Keywords: reinforcement-learning,ai,llm,agent,openclaw,harness-engineering
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=3.0.0; extra == "dev"
+Requires-Dist: pytest-benchmark; extra == "dev"
+Dynamic: license-file
+
+# claw-rl - OpenClaw Self-Improvement System
+
+**claw-rl** is a self-improvement system for AI agents based on the OpenClaw-RL research paper. It enables agents to learn from user conversations through Binary RL (evaluative learning) and OPD (directive learning).
+
+## 🚀 Features
+
+- **Binary RL** - Learn from user feedback (satisfied/dissatisfied)
+- **OPD (Instruction Learning)** - Extract improvement hints from user corrections
+- **Memory Injection** - Inject learned rules before sessions
+- **Pre-flight Checks** - Mandatory checks before operations
+- **Background Training** - Continuous learning loop
+
+## 📂 Project Structure
+
+```
+claw-rl/
+├── src/                    # Source code (skill definition)
+│   └── SKILL.md           # OpenClaw skill definition
+├── scripts/               # Executable scripts
+├── docs/                  # Documentation
+├── data/                  # Data storage (not in git)
+│   ├── rewards/          # Reward records
+│   ├── hints/            # Hint records
+│   └── learnings/        # Learning entries
+├── package.json          # Package configuration
+├── LICENSE               # Apache 2.0 License
+└── README.md             # This file
+```
+
+## 📦 Installation
+
+### As OpenClaw Skill
+
+```bash
+# Clone to OpenClaw skills directory
+cd ~/.openclaw/workspace/skills/
+git clone https://github.com/opensourceclaw/claw-rl.git
+
+# Activate
+cd claw-rl
+./scripts/activate.sh
+```
+
+### Environment Variable (Auto-enable)
+
+```bash
+# Add to ~/.zshrc or ~/.bashrc
+export CLAWRL_ENABLED=1
+```
+
+## 🔧 Usage
+
+### Manual Activation
+
+```bash
+cd claw-rl
+./scripts/activate.sh
+```
+
+### Core Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `activate.sh` | Manual activation |
+| `memory_retrieval.sh` | Memory injection |
+| `pre_flight_check.sh` | Pre-flight checks |
+| `prm_judge.sh` | PRM reward judgment |
+| `reward_collector.sh` | Reward collection |
+| `hint_extractor.sh` | Hint extraction |
+| `training_loop.sh` | Training loop |
+
+## 📚 Documentation
+
+See [docs/](docs/) for detailed documentation:
+
+- [Phase 1 Design](docs/MEMORY_ENHANCEMENT.md)
+- [Phase 2 Design](docs/PHASE2_DESIGN.md)
+- [Friday Constitution](docs/FRIDAY_CONSTITUTION.md)
+
+## 🎯 Learning Mechanisms
+
+### Binary RL (Evaluative)
+
+From user feedback:
+- **Satisfied (+1):** "谢谢", "很好", continuing conversation
+- **Dissatisfied (-1):** "不对", "错了", "应该"
+- **Neutral (0):** No clear signal
+
+### OPD (Directive)
+
+From user corrections:
+- "应该 X" → "操作前 X"
+- "不要 Y" → "避免 Y"
+- "先 X 再 Y" → "顺序：先 X 再 Y"
+
+## 📊 Data Storage
+
+Data is stored in `data/` directory:
+
+- `data/rewards/` - Reward records (JSONL)
+- `data/hints/` - Hint records (JSONL)
+- `data/learnings/` - Learning entries (Markdown)
+
+**Note:** Data files are not committed to git (user-specific).
+
+## 🔍 Development
+
+### Run Tests
+
+```bash
+./scripts/test_all.sh
+```
+
+### Check Status
+
+```bash
+./scripts/reward_collector.sh summary
+```
+
+## 📄 License
+
+Apache License 2.0 - See [LICENSE](LICENSE) for details.
+
+## 🙏 Acknowledgments
+
+Based on OpenClaw-RL research paper:
+- **Paper:** OpenClaw-RL: Train Any Agent Simply by Talking
+- **Authors:** Yinjie Wang et al.
+- **Link:** https://arxiv.org/abs/2603.10165
+
+---
+
+**Version:** 1.0.0  
+**Created:** 2026-03-17  
+**Authors:** Friday + Peter
