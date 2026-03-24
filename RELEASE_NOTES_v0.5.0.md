@@ -3,6 +3,7 @@
 **Release Date:** 2026-03-24  
 **Product Brand:** NeoMind  
 **Code Name:** claw-rl  
+**Repository:** Claw-RL  
 **Python Package:** claw_rl  
 **License:** Apache-2.0  
 
