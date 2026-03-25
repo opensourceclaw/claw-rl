@@ -35,13 +35,18 @@ record_reward() {
     local reason="$2"
     local action="$3"
     local reply="$4"
+    local context="${5:-}"  # 可选参数：context
     local timestamp=$(date -Iseconds)
     
     local today=$(date +%Y-%m-%d)
     local rewards_file="$REWARDS_DIR/$today.jsonl"
     
-    # JSONL 格式
-    echo "{\"timestamp\":\"$timestamp\",\"reward\":$reward,\"reason\":\"$reason\",\"action\":\"$action\",\"reply\":\"$reply\"}" >> "$rewards_file"
+    # JSONL 格式（新增 context 字段，向后兼容）
+    if [ -n "$context" ]; then
+        echo "{\"timestamp\":\"$timestamp\",\"reward\":$reward,\"reason\":\"$reason\",\"action\":\"$action\",\"reply\":\"$reply\",\"context\":\"$context\"}" >> "$rewards_file"
+    else
+        echo "{\"timestamp\":\"$timestamp\",\"reward\":$reward,\"reason\":\"$reason\",\"action\":\"$action\",\"reply\":\"$reply\"}" >> "$rewards_file"
+    fi
     
     log_info "奖励已记录：r=$reward"
 }
