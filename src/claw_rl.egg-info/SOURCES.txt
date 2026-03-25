@@ -1,4 +1,5 @@
 LICENSE
+LICENSE.new
 README.md
 pyproject.toml
 src/claw_rl/__init__.py
@@ -11,4 +12,5 @@ src/claw_rl.egg-info/dependency_links.txt
 src/claw_rl.egg-info/requires.txt
 src/claw_rl.egg-info/top_level.txt
 tests/test_binary_rl.py
+tests/test_learning_loop.py
 tests/test_opd_hint.py
