@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: claw-rl
-Version: 0.6.0
+Version: 0.7.0
 Summary: claw-rl - Reinforcement Learning System for OpenClaw (Product Brand: NeoMind)
 Author: Peter Cheng
 License-Expression: Apache-2.0
