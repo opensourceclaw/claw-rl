@@ -2,6 +2,8 @@
 
 # claw-rl Pre-Flight Checklist Script
 # 用途：特定操作前强制执行预检查
+#
+# v0.7.0: 增强检查规则 + 性能优化
 
 set -e
 
