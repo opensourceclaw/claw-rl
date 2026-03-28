@@ -54,4 +54,4 @@ where = ["src"]
 testpaths = ["tests"]
 python_files = "test_*.py"
 python_functions = "test_*"
-addopts = "-v --cov=neorl --cov-report=html --cov-report=term-missing"
+addopts = "-v --cov=claw_rl --cov-report=html --cov-report=term-missing"

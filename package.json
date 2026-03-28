@@ -1,6 +1,6 @@
 {
   "name": "claw-rl",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "OpenClaw-RL 自我改进核心系统",
   "main": "scripts/activate.sh",
   "scripts": {
