@@ -113,8 +113,8 @@ class TestPreSessionHook:
             
             hook = PreSessionHook(data_dir=data_dir)
             
-            # Override memory file path for isolation
-            hook.learnings_file = mem_dir / 'claw-rl-learnings.md'
+            # Override _load_patterns to return empty (avoid reading real claw-mem)
+            hook._load_patterns = lambda limit: []
             
             result = hook.execute(PreSessionInput(
                 session_id="test_001",
