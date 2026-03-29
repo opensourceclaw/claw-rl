@@ -1,8 +1,8 @@
 # claw-rl Roadmap
 
 **Project:** OpenClaw Self-Improvement System  
-**Current Version:** v0.9.0  
-**Target:** v1.0.0 Stable Release
+**Current Version:** v1.0.0  
+**Target:** v1.1.0 Enhanced Learning
 
 ---
 
@@ -21,16 +21,17 @@ claw-rl implements the OpenClaw-RL research paper, enabling AI agents to learn f
 | v0.7.0 | 2026-03-25 | Learning Loop Enhancement | ✅ Released |
 | v0.8.0 | 2026-03-26 | Contextual Learning | ✅ Released |
 | v0.9.0 | 2026-03-29 | Phase 2 Validation | ✅ Released |
-| v1.0.0 | TBD | Production Ready | 🔄 In Progress |
+| v1.0.0 | 2026-03-29 | Production Ready | ✅ Released |
+| v1.1.0 | TBD | Enhanced Learning | 📋 Planning |
 
 ---
 
-## v1.0.0 Milestone (Current)
+## v1.0.0 Milestone (Released 2026-03-29)
 
 ### Goal
 Stable, production-ready release with full OpenClaw integration.
 
-### Checklist
+### Completed
 
 | Item | Status | Notes |
 |------|--------|-------|
@@ -39,37 +40,31 @@ Stable, production-ready release with full OpenClaw integration.
 | ✅ Learning Loop | Done | Background training loop |
 | ✅ Contextual Learning | Done | Context-aware pattern recognition |
 | ✅ Phase 2 Validation | Done | P0/P1/P2 all completed |
-| ✅ Test Coverage 70%+ | Done | 101 tests passing |
-| ✅ Version Unification | Done | v0.9.0 across all files |
-| ✅ Coverage Config Fix | Done | claw_rl module coverage working |
-| ✅ context_learning tests | Done | 91% coverage (19 tests) |
-| ⬜ ROADMAP.md | In Progress | This document |
-| ⬜ API Documentation | Pending | Developer reference |
-| ⬜ CHANGELOG.md | Pending | Version history |
-| ⬜ Git Push v0.9.0 | Pending | Push fixes to remote |
-| ⬜ Final Testing | Pending | End-to-end validation |
+| ✅ Test Coverage 80%+ | Done | 207 tests, 86% coverage |
+| ✅ Version Unification | Done | v1.0.0 across all files |
+| ✅ Phase 3 P0 Integration | Done | Auto-activation, hooks, claw-mem, daemon |
+| ✅ Phase 3 P1 Enhancement | Done | Agent integration, LLM PRM |
+| ✅ ROADMAP.md | Done | This document |
+| ✅ API Documentation | Done | API_REFERENCE.md |
+| ✅ CHANGELOG.md | Done | Version history |
+| ✅ Release Plan | Done | RELEASE_PLAN.md |
 
 ---
 
-## Future Roadmap
+## v1.1.0 Milestone (Planning)
 
-### v1.1.0 - Enhanced Learning
+### Goal
+Enhanced learning capabilities and dashboard.
 
-- **Advanced PRM Judge**: LLM-based reward evaluation (vs rule-based)
-- **Multi-modal Learning**: Learn from images, audio, video
-- **Cross-session Memory**: Persistent learning across sessions
+### Planned
 
-### v1.2.0 - Integration
-
-- **OpenClaw Native Hook**: Direct integration with OpenClaw Gateway
-- **Real-time Feedback**: Live reward signal processing
-- **Dashboard**: Web UI for learning analytics
-
-### v2.0.0 - Scale
-
-- **Multi-agent Learning**: Shared learning across agent instances
-- **Federated Learning**: Privacy-preserving cross-user learning
-- **Model Fine-tuning**: Actual model weight updates (experimental)
+| Item | Priority | Notes |
+|------|----------|-------|
+| ⏳ Learning Dashboard | P2 | Web UI for learning analytics |
+| ⏳ Multi-modal Learning | P1 | Learn from images, audio, video |
+| ⏳ Cross-session Memory | P1 | Persistent learning across sessions |
+| ⏳ OpenClaw Native Hook | P1 | Direct integration with OpenClaw Gateway |
+| ⏳ Real-time Feedback | P2 | Live reward signal processing |
 
 ---
 

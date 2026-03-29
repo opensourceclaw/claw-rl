@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "claw-rl"
-version = "0.9.0"
+version = "1.0.0"
 description = "claw-rl - Reinforcement Learning System for OpenClaw (Product Brand: NeoMind)"
 readme = "README.md"
 license = "Apache-2.0"
