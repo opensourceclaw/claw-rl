@@ -72,6 +72,7 @@ interface OpenClawPluginApi {
   registerTool(tool: any, handler: (params: any) => Promise<any>): void;
   on(eventName: string, handler: (event: any, ctx: any) => Promise<any | void>): void;
   registerService(service: { id: string; start: () => Promise<void>; stop: () => Promise<void> }): void;
+  registerContextEngine(id: string, factory: () => any | Promise<any>): void;
 }
 
 /**
@@ -449,29 +450,20 @@ const plugin: PluginDefinition = {
     
     // Auto-inject: inject learned rules before session starts
     if (config.autoInject) {
-      api.on('before_session_start', async (event: any, ctx: any) => {
+      api.on('session_start', async (event: any, ctx: any) => {
         currentSessionId = ctx.sessionKey;
-        
+
         try {
           // Get learned rules
           const result = await bridge.call('get_rules', {
             top_k: config.topK,
             context: event?.message?.content || '',
           });
-          
-          // Inject rules into context
+
+          // Note: session_start hook does not support injection
+          // Rules will be injected via Context Engine assemble()
           if (result.rules && result.rules.length > 0) {
-            const formatted = formatRulesForInjection(result.rules);
-            if (formatted) {
-              return {
-                inject: [
-                  {
-                    role: 'system',
-                    content: formatted,
-                  },
-                ],
-              };
-            }
+            api.logger.info(`[claw-rl] Loaded ${result.rules.length} rules for session`);
           }
         } catch (error) {
           api.logger.error('[claw-rl] Auto-inject error:', error);
@@ -523,6 +515,115 @@ const plugin: PluginDefinition = {
         await bridge.stop();
         api.logger.info('[claw-rl] Service stopped');
       },
+    });
+
+    // ========================================================================
+    // Context Engine Registration
+    // ========================================================================
+
+    // Register Context Engine factory
+    api.registerContextEngine('claw-rl', () => {
+      // Return ContextEngine object
+      return {
+        // Engine info
+        info: {
+          id: 'claw-rl',
+          name: 'claw-rl Self-Improvement Engine',
+          version: '2.0.0-beta.0',
+          ownsCompaction: false,
+        },
+
+        // Assemble context before each turn - inject learned rules
+        async assemble(params: {
+          sessionId: string;
+          sessionKey?: string;
+          messages: any[];
+          tokenBudget?: number;
+          model?: string;
+          prompt?: string;
+        }) {
+          try {
+            if (!bridge.isReady()) {
+              return {
+                messages: params.messages,
+                estimatedTokens: 0,
+              };
+            }
+
+            // Get learned rules
+            const result = await bridge.call('get_rules', {
+              top_k: config.topK || 10,
+              context: params.prompt || '',
+            });
+
+            // Format rules as system prompt addition
+            if (result.rules && result.rules.length > 0) {
+              const rulesText = result.rules
+                .map((r: any) => r.content || r)
+                .join('\n');
+
+              return {
+                messages: params.messages,
+                estimatedTokens: 0,
+                systemPromptAddition: `[Learned Rules]\n${rulesText}`,
+              };
+            }
+
+            return {
+              messages: params.messages,
+              estimatedTokens: 0,
+            };
+          } catch (error) {
+            api.logger.error('[claw-rl] Assemble error:', error);
+            return {
+              messages: params.messages,
+              estimatedTokens: 0,
+            };
+          }
+        },
+
+        // Ingest messages - required method
+        async ingest(params: {
+          sessionId: string;
+          sessionKey?: string;
+          message: any;
+          isHeartbeat?: boolean;
+        }) {
+          // We don't store messages, just return success
+          return { ingested: true };
+        },
+
+        // After turn - learn from interaction
+        async afterTurn(params: {
+          sessionId: string;
+          sessionKey?: string;
+          sessionFile: string;
+          messages: any[];
+          prePromptMessageCount: number;
+          autoCompactionSummary?: string;
+          isHeartbeat?: boolean;
+          tokenBudget?: number;
+          runtimeContext?: any;
+        }) {
+          try {
+            if (config.autoLearn && bridge.isReady() && params.messages.length > 0) {
+              // Extract feedback from the last turn
+              const lastMessages = params.messages.slice(params.prePromptMessageCount);
+
+              for (const msg of lastMessages) {
+                if (msg.role === 'user') {
+                  await bridge.call('collect_feedback', {
+                    feedback: msg.content,
+                    context: { sessionId: params.sessionId },
+                  });
+                }
+              }
+            }
+          } catch (error) {
+            api.logger.error('[claw-rl] AfterTurn error:', error);
+          }
+        },
+      };
     });
   },
 };
