@@ -1,0 +1,40 @@
+{
+  "id": "claw-rl",
+  "kind": "context-engine",
+  "name": "claw-rl Self-Improvement System",
+  "description": "Reinforcement learning system for OpenClaw agents (Local-First)",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "pythonPath": {
+        "type": "string",
+        "description": "Python executable path (default: python3)"
+      },
+      "bridgePath": {
+        "type": "string",
+        "description": "Bridge module path (default: -m claw_rl.bridge)"
+      },
+      "workspaceDir": {
+        "type": "string",
+        "description": "Workspace directory (default: OpenClaw workspace)"
+      },
+      "autoInject": {
+        "type": "boolean",
+        "description": "Auto-inject learned rules at session start (default: true)"
+      },
+      "autoLearn": {
+        "type": "boolean",
+        "description": "Auto-learn from user feedback (default: true)"
+      },
+      "topK": {
+        "type": "number",
+        "description": "Max rules to inject (default: 10)"
+      },
+      "debug": {
+        "type": "boolean",
+        "description": "Enable debug logging (default: false)"
+      }
+    },
+    "additionalProperties": false
+  }
+}
