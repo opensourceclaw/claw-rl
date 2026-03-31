@@ -1,15 +1,17 @@
-# claw-rl v2.0.0 Completion Report
+# claw-rl v2.0.0-beta Completion Report
 
 **Project:** claw-rl (OpenClaw Self-Improvement System)  
-**Version:** 2.0.0  
+**Version:** 2.0.0-beta.0  
 **Release Date:** 2026-03-31  
-**Status:** ✅ Completed
+**Status:** ✅ Beta Release (For Pilot Testing)
 
 ---
 
 ## 📊 Executive Summary
 
-claw-rl v2.0.0 成功完成 OpenClaw Plugin 架构迁移，实现了 Local-First 设计，性能卓越（平均延迟 0.4ms），测试覆盖率达到 78%。总开发时间约 3 小时，远低于预估的 4 天。
+claw-rl v2.0.0-beta 成功完成 OpenClaw Plugin 架构迁移，实现了 Local-First 设计，性能卓越（平均延迟 0.4ms），测试覆盖率达到 78%。总开发时间约 3 小时，远低于预估的 4 天。
+
+此版本为 Beta 版本，将与 claw-mem v2.0.0-beta 和 neoclaw v2.0.0-beta 一起进行试点测试，发现问题后迭代优化，最终发布正式版 v2.0.0。
 
 ---
 
@@ -22,7 +24,7 @@ claw-rl v2.0.0 成功完成 OpenClaw Plugin 架构迁移，实现了 Local-First
 | 性能目标 (<10ms) | ✅ 超越 | 平均延迟 0.4ms，远超预期 |
 | 测试覆盖率 (>80%) | ⚠️ 78% | 接近目标，Bridge 测试待补充 |
 | 文档完善 | ✅ 完成 | ADR、User Stories、Migration Plan |
-| GitHub Release | ✅ 完成 | https://github.com/opensourceclaw/claw-rl/releases/tag/v2.0.0 |
+| GitHub Release | ✅ 完成 | https://github.com/opensourceclaw/claw-rl/releases/tag/v2.0.0-beta |
 
 ---
 

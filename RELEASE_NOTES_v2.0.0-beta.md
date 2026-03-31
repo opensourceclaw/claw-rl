@@ -1,6 +1,9 @@
-# claw-rl v2.0.0 - OpenClaw Plugin Architecture
+# claw-rl v2.0.0-beta - OpenClaw Plugin Architecture
 
-**Release Date:** 2026-03-31
+**Release Date:** 2026-03-31  
+**Status:** Beta (For Pilot Testing)
+
+> ⚠️ **Note:** This is a beta release for pilot testing with claw-mem v2.0.0-beta and neoclaw v2.0.0-beta. Feedback and issue reports are welcome!
 
 ## 🎉 Highlights
 
