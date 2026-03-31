@@ -5,6 +5,61 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.2] - 2026-03-31
+
+**Status:** Beta release - Simplified architecture using Hooks instead of Context Engine.
+
+### Changed
+
+- **MAJOR: Removed Context Engine** - Simplified architecture by removing `registerContextEngine`
+  - Context Engine was over-engineered for claw-rl's needs
+  - Hooks (`session_start`, `agent_end`) are sufficient and simpler
+  - Reduces complexity and maintenance burden
+  - Consistent with claw-mem's architecture
+
+- **Architecture Simplification** - Hooks-only approach
+  - Removed Context Engine implementation (assemble, ingest, afterTurn)
+  - Removed `registerContextEngine` from OpenClawPluginApi interface
+  - Kept Hooks: `session_start`, `session_end`, `message_received`
+  - Kept Tools: `learning_status`, `collect_feedback`, `get_learned_rules`
+
+### Fixed
+
+- Consistent architecture with claw-mem (both use Hooks, not Context Engine)
+
+### Performance
+
+- Initialize: ~2.89ms
+- Collect Feedback: ~0.036ms
+- Get Rules: ~9.09ms
+
+### Testing
+
+- All integration tests passing (6/6)
+
+### Design Rationale
+
+**Why remove Context Engine?**
+
+1. **KISS Principle** - Hooks are simpler and sufficient for claw-rl's needs
+2. **Risk Reduction** - Context Engine API is complex and error-prone
+3. **Consistency** - claw-mem uses Hooks, claw-rl should too
+4. **Maintainability** - Hooks are easier to debug and maintain
+5. **Lower Coupling** - Less dependent on OpenClaw internal APIs
+
+**What we lose:**
+
+- Context Engine's `assemble` hook (can be replaced with session_start + manual injection)
+- Context Engine's `ingest` hook (not needed for claw-rl)
+- Context Engine's `afterTurn` hook (replaced with agent_end hook)
+
+**What we gain:**
+
+- Simpler architecture
+- Lower risk
+- Easier maintenance
+- Consistency with claw-mem
+
 ## [2.0.0-beta.1] - 2026-03-31
 
 **Status:** Beta release with critical bug fixes for Context Engine registration.
