@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-beta.1] - 2026-03-31
+
+**Status:** Beta release with critical bug fixes for Context Engine registration.
+
+### Fixed
+
+- **Context Engine Registration API**: Corrected `registerContextEngine` signature
+  - Changed from object parameter to `(id, factory)` signature
+  - Factory returns `ContextEngine` object with `info`, `assemble`, `ingest`, `afterTurn`
+- **Hook Event Name**: Fixed incorrect event name
+  - Changed `before_session_start` to `session_start`
+  - Removed unsupported `inject` return from session_start hook
+- **ContextEngine Interface**: Complete interface implementation
+  - Added required `info` property
+  - Fixed `assemble` method signature to match OpenClaw Plugin SDK
+  - Added required `ingest` method
+  - Fixed `afterTurn` method signature
+
+### Changed
+
+- **OpenClawPluginApi Interface**: Updated `registerContextEngine` type definition
+  - Changed from object parameter to `(id: string, factory: () => any | Promise<any>): void`
+
+### Testing
+
+- Added comprehensive test script (`test/test_plugin.sh`)
+- Added deployment guide (`test/DEPLOYMENT_GUIDE.md`)
+- All integration tests passing (6/6)
+
+### Performance
+
+- Initialize: ~2.89ms
+- Collect Feedback: ~0.036ms
+- Get Rules: ~9.09ms
+
 ## [2.0.0-beta.0] - 2026-03-31
 
 **Status:** Beta release for pilot testing with claw-mem v2.0.0-beta and neoclaw v2.0.0-beta.

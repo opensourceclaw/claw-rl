@@ -1,6 +1,6 @@
 {
   "name": "@opensourceclaw/openclaw-claw-rl",
-  "version": "2.0.0-beta.0",
+  "version": "2.0.0-beta.1",
   "description": "claw-rl - OpenClaw Self-Improvement Plugin (Local-First)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -5,7 +5,7 @@ Product Brand: NeoMind
 Binary RL and OPD Learning for OpenClaw.
 """
 
-__version__ = "2.0.0b0"
+__version__ = "2.0.0b1"
 __author__ = "Peter Cheng"
 __email__ = "peter@neoclaw.org"
 __description__ = "claw-rl - Binary RL and OPD Learning (Product Brand: NeoMind)"
