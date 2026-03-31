@@ -258,21 +258,22 @@ claw-rl Core (existing modules)
 
 ---
 
-## Timeline
+## Timeline (AI Speed)
 
-**Total Duration:** 12 days (2.5 weeks)
+**Total Duration:** 4 days
 
-- Phase 1: 3 days
-- Phase 2: 5 days
-- Phase 3: 3 days
-- Phase 4: 1 day
+- Phase 1: 1 day (Foundation)
+- Phase 2: 1 day (Core Migration)
+- Phase 3: 0.5 day (Testing & Documentation)
+- Phase 4: 0.5 day (Release)
+- Buffer: 1 day
 
-**Buffer:** 2 days for unexpected issues
-
-**Total:** 14 days (3 weeks)
+**Based on:** claw-mem v2.0.0 actual development experience
 
 ---
 
 **Created:** 2026-03-31  
 **Author:** Friday (AI Assistant)  
+**Approved by:** Peter Cheng  
+**Approval Date:** 2026-03-31  
 **Status:** Ready for Implementation
