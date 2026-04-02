@@ -5,7 +5,7 @@ Run with: pytest tests/test_opd_hint.py -v
 """
 
 import pytest
-from claw_rl.opd_hint import OPDHint, OPDHintExtractor
+from claw_rl.feedback.opd_hint import OPDHint, OPDHintExtractor
 
 
 class TestOPDHint:

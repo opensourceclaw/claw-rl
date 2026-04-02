@@ -22,7 +22,7 @@ from pathlib import Path
 from datetime import datetime
 import json
 
-from claw_rl.memory_bridge import ClawMemBridge
+from claw_rl.core.memory_bridge import ClawMemBridge
 
 
 class TestClawMemBridge:

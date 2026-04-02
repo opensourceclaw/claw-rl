@@ -24,7 +24,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from claw_rl.calibration_learning import CalibrationLearner, CalibrationRecord
+from claw_rl.learning.calibration import CalibrationLearner, CalibrationRecord
 
 
 class TestCalibrationLearner:

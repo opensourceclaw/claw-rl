@@ -1,135 +1,214 @@
-# claw-rl - OpenClaw Self-Improvement System
+# claw-rl
 
-**claw-rl** is a self-improvement system for AI agents based on the OpenClaw-RL research paper. It enables agents to learn from user conversations through Binary RL (evaluative learning) and OPD (directive learning).
+<div align="center">
 
-## 🚀 Features
+**Self-Improvement System for OpenClaw**
 
-- **Binary RL** - Learn from user feedback (satisfied/dissatisfied)
-- **OPD (Instruction Learning)** - Extract improvement hints from user corrections
-- **Memory Injection** - Inject learned rules before sessions
-- **Pre-flight Checks** - Mandatory checks before operations
-- **Background Training** - Continuous learning loop
+*Learn from User Feedback, Improve Continuously*
 
-## 📂 Project Structure
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-brightgreen.svg)](https://www.python.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0%2B-blue.svg)](https://www.typescriptlang.org/)
 
-```
-claw-rl/
-├── src/                    # Source code (skill definition)
-│   └── SKILL.md           # OpenClaw skill definition
-├── scripts/               # Executable scripts
-├── docs/                  # Documentation
-├── data/                  # Data storage (not in git)
-│   ├── rewards/          # Reward records
-│   ├── hints/            # Hint records
-│   └── learnings/        # Learning entries
-├── package.json          # Package configuration
-├── LICENSE               # Apache 2.0 License
-└── README.md             # This file
-```
-
-## 📦 Installation
-
-### As OpenClaw Skill
-
-```bash
-# Clone to OpenClaw skills directory
-cd ~/.openclaw/workspace/skills/
-git clone https://github.com/opensourceclaw/claw-rl.git
-
-# Activate
-cd claw-rl
-./scripts/activate.sh
-```
-
-### Environment Variable (Auto-enable)
-
-```bash
-# Add to ~/.zshrc or ~/.bashrc
-export CLAWRL_ENABLED=1
-```
-
-## 🔧 Usage
-
-### Manual Activation
-
-```bash
-cd claw-rl
-./scripts/activate.sh
-```
-
-### Core Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `activate.sh` | Manual activation |
-| `memory_retrieval.sh` | Memory injection |
-| `pre_flight_check.sh` | Pre-flight checks |
-| `prm_judge.sh` | PRM reward judgment |
-| `reward_collector.sh` | Reward collection |
-| `hint_extractor.sh` | Hint extraction |
-| `training_loop.sh` | Training loop |
-
-## 📚 Documentation
-
-See [docs/](docs/) for detailed documentation:
-
-- [Phase 1 Design](docs/MEMORY_ENHANCEMENT.md)
-- [Phase 2 Design](docs/PHASE2_DESIGN.md)
-- [Friday Constitution](docs/FRIDAY_CONSTITUTION.md)
-
-## 🎯 Learning Mechanisms
-
-### Binary RL (Evaluative)
-
-From user feedback:
-- **Satisfied (+1):** "谢谢", "很好", continuing conversation
-- **Dissatisfied (-1):** "不对", "错了", "应该"
-- **Neutral (0):** No clear signal
-
-### OPD (Directive)
-
-From user corrections:
-- "应该 X" → "操作前 X"
-- "不要 Y" → "避免 Y"
-- "先 X 再 Y" → "顺序：先 X 再 Y"
-
-## 📊 Data Storage
-
-Data is stored in `data/` directory:
-
-- `data/rewards/` - Reward records (JSONL)
-- `data/hints/` - Hint records (JSONL)
-- `data/learnings/` - Learning entries (Markdown)
-
-**Note:** Data files are not committed to git (user-specific).
-
-## 🔍 Development
-
-### Run Tests
-
-```bash
-./scripts/test_all.sh
-```
-
-### Check Status
-
-```bash
-./scripts/reward_collector.sh summary
-```
-
-## 📄 License
-
-Apache License 2.0 - See [LICENSE](LICENSE) for details.
-
-## 🙏 Acknowledgments
-
-Based on OpenClaw-RL research paper:
-- **Paper:** OpenClaw-RL: Train Any Agent Simply by Talking
-- **Authors:** Yinjie Wang et al.
-- **Link:** https://arxiv.org/abs/2603.10165
+</div>
 
 ---
 
-**Version:** 1.0.0  
-**Created:** 2026-03-17  
-**Authors:** Friday + Peter
+## 🎯 Overview
+
+claw-rl is a **self-improvement system** for AI agents, featuring:
+
+- **Binary RL (Reinforcement Learning)**: Learn from user satisfaction/dissatisfaction
+- **OPD (One-Prompt Directive)**: Extract improvement hints from user corrections
+- **Learning Loop**: Continuous background learning
+- **OpenClaw Plugin**: Seamless integration with v2.0.0+ architecture
+
+## 📦 Installation
+
+### Python Package
+
+```bash
+pip install claw-rl
+```
+
+### OpenClaw Plugin
+
+```bash
+npm install @opensourceclaw/openclaw-claw-rl
+```
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+
+```bash
+# Python package
+pip install claw-rl
+
+# OpenClaw Plugin
+cd your-openclaw-project
+npm install /path/to/claw-rl/claw_rl_plugin
+```
+
+### 2. Configure OpenClaw
+
+Add to your `openclaw.config.json`:
+
+```json
+{
+  "plugins": {
+    "slots": {
+      "context-engine": "claw-rl"
+    },
+    "claw-rl": {
+      "enabled": true,
+      "config": {
+        "workspaceDir": "~/.openclaw/workspace",
+        "autoInject": true,
+        "autoLearn": true,
+        "topK": 10
+      }
+    }
+  }
+}
+```
+
+### 3. Automatic Learning
+
+The plugin automatically:
+
+- **Injects learned rules** at session start
+- **Collects feedback** from user messages (👍/👎, corrections)
+- **Processes learning** at session end
+
+## 🛠️ Tools
+
+### learning_status
+
+Get the current status of the learning system:
+
+```
+learning_status()
+```
+
+### collect_feedback
+
+Collect user feedback signal:
+
+```
+collect_feedback(feedback="很好，谢谢！", action="created_file")
+```
+
+### get_learned_rules
+
+Get learned rules for injection:
+
+```
+get_learned_rules(top_k=10, context="user preference")
+```
+
+## 📊 Performance
+
+| Operation | Latency | Evaluation |
+|-----------|---------|------------|
+| Initialize | ~2ms | ✅ Excellent |
+| Collect feedback | ~0.03ms | ✅ Excellent |
+| Extract hint | ~1ms | ✅ Excellent |
+| Get rules | ~0.7ms | ✅ Excellent |
+| Process learning | ~0.5ms | ✅ Excellent |
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────┐
+│   OpenClaw Plugin (TypeScript)      │
+│   @opensourceclaw/openclaw-claw-rl  │
+│   - Tool Registration               │
+│   - Hook Handlers                   │
+└──────────────┬──────────────────────┘
+               │ spawn + stdio JSON-RPC
+               │ (~0.4ms latency)
+               ▼
+┌─────────────────────────────────────┐
+│   claw-rl Python Bridge             │
+│   claw_rl.bridge                    │
+│   - JSON-RPC Server                 │
+│   - Method Routing                  │
+└──────────────┬──────────────────────┘
+               │ Python Function Call
+               ▼
+┌─────────────────────────────────────┐
+│   claw-rl Core (Python)             │
+│   - BinaryRLJudge                   │
+│   - OPDHintExtractor                │
+│   - LearningLoop                    │
+└─────────────────────────────────────┘
+```
+
+### Local-First Design
+
+- ✅ **Zero network overhead**: stdio JSON-RPC
+- ✅ **Minimal latency**: ~0.4ms average
+- ✅ **Completely local**: No cloud dependencies
+- ✅ **Simple deployment**: Just Python environment
+
+## 📖 Documentation
+
+- [ADR-001: Plugin Architecture](docs/v2.0.0/ADR-001-plugin-architecture.md)
+- [User Stories](docs/v2.0.0/USER_STORIES.md)
+- [Migration Plan](docs/v2.0.0/MIGRATION_PLAN.md)
+
+## 🧪 Testing
+
+```bash
+# Python tests
+pytest tests/ -v --cov=src/claw_rl
+
+# Plugin integration tests
+cd claw_rl_plugin
+node test/test_integration.js
+```
+
+**Coverage:** 78% (207 tests)
+
+## 📝 Changelog
+
+### v2.0.0 (2026-03-31)
+
+- ✅ OpenClaw Plugin architecture
+- ✅ Local-First design (stdio JSON-RPC)
+- ✅ TypeScript Plugin implementation
+- ✅ Python Bridge implementation
+- ✅ Auto-Inject and Auto-Learn hooks
+- ✅ 207 tests, 78% coverage
+- ✅ ~0.4ms average latency
+
+### v1.0.0 (2026-03-29)
+
+- Binary RL module
+- OPD Hint extraction
+- Learning Loop
+- Context-aware learning
+- Phase 2 validation
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
+
+## 🙏 Acknowledgments
+
+- OpenClaw - AI Assistant Framework
+- Binary RL Research
+- OPD Learning Research
+
+---
+
+<div align="center">
+
+**Built with ❤️ by the OpenClaw Community**
+
+</div>

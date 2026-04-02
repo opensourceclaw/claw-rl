@@ -249,7 +249,7 @@ class LearningDaemon:
     
     def _trigger_learning(self, rewards: List[Dict], hints: List[Dict]) -> List[str]:
         """Trigger learning update"""
-        from .memory_bridge import ClawMemBridge
+        from claw_rl.core.memory_bridge import ClawMemBridge
         
         bridge = ClawMemBridge()
         patterns = []

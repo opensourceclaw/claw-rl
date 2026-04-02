@@ -5,7 +5,7 @@ Run with: pytest tests/test_binary_rl.py -v
 """
 
 import pytest
-from claw_rl.binary_rl import BinaryRLJudge, RewardResult
+from claw_rl.feedback.binary_rl import BinaryRLJudge, RewardResult
 
 
 class TestBinaryRLJudge:

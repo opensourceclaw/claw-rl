@@ -24,5 +24,40 @@ tmp/
 temp/
 *.tmp
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Old version backups
+*.old/
+src/*.old/
+
 # Documentation (DO NOT commit to GitHub)
+# Exception: v2.0.0 migration docs
 docs/
+!docs/v2.0.0/
