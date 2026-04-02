@@ -13,6 +13,18 @@ from .collector import (
     FeedbackCollector,
 )
 from .storage import FeedbackStorage
+from .implicit import (
+    ImplicitSignalType,
+    UserAction,
+    ImplicitSignal,
+    ImplicitFeedbackInference,
+)
+from .signal_fusion import (
+    SignalSource,
+    FusedSignal,
+    SignalFusion,
+    fuse_feedbacks,
+)
 
 __all__ = [
     # Binary RL
@@ -28,4 +40,14 @@ __all__ = [
     'FeedbackCollector',
     # Feedback Storage
     'FeedbackStorage',
+    # Implicit Feedback
+    'ImplicitSignalType',
+    'UserAction',
+    'ImplicitSignal',
+    'ImplicitFeedbackInference',
+    # Signal Fusion
+    'SignalSource',
+    'FusedSignal',
+    'SignalFusion',
+    'fuse_feedbacks',
 ]
