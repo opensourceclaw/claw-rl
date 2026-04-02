@@ -28,9 +28,9 @@ from pathlib import Path
 # Set silent mode to suppress stdout logs from modules
 os.environ['CLAW_RL_SILENT'] = '1'
 
-from claw_rl.binary_rl import BinaryRLJudge
-from claw_rl.opd_hint import OPDHintExtractor
-from claw_rl.learning_loop import LearningLoop
+from claw_rl.feedback.binary_rl import BinaryRLJudge
+from claw_rl.feedback.opd_hint import OPDHintExtractor
+from claw_rl.core.learning_loop import LearningLoop
 
 
 class ClawRLBridge:

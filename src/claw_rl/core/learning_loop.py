@@ -10,8 +10,8 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
-from .binary_rl import BinaryRLJudge, RewardResult
-from .opd_hint import OPDHint, OPDHintExtractor
+from claw_rl.feedback.binary_rl import BinaryRLJudge, RewardResult
+from claw_rl.feedback.opd_hint import OPDHint, OPDHintExtractor
 
 
 class LearningLoop:

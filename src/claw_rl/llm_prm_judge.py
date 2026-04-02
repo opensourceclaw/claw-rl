@@ -90,7 +90,7 @@ Now evaluate:"""
         self.fallback_to_rules = fallback_to_rules
         
         # Import rule-based judge for fallback
-        from .binary_rl import BinaryRLJudge
+        from claw_rl.feedback.binary_rl import BinaryRLJudge
         self.rule_judge = BinaryRLJudge()
     
     def judge(

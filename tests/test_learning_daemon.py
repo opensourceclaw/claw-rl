@@ -24,7 +24,7 @@ import json
 import os
 import signal
 
-from claw_rl.learning_daemon import LearningDaemon
+from claw_rl.core.learning_daemon import LearningDaemon
 
 
 class TestLearningDaemon:

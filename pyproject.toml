@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "claw-rl"
-version = "2.0.0b2"
-description = "claw-rl - Reinforcement Learning System for OpenClaw (Product Brand: NeoMind)"
+version = "2.0.0-beta.3"
+description = "claw-rl - Self-Learning Module for Project Neo"
 readme = "README.md"
 license = "Apache-2.0"
 authors = [
@@ -46,6 +46,7 @@ Homepage = "https://github.com/opensourceclaw/claw-rl"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["claw_rl*"]
 
 [tool.setuptools.package-dir]
 "" = "src"
@@ -55,3 +56,7 @@ testpaths = ["tests"]
 python_files = "test_*.py"
 python_functions = "test_*"
 addopts = "-v --cov=claw_rl --cov-report=html --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["src/claw_rl"]

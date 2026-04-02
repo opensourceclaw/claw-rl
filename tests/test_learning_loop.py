@@ -7,7 +7,7 @@ Run with: pytest tests/test_learning_loop.py -v
 import pytest
 from pathlib import Path
 import tempfile
-from claw_rl.learning_loop import LearningLoop
+from claw_rl.core.learning_loop import LearningLoop
 
 
 class TestLearningLoop:

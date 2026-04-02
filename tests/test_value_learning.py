@@ -24,7 +24,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from claw_rl.value_learning import ValuePreferenceLearner, DecisionRecord
+from claw_rl.learning.value import ValuePreferenceLearner, DecisionRecord
 
 
 class TestValuePreferenceLearner:

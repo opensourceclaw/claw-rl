@@ -24,7 +24,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from claw_rl.strategy_learning import StrategyLearner, StrategyRecord
+from claw_rl.learning.strategy import StrategyLearner, StrategyRecord
 
 
 class TestStrategyLearner:
