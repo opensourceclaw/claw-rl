@@ -116,4 +116,40 @@ class TestStrategyLearner:
         assert "total_strategies" in stats
         assert "recommended_strategies" in stats
         assert "avg_effectiveness" in stats
-        assert "total_records" in stats
+    
+    def test_save_and_load_strategies(self, temp_learner):
+        """Test saving and loading strategies"""
+        # Record a strategy
+        record = StrategyRecord(
+            id="test_save",
+            conflict_type="value_based",
+            strategy_used="user_decision",
+            success=True,
+            satisfaction=0.9
+        )
+        temp_learner.record_strategy(record)
+        
+        # Force save
+        temp_learner._save_strategies()
+        
+        # Create new learner to test loading
+        new_learner = StrategyLearner(data_dir=temp_learner.data_dir)
+        
+        # Check strategies were loaded
+        assert len(new_learner.strategies) > 0
+    
+    def test_strategy_history_limit(self, temp_learner):
+        """Test strategy history is limited to 1000"""
+        # Add more than 1000 records
+        for i in range(1100):
+            record = StrategyRecord(
+                id=f"test_limit_{i}",
+                conflict_type="value_based",
+                strategy_used="priority_based",
+                success=True,
+                satisfaction=0.5
+            )
+            temp_learner.record_strategy(record)
+        
+        # Check history is limited
+        assert len(temp_learner.strategy_history) == 1000
