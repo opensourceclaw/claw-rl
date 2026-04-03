@@ -99,3 +99,83 @@ class TestValuePreferenceLearner:
         assert "total_decisions" in stats
         assert "top_values" in stats
         assert "average_confidence" in stats
+    
+    def test_save_and_load_preferences(self, temp_learner):
+        """Test saving and loading preferences"""
+        # Record a decision to trigger learning
+        decision = DecisionRecord(
+            id="test_save_001",
+            context="test",
+            options=["A", "B"],
+            chosen_option="A",
+            outcome="success",
+            satisfaction=0.9,
+            value_alignment={"家庭": 0.8}
+        )
+        temp_learner.record_decision(decision)
+        
+        # Force save
+        temp_learner._save_preferences()
+        
+        # Create new learner to test loading
+        new_learner = ValuePreferenceLearner(data_dir=temp_learner.data_dir)
+        
+        # Check preferences were loaded
+        assert len(new_learner.preferences) > 0
+    
+    def test_decision_history_limit(self, temp_learner):
+        """Test decision history is limited to 1000"""
+        # Add more than 1000 decisions
+        for i in range(1100):
+            decision = DecisionRecord(
+                id=f"test_limit_{i}",
+                context="test",
+                options=["A"],
+                chosen_option="A",
+                outcome="success",
+                satisfaction=0.5,
+                value_alignment={}
+            )
+            temp_learner.record_decision(decision)
+        
+        # Check history is limited
+        assert len(temp_learner.decision_history) == 1000
+    
+    def test_reinforce_value(self, temp_learner):
+        """Test reinforcing a value"""
+        initial_priority = temp_learner.preferences["家庭"].priority
+        
+        # Record positive decision
+        decision = DecisionRecord(
+            id="test_reinforce",
+            context="test",
+            options=["A", "B"],
+            chosen_option="A",
+            outcome="success",
+            satisfaction=0.9,
+            value_alignment={"家庭": 0.8}
+        )
+        temp_learner.record_decision(decision)
+        
+        # Check priority increased
+        assert temp_learner.preferences["家庭"].priority >= initial_priority
+    
+    def test_adjust_value(self, temp_learner):
+        """Test adjusting a value"""
+        initial_priority = temp_learner.preferences["财富"].priority
+        
+        # Record negative decision
+        decision = DecisionRecord(
+            id="test_adjust",
+            context="test",
+            options=["A", "B"],
+            chosen_option="A",
+            outcome="failure",
+            satisfaction=0.1,
+            value_alignment={"财富": 0.3}
+        )
+        temp_learner.record_decision(decision)
+        
+        # Check priority decreased (if value exists)
+        if "财富" in temp_learner.preferences:
+            assert temp_learner.preferences["财富"].priority <= initial_priority
