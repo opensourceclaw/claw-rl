@@ -1,5 +1,5 @@
 """
-claw-rl: Self-Learning Module for Project Neo
+claw-rl: Self-Learning Module for AI Agents
 
 This package provides self-learning capabilities for AI agents:
 - Pattern Recognition: Recognize patterns from historical memory
@@ -13,7 +13,7 @@ Version: 2.0.0-beta.3
 """
 
 __version__ = "2.0.0-beta.3"
-__author__ = "Project Neo Team"
+__author__ = "OpenClaw Team"
 
 # Pattern Recognition (Sprint 1)
 from .pattern import (
