@@ -17,6 +17,11 @@ from ..feedback.implicit import ImplicitSignal
 from ..feedback.signal_fusion import FusedSignal, SignalFusion
 
 
+# Constants
+MAX_OPTIMIZATION_HISTORY = 100  # Maximum optimization results to keep
+MAX_PARAMETER_HISTORY = 100     # Maximum parameter adjustment history (aligned with StrategyParameter.MAX_HISTORY_SIZE)
+
+
 class OptimizationStrategy(Enum):
     """Strategy optimization approaches."""
     GRADIENT = "gradient"           # Gradual adjustment based on feedback

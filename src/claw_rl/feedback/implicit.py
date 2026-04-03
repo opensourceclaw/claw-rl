@@ -49,7 +49,7 @@ class UserAction:
 class ImplicitSignal:
     """Inferred implicit feedback signal."""
     signal_type: str                      # ImplicitSignalType value
-    signal: Literal["positive", "negative", "neutral"]
+    signal: str                           # "positive", "negative", "neutral", or extended
     confidence: float                     # 0.0 to 1.0
     timestamp: str
     reason: str                           # Why this signal was inferred

@@ -250,6 +250,14 @@ class SignalFusion:
         ref_time = datetime.fromisoformat(reference_time) if reference_time else datetime.now()
         
         for fb in self._explicit_feedbacks:
+            # Validate confidence range
+            if not 0 <= fb.confidence <= 1:
+                continue  # Skip invalid feedback
+            
+            # Validate signal value
+            if fb.signal not in ("positive", "negative", "neutral"):
+                continue  # Skip invalid feedback
+            
             # Calculate base score from signal
             if fb.signal == "positive":
                 base_score = 1.0
@@ -323,6 +331,14 @@ class SignalFusion:
         ref_time = datetime.fromisoformat(reference_time) if reference_time else datetime.now()
         
         for signal in self._implicit_signals:
+            # Validate confidence range
+            if not 0 <= signal.confidence <= 1:
+                continue  # Skip invalid signal
+            
+            # Validate signal value
+            if signal.signal not in ("positive", "negative", "neutral"):
+                continue  # Skip invalid signal
+            
             # Calculate base score from signal
             if signal.signal == "positive":
                 base_score = 1.0
