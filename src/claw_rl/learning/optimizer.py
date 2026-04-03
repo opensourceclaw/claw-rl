@@ -46,6 +46,9 @@ class StrategyParameter:
     last_adjustment: Optional[str] = None
     adjustment_history: List[Dict[str, Any]] = field(default_factory=list)
     
+    # Maximum history size to prevent memory issues
+    MAX_HISTORY_SIZE: int = field(default=100, repr=False)
+    
     def adjust(self, direction: AdjustmentDirection, magnitude: float = 1.0) -> float:
         """
         Adjust the parameter value.
@@ -75,6 +78,10 @@ class StrategyParameter:
             "magnitude": magnitude,
             "timestamp": datetime.now().isoformat(),
         })
+        
+        # Limit history size to prevent memory issues
+        if len(self.adjustment_history) > self.MAX_HISTORY_SIZE:
+            self.adjustment_history.pop(0)
         
         self.current_value = new_value
         self.total_adjustments += 1
@@ -307,12 +314,14 @@ class StrategyOptimizer:
     def optimize(
         self,
         session_id: Optional[str] = None,
+        clear_feedback: bool = True,
     ) -> OptimizationResult:
         """
         Optimize strategy parameters based on collected feedback.
         
         Args:
             session_id: Optional session ID for context
+            clear_feedback: Whether to clear feedback after optimization (default: True)
         
         Returns:
             OptimizationResult with adjustments made
@@ -368,10 +377,11 @@ class StrategyOptimizer:
         # Record in history
         self._optimization_history.append(result)
         
-        # Clear collected feedback
-        self._fusion.clear()
-        self._explicit_feedbacks.clear()
-        self._implicit_signals.clear()
+        # Clear collected feedback (optional)
+        if clear_feedback:
+            self._fusion.clear()
+            self._explicit_feedbacks.clear()
+            self._implicit_signals.clear()
         
         return result
     
@@ -507,11 +517,20 @@ class StrategyOptimizer:
             if "optimization_strategy" in state:
                 self.optimization_strategy = OptimizationStrategy(state["optimization_strategy"])
             
-            # Restore parameters
+            # Restore parameters with validation
             for name, param_data in state.get("parameters", {}).items():
                 if name in self.parameters:
-                    self.parameters[name].current_value = param_data["current_value"]
-                    self.parameters[name].total_adjustments = param_data.get("total_adjustments", 0)
+                    # Validate value is within bounds
+                    value = param_data.get("current_value", self.DEFAULT_PARAMETERS.get(name, {}).get("default", 0.5))
+                    param = self.parameters[name]
+                    
+                    if param.min_value <= value <= param.max_value:
+                        param.current_value = value
+                    else:
+                        # Use default if out of bounds
+                        param.current_value = self.DEFAULT_PARAMETERS.get(name, {}).get("default", param.current_value)
+                    
+                    param.total_adjustments = param_data.get("total_adjustments", 0)
             
             # Restore history
             self._optimization_history = [
@@ -519,7 +538,7 @@ class StrategyOptimizer:
             ]
             
             return True
-        except (json.JSONDecodeError, KeyError):
+        except (json.JSONDecodeError, KeyError, TypeError):
             return False
     
     def __repr__(self) -> str:

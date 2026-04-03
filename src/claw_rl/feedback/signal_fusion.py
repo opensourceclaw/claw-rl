@@ -164,9 +164,23 @@ class SignalFusion:
         
         # Normalize weights
         total_weight = explicit_weight + implicit_weight
-        if total_weight > 0:
-            explicit_weight /= total_weight
-            implicit_weight /= total_weight
+        if total_weight <= 0:
+            # No valid feedback, return neutral result
+            return FusedSignal(
+                signal="neutral",
+                confidence=0.0,
+                timestamp=now,
+                session_id=session_id,
+                explicit_count=len(self._explicit_feedbacks),
+                implicit_count=len(self._implicit_signals),
+                explicit_score=0.0,
+                implicit_score=0.0,
+                sources=[],
+                reasons=["No valid feedback with confidence > 0"],
+            )
+        
+        explicit_weight /= total_weight
+        implicit_weight /= total_weight
         
         # Calculate fused score
         fused_score = explicit_score * explicit_weight + implicit_score * implicit_weight
@@ -250,10 +264,10 @@ class SignalFusion:
             # Apply time decay
             try:
                 fb_time = datetime.fromisoformat(fb.timestamp)
-                hours_ago = (ref_time - fb_time).total_seconds() / 3600
+                hours_ago = max(0, (ref_time - fb_time).total_seconds() / 3600)
                 time_weight = max(
                     self.TIME_DECAY_MIN_WEIGHT,
-                    self.TIME_DECAY_FACTOR ** hours_ago
+                    min(1.0, self.TIME_DECAY_FACTOR ** hours_ago)
                 )
                 weight *= time_weight
             except (ValueError, TypeError):
@@ -323,10 +337,10 @@ class SignalFusion:
             # Apply time decay
             try:
                 signal_time = datetime.fromisoformat(signal.timestamp)
-                hours_ago = (ref_time - signal_time).total_seconds() / 3600
+                hours_ago = max(0, (ref_time - signal_time).total_seconds() / 3600)
                 time_weight = max(
                     self.TIME_DECAY_MIN_WEIGHT,
-                    self.TIME_DECAY_FACTOR ** hours_ago
+                    min(1.0, self.TIME_DECAY_FACTOR ** hours_ago)
                 )
                 weight *= time_weight
             except (ValueError, TypeError):
