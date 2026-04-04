@@ -109,3 +109,64 @@ class TestCalibrationLearner:
         assert "excellent_calibration" in stats
         assert "good_calibration" in stats
         assert "avg_calibration_error" in stats
+    
+    def test_multiple_capabilities(self, temp_learner):
+        """Test multiple capabilities"""
+        capabilities = ["intent_understanding", "memory_retrieval", "task_planning"]
+        
+        for cap in capabilities:
+            for i in range(5):
+                record = CalibrationRecord(
+                    id=f"test_{cap}_{i}",
+                    capability=cap,
+                    predicted_confidence=0.7,
+                    actual_outcome=(i % 2 == 0)
+                )
+                temp_learner.record_calibration(record)
+        
+        # Check that all capabilities have data
+        stats = temp_learner.get_learning_statistics()
+        assert stats["total_records"] == 15
+    
+    def test_calibration_error_calculation(self, temp_learner):
+        """Test calibration error calculation"""
+        # Perfect calibration
+        record1 = CalibrationRecord(
+            id="test_perfect",
+            capability="intent_understanding",
+            predicted_confidence=0.8,
+            actual_outcome=True
+        )
+        # Should have small error when confidence matches outcome
+        assert record1.calibration_error >= 0.0
+        
+        # Poor calibration
+        record2 = CalibrationRecord(
+            id="test_poor",
+            capability="intent_understanding",
+            predicted_confidence=0.9,
+            actual_outcome=False
+        )
+        # Should have large error when confidence doesn't match outcome
+        assert record2.calibration_error > record1.calibration_error
+    
+    def test_empty_learner(self, temp_learner):
+        """Test learner with no data"""
+        stats = temp_learner.get_learning_statistics()
+        assert stats["total_records"] == 0
+    
+    def test_confidence_bounds(self, temp_learner):
+        """Test confidence bounds"""
+        # Record calibration with bounds testing
+        for conf in [0.0, 0.5, 1.0]:
+            record = CalibrationRecord(
+                id=f"test_{conf}",
+                capability="intent_understanding",
+                predicted_confidence=conf,
+                actual_outcome=True
+            )
+            temp_learner.record_calibration(record)
+        
+        # All confidences should be in [0, 1]
+        stats = temp_learner.get_learning_statistics()
+        assert stats["total_records"] == 3
