@@ -99,3 +99,32 @@ class TestClawRLBridge:
             
             status = asyncio.run(bridge.get_status())
             assert status['request_count'] == 5
+    
+    def test_bridge_extract_hint(self, bridge):
+        """Test extract_hint method."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.extract_hint({'feedback': 'test feedback'}))
+            
+            # Should return success or hint
+            assert result is not None
+    
+    def test_bridge_get_rules(self, bridge):
+        """Test get_rules method."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.get_rules({'top_k': 10}))
+            
+            # Should return success or rules
+            assert result is not None
+    
+    def test_bridge_run_loop(self, bridge):
+        """Test run_loop method."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            # run_loop should exist
+            assert hasattr(bridge, 'run_loop') or hasattr(bridge, 'run')
