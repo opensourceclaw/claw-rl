@@ -170,3 +170,93 @@ class TestCalibrationLearner:
         # All confidences should be in [0, 1]
         stats = temp_learner.get_learning_statistics()
         assert stats["total_records"] == 3
+    
+    def test_overconfidence_adjustment(self, temp_learner):
+        """Test overconfidence adjustment"""
+        # Record many overconfident predictions
+        for i in range(20):
+            record = CalibrationRecord(
+                id=f"test_{i}",
+                capability="intent_understanding",
+                predicted_confidence=0.9,
+                actual_outcome=False  # Wrong but high confidence
+            )
+            temp_learner.record_calibration(record)
+        
+        # Check calibration
+        cal = temp_learner.calibrations.get("intent_understanding")
+        assert cal is not None
+        assert cal.overconfidence_count > 0
+    
+    def test_underconfidence_adjustment(self, temp_learner):
+        """Test underconfidence adjustment"""
+        # Record many underconfident predictions
+        for i in range(20):
+            record = CalibrationRecord(
+                id=f"test_{i}",
+                capability="intent_understanding",
+                predicted_confidence=0.3,
+                actual_outcome=True  # Correct but low confidence
+            )
+            temp_learner.record_calibration(record)
+        
+        # Check calibration
+        cal = temp_learner.calibrations.get("intent_understanding")
+        assert cal is not None
+        assert cal.underconfidence_count > 0
+    
+    def test_calibration_quality_levels(self, temp_learner):
+        """Test calibration quality levels"""
+        # Record calibrations with different patterns
+        for i in range(10):
+            record = CalibrationRecord(
+                id=f"test_{i}",
+                capability="intent_understanding",
+                predicted_confidence=0.8,
+                actual_outcome=(i < 8)  # 80% accuracy
+            )
+            temp_learner.record_calibration(record)
+        
+        quality = temp_learner.get_calibration_quality("intent_understanding")
+        
+        # Quality should be one of the valid levels
+        assert quality in ["insufficient_data", "excellent", "good", "fair", "poor", "unknown"]
+    
+    def test_get_calibration_report(self, temp_learner):
+        """Test getting calibration report"""
+        # Record some calibrations
+        for i in range(5):
+            record = CalibrationRecord(
+                id=f"test_{i}",
+                capability="intent_understanding",
+                predicted_confidence=0.7,
+                actual_outcome=True
+            )
+            temp_learner.record_calibration(record)
+        
+        report = temp_learner.get_calibration_report("intent_understanding")
+        
+        # Report should have required fields
+        assert "capability" in report
+        assert "total_predictions" in report
+    
+    def test_capability_not_found(self, temp_learner):
+        """Test getting calibration for non-existent capability"""
+        quality = temp_learner.get_calibration_quality("non_existent_capability")
+        
+        # Should return unknown for unknown capability
+        assert quality in ["insufficient_data", "unknown"]
+    
+    def test_record_with_metadata(self, temp_learner):
+        """Test recording calibration with metadata"""
+        record = CalibrationRecord(
+            id="test_metadata",
+            capability="intent_understanding",
+            predicted_confidence=0.8,
+            actual_outcome=True
+        )
+        
+        temp_learner.record_calibration(record)
+        
+        stats = temp_learner.get_learning_statistics()
+        assert stats["total_records"] == 1
