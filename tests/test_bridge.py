@@ -190,3 +190,68 @@ class TestClawRLBridge:
             
             assert result is not None
             assert 'status' in result or 'rules' in result or 'error' in result
+    
+    def test_bridge_handle_jsonrpc_request(self, bridge):
+        """Test handling JSON-RPC request."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            # Test initialize method
+            request = {
+                'jsonrpc': '2.0',
+                'method': 'initialize',
+                'params': {'workspace': tmpdir},
+                'id': 1
+            }
+            
+            result = asyncio.run(bridge.handle_request(request))
+            assert result is not None
+    
+    def test_bridge_handle_get_status(self, bridge):
+        """Test handling get_status request."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            request = {
+                'jsonrpc': '2.0',
+                'method': 'get_status',
+                'params': {},
+                'id': 2
+            }
+            
+            result = asyncio.run(bridge.handle_request(request))
+            assert result is not None
+    
+    def test_bridge_handle_collect_feedback(self, bridge):
+        """Test handling collect_feedback request."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            request = {
+                'jsonrpc': '2.0',
+                'method': 'collect_feedback',
+                'params': {'feedback': 'thumbs_up'},
+                'id': 3
+            }
+            
+            result = asyncio.run(bridge.handle_request(request))
+            assert result is not None
+    
+    def test_bridge_handle_extract_hint(self, bridge):
+        """Test handling extract_hint request."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            request = {
+                'jsonrpc': '2.0',
+                'method': 'extract_hint',
+                'params': {'feedback': 'test feedback'},
+                'id': 4
+            }
+            
+            result = asyncio.run(bridge.handle_request(request))
+            assert result is not None
