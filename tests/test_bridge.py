@@ -38,3 +38,64 @@ class TestClawRLBridge:
         result = asyncio.run(bridge.collect_feedback({'feedback': 'thumbs_up'}))
         
         assert 'error' in result
+    
+    def test_bridge_initialize(self, bridge):
+        """Test bridge initialization."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            result = asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            assert result['status'] == 'success'
+            assert bridge.initialized is True
+    
+    def test_bridge_get_status_initialized(self, bridge):
+        """Test bridge status when initialized."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.get_status())
+            
+            assert result['initialized'] is True
+            assert 'components' in result
+    
+    def test_bridge_collect_feedback_thumbs_up(self, bridge):
+        """Test collect_feedback with thumbs_up."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.collect_feedback({'feedback': 'thumbs_up'}))
+            
+            assert result['status'] == 'success'
+    
+    def test_bridge_collect_feedback_thumbs_down(self, bridge):
+        """Test collect_feedback with thumbs_down."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.collect_feedback({'feedback': 'thumbs_down'}))
+            
+            assert result['status'] == 'success'
+    
+    def test_bridge_shutdown(self, bridge):
+        """Test bridge shutdown."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.shutdown())
+            
+            assert result['status'] == 'success'
+            assert bridge.running is False
+    
+    def test_bridge_multiple_requests(self, bridge):
+        """Test bridge with multiple requests."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            # Make multiple requests
+            for _ in range(5):
+                result = asyncio.run(bridge.collect_feedback({'feedback': 'thumbs_up'}))
+                assert result['status'] == 'success'
+            
+            status = asyncio.run(bridge.get_status())
+            assert status['request_count'] == 5
