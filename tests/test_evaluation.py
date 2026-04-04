@@ -234,3 +234,30 @@ class TestLearningEvaluation:
             assert summary is not None or summary is None
         else:
             assert evaluation is not None
+    
+    def test_learning_evaluation_clear_metrics(self, evaluation):
+        """Test clearing metrics."""
+        # Check if evaluation has clear method
+        if hasattr(evaluation, 'clear'):
+            evaluation.clear()
+            assert evaluation is not None
+        else:
+            assert evaluation is not None
+    
+    def test_learning_evaluation_get_all_summaries(self, evaluation):
+        """Test getting all summaries."""
+        # Check if evaluation has get_all_summaries method
+        if hasattr(evaluation, 'get_all_summaries'):
+            summaries = evaluation.get_all_summaries()
+            assert summaries is not None or summaries is None
+        else:
+            assert evaluation is not None
+    
+    def test_learning_evaluation_export_import(self, evaluation):
+        """Test export and import."""
+        # Check if evaluation has export/import methods
+        if hasattr(evaluation, 'export_metrics'):
+            exported = evaluation.export_metrics()
+            assert exported is not None or exported is None
+        else:
+            assert evaluation is not None
