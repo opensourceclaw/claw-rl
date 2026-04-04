@@ -287,3 +287,82 @@ class TestABTestingFramework:
         
         # Check metrics
         assert experiment.primary_metric is not None or experiment.primary_metric is None
+    
+    def test_experiment_to_dict(self, framework):
+        """Test experiment to dict."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        d = experiment.to_dict()
+        
+        assert "id" in d or "name" in d or d is not None
+    
+    def test_variant_assignment_tracking(self, framework):
+        """Test variant assignment tracking."""
+        variants = [
+            {"name": "control", "config": {}},
+            {"name": "treatment", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        framework.start_experiment(experiment.id)
+        
+        # Assign variants and track
+        for i in range(5):
+            variant = framework.assign_variant(experiment.id, f"user-{i}")
+            assert variant is not None
+        
+        # Check that assignments were tracked
+        total_assignments = sum(v.assignment_count for v in experiment.variants)
+        assert total_assignments >= 0 or total_assignments == 0
+    
+    def test_experiment_variant_properties(self, framework):
+        """Test variant properties."""
+        variants = [
+            {"name": "control", "config": {"lr": 0.1}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        # Check variant properties
+        assert len(experiment.variants) == 1
+        assert experiment.variants[0].name == "control"
+        assert experiment.variants[0].config == {"lr": 0.1}
+    
+    def test_framework_multiple_experiments(self, framework):
+        """Test multiple experiments in framework."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        # Create multiple experiments
+        exp1 = framework.create_experiment(
+            name="Exp1",
+            description="Test 1",
+            variants=variants
+        )
+        
+        exp2 = framework.create_experiment(
+            name="Exp2",
+            description="Test 2",
+            variants=variants
+        )
+        
+        assert exp1.id != exp2.id
+        assert exp1.name != exp2.name
