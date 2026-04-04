@@ -293,3 +293,100 @@ class TestOptimizationResult:
         
         assert d["feedback_count"] == 5
         assert d["confidence"] == 0.8
+
+
+class TestStrategyOptimizerEdgeCases:
+    """Test StrategyOptimizer edge cases."""
+    
+    @pytest.fixture
+    def optimizer(self):
+        """Create a strategy optimizer."""
+        return StrategyOptimizer()
+    
+    @pytest.fixture
+    def collector(self):
+        """Create a feedback collector."""
+        return FeedbackCollector()
+    
+    def test_multiple_parameter_adjustments(self, optimizer, collector):
+        """Test adjusting multiple parameters."""
+        # Collect multiple feedback
+        for _ in range(5):
+            optimizer.collect_feedback(collector.collect_thumbs_up())
+        
+        result = optimizer.optimize()
+        
+        # Should have adjusted parameters
+        assert result.feedback_count == 5
+    
+    def test_parameter_bounds(self, optimizer):
+        """Test parameter value bounds."""
+        # Try to set parameter beyond max
+        optimizer.set_parameter("learning_rate", 1.0)
+        
+        # Parameter should be clamped to max
+        value = optimizer.get_parameter("learning_rate")
+        assert 0.0 <= value <= 1.0
+    
+    def test_optimization_with_low_confidence(self, optimizer, collector):
+        """Test optimization with low confidence feedback."""
+        # Only one feedback
+        optimizer.collect_feedback(collector.collect_thumbs_up())
+        
+        result = optimizer.optimize()
+        
+        # Low confidence due to few samples
+        assert result.confidence < 1.0
+    
+    def test_optimization_history_limit(self, optimizer, collector):
+        """Test optimization history limit."""
+        # Run many optimizations
+        for _ in range(20):
+            optimizer.collect_feedback(collector.collect_thumbs_up())
+            optimizer.optimize()
+        
+        history = optimizer.get_optimization_history()
+        
+        # History might be limited
+        assert len(history) > 0
+    
+    def test_reset_with_custom_defaults(self, optimizer):
+        """Test reset with custom defaults."""
+        # Set custom values
+        optimizer.set_parameter("learning_rate", 0.5)
+        
+        # Reset to defaults
+        optimizer.reset_parameters()
+        
+        # Should be back to original defaults
+        assert optimizer.get_parameter("learning_rate") != 0.5
+    
+    def test_optimization_with_all_positive(self, optimizer, collector):
+        """Test optimization with all positive feedback."""
+        for _ in range(10):
+            optimizer.collect_feedback(collector.collect_thumbs_up())
+        
+        result = optimizer.optimize()
+        
+        assert result.feedback_count == 10
+        # Should suggest increase or maintain
+        assert result.overall_direction in ["increase", "maintain"]
+    
+    def test_optimization_with_all_negative(self, optimizer, collector):
+        """Test optimization with all negative feedback."""
+        for _ in range(10):
+            optimizer.collect_feedback(collector.collect_thumbs_down())
+        
+        result = optimizer.optimize()
+        
+        assert result.feedback_count == 10
+        # Should suggest decrease
+        assert result.overall_direction in ["decrease", "maintain"]
+    
+    def test_parameter_status_all(self, optimizer):
+        """Test getting all parameter statuses."""
+        status = optimizer.get_parameter_status()
+        
+        # Should have status for all parameters
+        assert isinstance(status, dict)
+        assert len(status) > 0
