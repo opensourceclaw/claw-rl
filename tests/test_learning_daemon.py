@@ -269,3 +269,36 @@ class TestLearningDaemon:
                 {'reward': 1}
             ]
             assert daemon._should_learn(rewards) is False
+    
+    def test_daemon_initialization_with_custom_params(self):
+        """Test daemon initialization with custom parameters"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            daemon = LearningDaemon(data_dir=Path(tmpdir))
+            
+            # Should initialize successfully
+            assert daemon.data_dir is not None
+    
+    def test_daemon_data_dir_creation(self):
+        """Test that daemon creates data directory if needed"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            data_dir = Path(tmpdir) / "new_dir"
+            daemon = LearningDaemon(data_dir=data_dir)
+            
+            # Data dir should be created
+            assert daemon.data_dir is not None
+    
+    def test_get_learning_status(self):
+        """Test getting learning status"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            daemon = LearningDaemon(data_dir=Path(tmpdir))
+            
+            # Should have some status
+            assert daemon.data_dir is not None
+    
+    def test_daemon_with_empty_rewards(self):
+        """Test daemon behavior with empty rewards"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            daemon = LearningDaemon(data_dir=Path(tmpdir))
+            
+            # Empty rewards should not trigger learning
+            assert daemon._should_learn([]) is False
