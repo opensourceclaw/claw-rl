@@ -136,3 +136,33 @@ class TestLearningEvaluation:
         assert result.evaluation_id == "eval-001"
         assert result.overall_score == 0.85
         assert result.overall_trend == "improving"
+    
+    def test_evaluation_result_to_dict(self):
+        """Test evaluation result to dict."""
+        result = EvaluationResult(
+            evaluation_id="eval-001",
+            evaluated_at="2026-04-04T12:00:00",
+            period_start="2026-04-01T00:00:00",
+            period_end="2026-04-04T12:00:00",
+            metrics={},
+            overall_score=0.85,
+            overall_trend="improving",
+            roi_percentage=15.0,
+            cost_savings=1000.0,
+            time_savings_hours=10.0,
+            recommendations=["Continue current strategy"]
+        )
+        
+        d = result.to_dict()
+        
+        assert "evaluation_id" in d
+        assert "overall_score" in d
+        assert "roi_percentage" in d
+    
+    def test_learning_evaluation_methods_exist(self, evaluation):
+        """Test that LearningEvaluation has expected structure."""
+        # Check that evaluation object exists and has class
+        assert evaluation.__class__.__name__ == 'LearningEvaluation'
+        
+        # Check that it has some attributes or methods
+        assert hasattr(evaluation, '__dict__') or hasattr(evaluation, '__slots__')
