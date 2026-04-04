@@ -390,3 +390,28 @@ class TestStrategyOptimizerEdgeCases:
         # Should have status for all parameters
         assert isinstance(status, dict)
         assert len(status) > 0
+    
+    def test_collect_feedback_batch(self, optimizer, collector):
+        """Test collecting feedback batch."""
+        feedbacks = [
+            collector.collect_thumbs_up(),
+            collector.collect_thumbs_down(),
+            collector.collect_thumbs_up(),
+        ]
+        
+        optimizer.collect_feedback_batch(feedbacks)
+        
+        # Should have collected all feedback
+        assert len(optimizer._explicit_feedbacks) == 3
+    
+    def test_optimize_with_many_feedbacks(self, optimizer, collector):
+        """Test optimization with many feedbacks."""
+        # Add many feedbacks
+        for _ in range(20):
+            optimizer.collect_feedback(collector.collect_thumbs_up())
+        
+        result = optimizer.optimize()
+        
+        # Should have optimized
+        assert result is not None
+        assert result.feedback_count == 20
