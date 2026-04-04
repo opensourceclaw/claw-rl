@@ -278,3 +278,28 @@ class TestPostSessionHook:
             ))
             
             assert result.learning_triggered is False
+    
+    def test_empty_session(self):
+        """Test empty session"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            hook = PostSessionHook(data_dir=Path(tmpdir))
+            
+            result = hook.execute(PostSessionInput(
+                session_id="test_empty",
+                user_id="user",
+                turns=[]
+            ))
+            
+            assert result.rewards_recorded == 0
+            assert result.hints_extracted == 0
+    
+    def test_long_correction_hint_extraction(self):
+        """Test hint extraction from long correction"""
+        hook = PostSessionHook()
+        
+        long_correction = "这是一个非常长的纠正文本" * 20  # > 100 chars
+        
+        hint = hook._extract_hint(long_correction)
+        
+        # Long corrections should return None or be truncated
+        assert hint is None or len(hint) < 100
