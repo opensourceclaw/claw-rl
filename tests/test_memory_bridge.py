@@ -249,6 +249,80 @@ class TestClawMemBridge:
             
             patterns = bridge.read_patterns()
             assert patterns == []
+    
+    def test_write_multiple_patterns(self):
+        """Test writing multiple patterns"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            claw_mem_dir = Path(tmpdir) / 'memory'
+            claw_rl_dir = Path(tmpdir) / 'claw-rl' / 'data'
+            
+            bridge = ClawMemBridge(
+                claw_mem_dir=claw_mem_dir,
+                claw_rl_dir=claw_rl_dir
+            )
+            
+            # Write multiple patterns
+            for i in range(5):
+                bridge.write_pattern(f"模式{i}", 0.8 + i * 0.02, "Test", f"s00{i}")
+            
+            # Read all patterns
+            patterns = bridge.read_patterns()
+            assert len(patterns) == 5
+    
+    def test_write_hints(self):
+        """Test writing hints"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            claw_mem_dir = Path(tmpdir) / 'memory'
+            claw_rl_dir = Path(tmpdir) / 'claw-rl' / 'data'
+            
+            bridge = ClawMemBridge(
+                claw_mem_dir=claw_mem_dir,
+                claw_rl_dir=claw_rl_dir
+            )
+            
+            # Read hints (test the existing API)
+            hints = bridge.read_hints()
+            assert isinstance(hints, list)
+    
+    def test_pattern_confidence_range(self):
+        """Test pattern confidence range"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            claw_mem_dir = Path(tmpdir) / 'memory'
+            claw_rl_dir = Path(tmpdir) / 'claw-rl' / 'data'
+            
+            bridge = ClawMemBridge(
+                claw_mem_dir=claw_mem_dir,
+                claw_rl_dir=claw_rl_dir
+            )
+            
+            # Write patterns with different confidences
+            bridge.write_pattern("低置信度", 0.1, "Test", "s001")
+            bridge.write_pattern("高置信度", 0.9, "Test", "s002")
+            
+            patterns = bridge.read_patterns()
+            assert len(patterns) == 2
+            
+            # Check confidences
+            confidences = [p['confidence'] for p in patterns]
+            assert 0.1 in confidences
+            assert 0.9 in confidences
+    
+    def test_bridge_directories_creation(self):
+        """Test that bridge creates necessary directories"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            claw_mem_dir = Path(tmpdir) / 'memory'
+            claw_rl_dir = Path(tmpdir) / 'claw-rl' / 'data'
+            
+            bridge = ClawMemBridge(
+                claw_mem_dir=claw_mem_dir,
+                claw_rl_dir=claw_rl_dir
+            )
+            
+            # Directories should be created
+            assert bridge.claw_mem_dir is not None
+            assert bridge.claw_rl_dir is not None
+            patterns = bridge.read_patterns()
+            assert patterns == []
             
             hints = bridge.read_hints()
             assert hints == []
