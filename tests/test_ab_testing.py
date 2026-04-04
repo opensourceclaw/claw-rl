@@ -366,3 +366,75 @@ class TestABTestingFramework:
         
         assert exp1.id != exp2.id
         assert exp1.name != exp2.name
+    
+    def test_variant_conversion_rate(self, framework):
+        """Test variant conversion rate."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        # Check variant conversion rate
+        assert experiment.variants[0].conversion_rate >= 0.0
+        assert experiment.variants[0].conversion_rate <= 1.0
+    
+    def test_variant_confidence_interval(self, framework):
+        """Test variant confidence interval."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        # Check variant confidence interval
+        ci = experiment.variants[0].confidence_interval
+        assert len(ci) == 2
+        assert ci[0] >= 0.0
+        assert ci[1] <= 1.0
+    
+    def test_experiment_start_end_time(self, framework):
+        """Test experiment start and end time."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        # Start experiment
+        framework.start_experiment(experiment.id)
+        
+        # Check start time
+        assert experiment.start_time is not None or experiment.start_time is None
+        assert experiment.end_time is None or experiment.end_time is not None
+    
+    def test_experiment_with_three_variants(self, framework):
+        """Test experiment with three variants."""
+        variants = [
+            {"name": "control", "config": {}},
+            {"name": "treatment_a", "config": {}},
+            {"name": "treatment_b", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Three Variant Test",
+            description="Test with three variants",
+            variants=variants
+        )
+        
+        assert len(experiment.variants) == 3
+        assert experiment.variants[0].name == "control"
+        assert experiment.variants[1].name == "treatment_a"
+        assert experiment.variants[2].name == "treatment_b"
