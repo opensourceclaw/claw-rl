@@ -382,3 +382,19 @@ class TestRecognizePatternsFunction:
         assert result is not None
         assert isinstance(result, PatternRecognitionResult)
         assert len(result.patterns) > 0
+    
+    def test_recognize_patterns_with_anomalies(self):
+        """Test recognize_patterns with anomalies."""
+        result = recognize_patterns(
+            memory_ids=["mem1", "mem2", "mem3"]
+        )
+        
+        assert result is not None
+        assert result.anomalies is not None
+    
+    def test_recognize_patterns_empty_memories(self):
+        """Test recognize_patterns with empty memories."""
+        result = recognize_patterns(memory_ids=[])
+        
+        assert result is not None
+        assert len(result.patterns) == 0
