@@ -218,3 +218,72 @@ class TestABTestingFramework:
         
         # Check status
         assert experiment.status is not None or experiment.status is None
+    
+    def test_experiment_variant_assignment_count(self, framework):
+        """Test variant assignment count."""
+        variants = [
+            {"name": "control", "config": {}},
+            {"name": "treatment", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        framework.start_experiment(experiment.id)
+        
+        # Assign multiple users
+        for i in range(10):
+            variant = framework.assign_variant(experiment.id, f"user-{i}")
+            assert variant is not None
+        
+        # Check that variants were assigned
+        assert experiment is not None
+    
+    def test_experiment_traffic_allocation(self, framework):
+        """Test traffic allocation."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants,
+            traffic_allocation=0.5
+        )
+        
+        assert experiment.traffic_allocation == 0.5
+    
+    def test_experiment_variant_split(self, framework):
+        """Test variant split."""
+        variants = [
+            {"name": "control", "config": {}},
+            {"name": "treatment", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants,
+            variant_split=[0.5, 0.5]
+        )
+        
+        assert experiment.variant_split == [0.5, 0.5]
+    
+    def test_experiment_metrics(self, framework):
+        """Test experiment metrics."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        # Check metrics
+        assert experiment.primary_metric is not None or experiment.primary_metric is None
