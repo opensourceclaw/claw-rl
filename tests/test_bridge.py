@@ -128,3 +128,65 @@ class TestClawRLBridge:
             
             # run_loop should exist
             assert hasattr(bridge, 'run_loop') or hasattr(bridge, 'run')
+    
+    def test_bridge_process_learning(self, bridge):
+        """Test process_learning method."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.process_learning({}))
+            
+            assert result is not None
+            assert 'status' in result or 'error' in result
+    
+    def test_bridge_handle_request(self, bridge):
+        """Test handle_request method."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            request = {
+                'method': 'get_status',
+                'params': {},
+                'id': 1
+            }
+            
+            result = asyncio.run(bridge.handle_request(request))
+            
+            assert result is not None
+    
+    def test_bridge_handle_request_invalid_method(self, bridge):
+        """Test handle_request with invalid method."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            
+            request = {
+                'method': 'invalid_method',
+                'params': {},
+                'id': 1
+            }
+            
+            result = asyncio.run(bridge.handle_request(request))
+            
+            assert result is not None
+    
+    def test_bridge_extract_hint_with_feedback(self, bridge):
+        """Test extract_hint with feedback."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.extract_hint({'feedback': 'This is a test feedback'}))
+            
+            assert result is not None
+            assert 'status' in result or 'hint' in result or 'error' in result
+    
+    def test_bridge_get_rules_with_limit(self, bridge):
+        """Test get_rules with limit."""
+        import asyncio
+        with tempfile.TemporaryDirectory() as tmpdir:
+            asyncio.run(bridge.initialize({'workspace': tmpdir}))
+            result = asyncio.run(bridge.get_rules({'top_k': 5}))
+            
+            assert result is not None
+            assert 'status' in result or 'rules' in result or 'error' in result
