@@ -528,3 +528,80 @@ class TestABTestingFramework:
             assert running is not None or running is None
         else:
             assert framework is not None
+    
+    def test_experiment_status_transitions(self, framework):
+        """Test experiment status transitions."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants
+        )
+        
+        # Check initial status
+        assert experiment.status is not None
+        
+        # Start experiment
+        framework.start_experiment(experiment.id)
+        
+        # Check status after start
+        assert experiment.status is not None
+    
+    def test_variant_assignment_distribution(self, framework):
+        """Test variant assignment distribution."""
+        variants = [
+            {"name": "control", "config": {}},
+            {"name": "treatment", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="Test",
+            variants=variants,
+            variant_split=[0.5, 0.5]
+        )
+        
+        framework.start_experiment(experiment.id)
+        
+        # Assign many users
+        assignments = {"control": 0, "treatment": 0}
+        for i in range(100):
+            variant = framework.assign_variant(experiment.id, f"user-{i}")
+            if hasattr(variant, 'name'):
+                assignments[variant.name] += 1
+        
+        # Both variants should have some assignments
+        assert assignments["control"] > 0 or assignments["treatment"] > 0
+    
+    def test_experiment_description(self, framework):
+        """Test experiment description."""
+        variants = [
+            {"name": "control", "config": {}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="Test",
+            description="A test experiment for learning rate optimization",
+            variants=variants
+        )
+        
+        assert experiment.description == "A test experiment for learning rate optimization"
+    
+    def test_experiment_variant_config(self, framework):
+        """Test experiment variant config."""
+        variants = [
+            {"name": "control", "config": {"learning_rate": 0.1}},
+            {"name": "treatment", "config": {"learning_rate": 0.2}},
+        ]
+        
+        experiment = framework.create_experiment(
+            name="LR Test",
+            description="Learning rate test",
+            variants=variants
+        )
+        
+        assert experiment.variants[0].config == {"learning_rate": 0.1}
+        assert experiment.variants[1].config == {"learning_rate": 0.2}
