@@ -2,7 +2,7 @@
 claw-rl Learning Module
 
 Calibration, Strategy, Value learning, Optimization, A/B Testing, Evaluation,
-Parameter Applier, and Configuration Manager.
+Parameter Applier, Configuration Manager, and Action Executor.
 """
 
 from .calibration import CalibrationLearner
@@ -41,6 +41,14 @@ from .config_manager import (
     ConfigAuditEntry,
     ConfigManager,
 )
+from .executor import (
+    ActionStatus,
+    ActionType,
+    Action,
+    ActionResult,
+    ExecutorStats,
+    ActionExecutor,
+)
 
 __all__ = [
     # Original
@@ -75,4 +83,11 @@ __all__ = [
     'ConfigVersion',
     'ConfigAuditEntry',
     'ConfigManager',
+    # Action Executor (Week 8)
+    'ActionStatus',
+    'ActionType',
+    'Action',
+    'ActionResult',
+    'ExecutorStats',
+    'ActionExecutor',
 ]
