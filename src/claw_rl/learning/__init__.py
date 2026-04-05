@@ -1,7 +1,7 @@
 """
 claw-rl Learning Module
 
-Calibration, Strategy, Value learning, Optimization, A/B Testing, and Evaluation.
+Calibration, Strategy, Value learning, Optimization, A/B Testing, Evaluation, and Parameter Applier.
 """
 
 from .calibration import CalibrationLearner
@@ -28,6 +28,12 @@ from .evaluation import (
     EvaluationResult,
     LearningEvaluation,
 )
+from .applier import (
+    ApplyStatus,
+    ApplyResult,
+    ParameterSnapshot,
+    ParameterApplier,
+)
 
 __all__ = [
     # Original
@@ -52,4 +58,9 @@ __all__ = [
     'MetricSummary',
     'EvaluationResult',
     'LearningEvaluation',
+    # Parameter Applier (Week 8)
+    'ApplyStatus',
+    'ApplyResult',
+    'ParameterSnapshot',
+    'ParameterApplier',
 ]

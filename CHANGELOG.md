@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0-rc.2] - 2026-04-XX
+
+**Status:** In Development - Sprint 3: Act Layer Implementation.
+
+### Added
+
+**Act Layer (Week 8):**
+- Parameter Applier - Apply optimized parameters to running system
+- Configuration Manager - Version-controlled configuration with hot-reload
+- Action Executor - Safe execution environment with rollback support
+
+### Changed
+
+- Version updated to 2.0.0rc2
+
 ## [2.0.0-rc.1] - 2026-04-03
 
 **Status:** Release Candidate 1 - Sprint 2 Complete.
