@@ -15,7 +15,8 @@
 """
 claw-rl Agent Integration
 
-Enables learning from neoclaw agent decisions.
+Enables learning from agent decisions.
+Framework-agnostic: Works with any agent system.
 """
 
 from .signal_collector import AgentSignalCollector, AgentSignal
