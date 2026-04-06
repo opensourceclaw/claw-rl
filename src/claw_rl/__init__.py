@@ -8,8 +8,10 @@ This package provides self-learning capabilities for AI agents:
 - Learning: Calibration, strategy, and value learning
 - Context: Context-aware learning
 - Hooks: Pre/post session hooks
+- Protocols: Framework-agnostic interfaces
+- Adapters: Framework-specific implementations
 
-Version: 2.0.0-beta.3
+Version: 2.0.0-rc.2
 """
 
 __version__ = "2.0.0-rc.2"
@@ -44,11 +46,15 @@ from .core import (
     CPALoopConfig,
 )
 
-# Learning
+# Learning (Sprint 1-3)
 from .learning import (
     CalibrationLearner,
     StrategyLearner,
     ValuePreferenceLearner,
+    # Sprint 2
+    KnowledgeBase,
+    ExperienceReplay,
+    SelfImprovement,
 )
 
 # Context
@@ -60,6 +66,24 @@ from .context import (
 from .hooks import (
     PreSessionHook,
     PostSessionHook,
+)
+
+# Protocols (Sprint 3)
+from .protocols import (
+    ObserverProtocol,
+    DecisionMakerProtocol,
+    ExecutorProtocol,
+    SignalAdapterProtocol,
+)
+
+# Adapters (Sprint 3)
+from .adapters import (
+    BaseObserverAdapter,
+    BaseDecisionMakerAdapter,
+    BaseExecutorAdapter,
+    BaseSignalAdapter,
+    OpenClawObserverAdapter,
+    OpenClawSignalAdapter,
 )
 
 # Auto-activate
@@ -101,6 +125,9 @@ __all__ = [
     'CalibrationLearner',
     'StrategyLearner',
     'ValuePreferenceLearner',
+    'KnowledgeBase',
+    'ExperienceReplay',
+    'SelfImprovement',
     
     # Context
     'ContextLearner',
@@ -108,6 +135,20 @@ __all__ = [
     # Hooks
     'PreSessionHook',
     'PostSessionHook',
+    
+    # Protocols
+    'ObserverProtocol',
+    'DecisionMakerProtocol',
+    'ExecutorProtocol',
+    'SignalAdapterProtocol',
+    
+    # Adapters
+    'BaseObserverAdapter',
+    'BaseDecisionMakerAdapter',
+    'BaseExecutorAdapter',
+    'BaseSignalAdapter',
+    'OpenClawObserverAdapter',
+    'OpenClawSignalAdapter',
     
     # Auto-activate
     'AutoActivator',
