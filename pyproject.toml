@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "claw-rl"
-version = "2.0.0rc1"
+version = "2.0.0rc2"
 description = "claw-rl - Self-Learning Module for Project Neo"
 readme = "README.md"
-license = "Apache-2.0"
+license = {text = "Apache-2.0"}
 authors = [
     {name = "Peter Cheng"}
 ]
@@ -29,7 +29,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 dependencies = [
     # Start minimal, add as needed
 ]

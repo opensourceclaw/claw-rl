@@ -286,14 +286,14 @@ class TestAgentSignalCollector:
     
     def test_pillars_defined(self):
         """Test that pillars are defined"""
+        # PILLARS is now a customizable example, just verify structure exists
+        assert hasattr(AgentSignalCollector, 'PILLARS')
+        assert isinstance(AgentSignalCollector.PILLARS, dict)
+        # Verify it has some default pillars
         assert 'work' in AgentSignalCollector.PILLARS
         assert 'life' in AgentSignalCollector.PILLARS
         assert 'wealth' in AgentSignalCollector.PILLARS
-        
-        # Check specific agents exist
-        assert 'stark_tech' in AgentSignalCollector.PILLARS['work']
-        assert 'pepper_body' in AgentSignalCollector.PILLARS['life']
-        assert 'happy_asset' in AgentSignalCollector.PILLARS['wealth']
+        # Note: Specific agent IDs can be customized by users
     
     def test_decision_types_defined(self):
         """Test that decision types are defined"""

@@ -15,7 +15,8 @@
 """
 claw-rl Agent Signal Collector
 
-Collects learning signals from neoclaw agent decisions.
+Collects learning signals from agent decisions.
+Framework-agnostic: Works with any agent system.
 """
 
 from dataclasses import dataclass, field
@@ -31,8 +32,8 @@ class AgentSignal:
     Learning signal from an agent decision
     
     Attributes:
-        agent_id: Agent identifier (e.g., "stark_tech", "pepper_life")
-        pillar: Agent pillar (work, life, wealth)
+        agent_id: Agent identifier (e.g., "tech_agent", "life_agent", or custom)
+        pillar: Agent category (work, life, wealth, or custom)
         decision_type: Type of decision (code_generation, advice, analysis, etc.)
         action: Action taken by agent
         outcome: Outcome (user_accepted, user_rejected, partial, timeout)
@@ -134,11 +135,12 @@ class AgentSignalCollector:
         stats = collector.get_statistics()
     """
     
-    # Pillar definitions
+    # Example pillar definitions (can be customized)
+    # Users can override PILLARS for their specific agent system
     PILLARS = {
-        'work': ['stark_tech', 'stark_business', 'stark_economic'],
-        'life': ['pepper_body', 'pepper_mind', 'pepper_relationship'],
-        'wealth': ['happy_asset', 'happy_investment', 'happy_risk']
+        'work': ['tech_agent', 'business_agent', 'economic_agent'],
+        'life': ['body_agent', 'mind_agent', 'relationship_agent'],
+        'wealth': ['asset_agent', 'investment_agent', 'risk_agent']
     }
     
     # Decision types

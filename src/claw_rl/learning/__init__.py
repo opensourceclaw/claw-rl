@@ -1,7 +1,9 @@
 """
 claw-rl Learning Module
 
-Calibration, Strategy, Value learning, Optimization, A/B Testing, and Evaluation.
+Calibration, Strategy, Value learning, Optimization, A/B Testing, Evaluation,
+Parameter Applier, Configuration Manager, Action Executor, Knowledge Base,
+Experience Replay, and Self-Improvement.
 """
 
 from .calibration import CalibrationLearner
@@ -28,6 +30,48 @@ from .evaluation import (
     EvaluationResult,
     LearningEvaluation,
 )
+from .applier import (
+    ApplyStatus,
+    ApplyResult,
+    ParameterSnapshot,
+    ParameterApplier,
+)
+from .config_manager import (
+    ConfigStatus,
+    ConfigVersion,
+    ConfigAuditEntry,
+    ConfigManager,
+)
+from .executor import (
+    ActionStatus,
+    ActionType,
+    Action,
+    ActionResult,
+    ExecutorStats,
+    ActionExecutor,
+)
+from .knowledge_base import (
+    RuleStatus,
+    RulePriority,
+    RuleConflictStrategy,
+    LearningRule,
+    KnowledgeBase,
+)
+from .experience_replay import (
+    SamplingStrategy,
+    Experience,
+    ExperienceReplay,
+)
+from .self_improvement import (
+    RuleExtractionStrategy,
+    RuleValidationStatus,
+    ExtractedRule,
+    ValidationResult,
+    DeploymentResult,
+    RuleExtractor,
+    RuleValidator,
+    SelfImprovement,
+)
 
 __all__ = [
     # Original
@@ -52,4 +96,40 @@ __all__ = [
     'MetricSummary',
     'EvaluationResult',
     'LearningEvaluation',
+    # Parameter Applier (Week 8)
+    'ApplyStatus',
+    'ApplyResult',
+    'ParameterSnapshot',
+    'ParameterApplier',
+    # Configuration Manager (Week 8)
+    'ConfigStatus',
+    'ConfigVersion',
+    'ConfigAuditEntry',
+    'ConfigManager',
+    # Action Executor (Week 8)
+    'ActionStatus',
+    'ActionType',
+    'Action',
+    'ActionResult',
+    'ExecutorStats',
+    'ActionExecutor',
+    # Knowledge Base (Week 9)
+    'RuleStatus',
+    'RulePriority',
+    'RuleConflictStrategy',
+    'LearningRule',
+    'KnowledgeBase',
+    # Experience Replay (Week 9)
+    'SamplingStrategy',
+    'Experience',
+    'ExperienceReplay',
+    # Self-Improvement (Week 9)
+    'RuleExtractionStrategy',
+    'RuleValidationStatus',
+    'ExtractedRule',
+    'ValidationResult',
+    'DeploymentResult',
+    'RuleExtractor',
+    'RuleValidator',
+    'SelfImprovement',
 ]

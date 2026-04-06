@@ -1,15 +1,21 @@
 """
-claw-rl Core Module
+Core - Core components for C-P-A learning loop
 
-Learning loop, daemon, and memory bridge.
+This module provides the core C-P-A (Continuous Planning and Autonomous)
+learning loop implementation.
 """
 
-from .learning_loop import LearningLoop
+from .cpa_loop import CPALoop, CPALoopConfig
 from .bridge import ClawRLBridge
+from .learning_loop import LearningLoop
 from .memory_bridge import ClawMemBridge
 from .learning_daemon import LearningDaemon
 
 __all__ = [
+    # C-P-A Loop (Sprint 3)
+    'CPALoop',
+    'CPALoopConfig',
+    # Legacy (Sprint 1-2)
     'LearningLoop',
     'ClawRLBridge',
     'ClawMemBridge',
