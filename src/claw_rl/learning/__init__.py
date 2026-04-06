@@ -2,7 +2,8 @@
 claw-rl Learning Module
 
 Calibration, Strategy, Value learning, Optimization, A/B Testing, Evaluation,
-Parameter Applier, Configuration Manager, and Action Executor.
+Parameter Applier, Configuration Manager, Action Executor, Knowledge Base,
+Experience Replay, and Self-Improvement.
 """
 
 from .calibration import CalibrationLearner
@@ -49,6 +50,28 @@ from .executor import (
     ExecutorStats,
     ActionExecutor,
 )
+from .knowledge_base import (
+    RuleStatus,
+    RulePriority,
+    RuleConflictStrategy,
+    LearningRule,
+    KnowledgeBase,
+)
+from .experience_replay import (
+    SamplingStrategy,
+    Experience,
+    ExperienceReplay,
+)
+from .self_improvement import (
+    RuleExtractionStrategy,
+    RuleValidationStatus,
+    ExtractedRule,
+    ValidationResult,
+    DeploymentResult,
+    RuleExtractor,
+    RuleValidator,
+    SelfImprovement,
+)
 
 __all__ = [
     # Original
@@ -90,4 +113,23 @@ __all__ = [
     'ActionResult',
     'ExecutorStats',
     'ActionExecutor',
+    # Knowledge Base (Week 9)
+    'RuleStatus',
+    'RulePriority',
+    'RuleConflictStrategy',
+    'LearningRule',
+    'KnowledgeBase',
+    # Experience Replay (Week 9)
+    'SamplingStrategy',
+    'Experience',
+    'ExperienceReplay',
+    # Self-Improvement (Week 9)
+    'RuleExtractionStrategy',
+    'RuleValidationStatus',
+    'ExtractedRule',
+    'ValidationResult',
+    'DeploymentResult',
+    'RuleExtractor',
+    'RuleValidator',
+    'SelfImprovement',
 ]

@@ -40,6 +40,8 @@ from .core import (
     ClawRLBridge,
     ClawMemBridge,
     LearningDaemon,
+    CPALoop,
+    CPALoopConfig,
 )
 
 # Learning
@@ -89,14 +91,16 @@ __all__ = [
     
     # Core
     'LearningLoop',
+    'ClawRLBridge',
     'ClawMemBridge',
-    'MemoryBridge',
     'LearningDaemon',
+    'CPALoop',
+    'CPALoopConfig',
     
     # Learning
     'CalibrationLearner',
     'StrategyLearner',
-    'ValueLearner',
+    'ValuePreferenceLearner',
     
     # Context
     'ContextLearner',
