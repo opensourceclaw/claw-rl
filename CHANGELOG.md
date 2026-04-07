@@ -5,6 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1-rc.1] - 2026-04-08
+
+**Status:** Release Candidate 1 - Decision Path Feature.
+
+### Added
+
+**Decision Path (RL-004):**
+- **DecisionNode** - Single node in a decision path (OODA loop stages)
+  - Node types: OBSERVE, ORIENT, DECIDE, ACT, LEARN
+  - Input/output state, decision content, feedback tracking
+  - Rule and strategy association, parent/child node relationships
+
+- **DecisionPath** - Complete decision path from start to finish
+  - Path status tracking (ACTIVE, COMPLETED, FAILED)
+  - Node sequence, context, and metadata
+  - Duration calculation, node type statistics
+
+- **DecisionPathTracker** - Path lifecycle management
+  - Start new paths with context and metadata
+  - Add nodes with rule/strategy/feedback association
+  - Complete paths with success/failure status
+  - Path persistence to storage
+
+- **DecisionPathVisualizer** - Export paths in multiple formats
+  - JSON export with optional feedback/state inclusion
+  - Graph export (dict format)
+  - Mermaid diagram export (TD/LR directions)
+  - DOT (Graphviz) format
+  - Path summary generation
+
+- **DecisionPathAnalyzer** - Analyze paths for patterns and anomalies
+  - Pattern analysis (node sequences, rule usage)
+  - Statistics calculation (counts, durations, success rate)
+  - Similar path detection using multi-factor similarity
+  - Anomaly detection (unusually long, premature failure, no action)
+  - 44 tests, 86% coverage
+
+### Fixed
+- N/A
+
+### Changed
+- N/A
+
 ## [2.0.0-rc.2] - 2026-04-06
 
 **Status:** Release Candidate 2 - Sprint 3 Complete.

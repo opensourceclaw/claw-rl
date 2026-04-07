@@ -131,6 +131,23 @@ from .learning_audit import (
     RuleExplanation,
 )
 
+# Decision Path (RL-004)
+from .decision_path import (
+    NodeType,
+    PathStatus,
+    FeedbackInfo,
+    DecisionNode,
+    DecisionPath,
+    DecisionPathTracker,
+    PathSummary,
+    DecisionPathVisualizer,
+    PathPattern,
+    PathStatistics,
+    SimilarPath,
+    AnomalousPath,
+    DecisionPathAnalyzer,
+)
+
 __all__ = [
     # Version
     '__version__',
@@ -222,4 +239,19 @@ __all__ = [
     'LearningEventType',
     'AuditLevel',
     'RuleExplanation',
+
+    # Decision Path (RL-004)
+    'NodeType',
+    'PathStatus',
+    'FeedbackInfo',
+    'DecisionNode',
+    'DecisionPath',
+    'DecisionPathTracker',
+    'PathSummary',
+    'DecisionPathVisualizer',
+    'PathPattern',
+    'PathStatistics',
+    'SimilarPath',
+    'AnomalousPath',
+    'DecisionPathAnalyzer',
 ]
