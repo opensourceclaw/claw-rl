@@ -122,6 +122,15 @@ from .rule_portability import (
     RuleImportResult,
 )
 
+# Learning Audit (Week 1)
+from .learning_audit import (
+    LearningAudit,
+    LearningEvent,
+    LearningEventType,
+    AuditLevel,
+    RuleExplanation,
+)
+
 __all__ = [
     # Version
     '__version__',
@@ -206,4 +215,11 @@ __all__ = [
     'RuleMergeStrategy',
     'RuleExportResult',
     'RuleImportResult',
+    
+    # Learning Audit
+    'LearningAudit',
+    'LearningEvent',
+    'LearningEventType',
+    'AuditLevel',
+    'RuleExplanation',
 ]
