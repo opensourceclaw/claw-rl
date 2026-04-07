@@ -361,7 +361,7 @@ class TestLearningEventType:
 
 class TestAuditLevel:
     """Tests for AuditLevel"""
-    
+
     def test_audit_levels(self):
         """Test all audit levels exist"""
         assert AuditLevel.DEBUG.value == "debug"
@@ -369,3 +369,244 @@ class TestAuditLevel:
         assert AuditLevel.WARNING.value == "warning"
         assert AuditLevel.ERROR.value == "error"
         assert AuditLevel.CRITICAL.value == "critical"
+
+
+class TestLearningAuditEdgeCases:
+    """Additional edge case tests for LearningAudit to improve coverage."""
+
+    @pytest.fixture
+    def temp_workspace(self):
+        """Create temporary workspace"""
+        temp_dir = tempfile.mkdtemp()
+        yield Path(temp_dir)
+        shutil.rmtree(temp_dir)
+
+    def test_get_events_by_strategy_id(self, temp_workspace):
+        """Test filtering events by strategy ID."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.log_event(
+            LearningEventType.STRATEGY_SELECTED,
+            "Strategy 1",
+            strategy_id="strat_001",
+        )
+        audit.log_event(
+            LearningEventType.STRATEGY_EVALUATED,
+            "Strategy 2",
+            strategy_id="strat_001",
+        )
+        audit.log_event(
+            LearningEventType.STRATEGY_SELECTED,
+            "Strategy 3",
+            strategy_id="strat_002",
+        )
+
+        events = audit.get_events(strategy_id="strat_001")
+
+        assert len(events) == 2
+
+    def test_get_events_by_feedback_id(self, temp_workspace):
+        """Test filtering events by feedback ID."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.log_event(
+            LearningEventType.FEEDBACK_RECEIVED,
+            "Feedback 1",
+            feedback_id="fb_001",
+        )
+        audit.log_event(
+            LearningEventType.FEEDBACK_POSITIVE,
+            "Feedback 2",
+            feedback_id="fb_001",
+        )
+        audit.log_event(
+            LearningEventType.FEEDBACK_NEGATIVE,
+            "Feedback 3",
+            feedback_id="fb_002",
+        )
+
+        events = audit.get_events(feedback_id="fb_001")
+
+        assert len(events) == 2
+
+    def test_get_events_limit_respected(self, temp_workspace):
+        """Test that limit is respected."""
+        audit = LearningAudit(temp_workspace)
+
+        for i in range(20):
+            audit.log_event(LearningEventType.INFO, f"Event {i}")
+
+        events = audit.get_events(limit=5)
+
+        assert len(events) == 5
+
+    def test_update_explanation_with_source_events(self, temp_workspace):
+        """Test updating explanation with additional source events."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.create_explanation(
+            rule_id="rule_001",
+            explanation="Initial",
+            source_events=["evt_001"],
+        )
+
+        updated = audit.update_explanation(
+            rule_id="rule_001",
+            source_events=["evt_002", "evt_003"],
+        )
+
+        assert "evt_001" in updated.source_events
+        assert "evt_002" in updated.source_events
+        assert "evt_003" in updated.source_events
+
+    def test_update_explanation_deduplicates_sources(self, temp_workspace):
+        """Test that source events are deduplicated."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.create_explanation(
+            rule_id="rule_001",
+            explanation="Initial",
+            source_events=["evt_001"],
+        )
+
+        audit.update_explanation(
+            rule_id="rule_001",
+            source_events=["evt_001", "evt_002"],
+        )
+
+        # Should only have unique events
+        assert len(audit.explanations["rule_001"].source_events) == 2
+
+    def test_clear_old_events_partial(self, temp_workspace):
+        """Test clearing only old events, keeping recent ones."""
+        audit = LearningAudit(temp_workspace)
+
+        # Add old event
+        audit.log_event(LearningEventType.INFO, "Old event")
+        audit.events[0].timestamp = datetime.now() - timedelta(days=60)
+
+        # Add recent event
+        audit.log_event(LearningEventType.INFO, "Recent event")
+
+        cleared = audit.clear_old_events(days=30)
+
+        assert cleared == 1
+        assert len(audit.events) == 1
+        assert audit.events[0].message == "Recent event"
+
+    def test_clear_old_events_no_save_when_none_cleared(self, temp_workspace):
+        """Test that _save is not called when no events cleared."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.log_event(LearningEventType.INFO, "Recent event")
+
+        # This should not trigger a save
+        cleared = audit.clear_old_events(days=30)
+
+        assert cleared == 0
+
+    def test_get_statistics_empty_audit(self, temp_workspace):
+        """Test statistics with no events."""
+        audit = LearningAudit(temp_workspace)
+
+        stats = audit.get_statistics()
+
+        assert stats["total_events"] == 0
+        assert stats["event_counts"] == {}
+        assert stats["source_counts"] == {}
+        assert stats["explained_rules"] == 0
+        assert stats["time_range"] is None
+
+    def test_get_statistics_with_events(self, temp_workspace):
+        """Test statistics with events."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.log_event(LearningEventType.INFO, "Event 1")
+        audit.log_event(LearningEventType.INFO, "Event 2")
+
+        stats = audit.get_statistics()
+
+        assert stats["total_events"] == 2
+        assert stats["time_range"] is not None
+        assert "first_event" in stats["time_range"]
+        assert "last_event" in stats["time_range"]
+
+    def test_log_event_with_all_fields(self, temp_workspace):
+        """Test logging event with all optional fields."""
+        audit = LearningAudit(temp_workspace)
+
+        event = audit.log_event(
+            event_type=LearningEventType.OPD_EXTRACTED,
+            message="OPD extracted",
+            level=AuditLevel.DEBUG,
+            source="opd",
+            context={"key": "value"},
+            rule_id="rule_001",
+            strategy_id="strat_001",
+            feedback_id="fb_001",
+            metadata={"extra": "data"},
+        )
+
+        assert event.level == AuditLevel.DEBUG
+        assert event.source == "opd"
+        assert event.context == {"key": "value"}
+        assert event.rule_id == "rule_001"
+        assert event.strategy_id == "strat_001"
+        assert event.feedback_id == "fb_001"
+        assert event.metadata == {"extra": "data"}
+
+    def test_get_rule_history_empty(self, temp_workspace):
+        """Test getting rule history for non-existent rule."""
+        audit = LearningAudit(temp_workspace)
+
+        history = audit.get_rule_history("nonexistent")
+
+        assert history == []
+
+    def test_get_feedback_sources_empty(self, temp_workspace):
+        """Test getting feedback sources for rule with no feedback."""
+        audit = LearningAudit(temp_workspace)
+
+        audit.log_event(
+            LearningEventType.RULE_CREATED,
+            "Rule created",
+            rule_id="rule_001",
+        )
+
+        sources = audit.get_feedback_sources("rule_001")
+
+        assert sources == []
+
+    def test_get_events_order_most_recent_first(self, temp_workspace):
+        """Test that events are returned most recent first."""
+        audit = LearningAudit(temp_workspace)
+
+        for i in range(5):
+            audit.log_event(LearningEventType.INFO, f"Event {i}")
+
+        events = audit.get_events(limit=10)
+
+        # Most recent should be first (reverse chronological)
+        assert events[0].message == "Event 4"
+        assert events[4].message == "Event 0"
+
+    def test_explain_rule_nonexistent(self, temp_workspace):
+        """Test explaining non-existent rule returns None."""
+        audit = LearningAudit(temp_workspace)
+
+        result = audit.explain_rule("nonexistent_rule")
+
+        assert result is None
+
+    def test_create_explanation_with_default_values(self, temp_workspace):
+        """Test creating explanation with minimal parameters."""
+        audit = LearningAudit(temp_workspace)
+
+        explanation = audit.create_explanation(
+            rule_id="rule_001",
+            explanation="Test",
+        )
+
+        assert explanation.source_events == []
+        assert explanation.feedback_count == 0
+        assert explanation.confidence_history == []
