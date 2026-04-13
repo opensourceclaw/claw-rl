@@ -10,11 +10,13 @@ This package provides self-learning capabilities for AI agents:
 - Hooks: Pre/post session hooks
 - Protocols: Framework-agnostic interfaces
 - Adapters: Framework-specific implementations
+- Multi-Armed Bandit: Intelligent strategy selection
+- Rule Portability: Export and import learned rules
 
 Version: 2.0.0-rc.2
 """
 
-__version__ = "2.0.0-rc.2"
+__version__ = "2.0.0-rc.3"
 __author__ = "OpenClaw Team"
 
 # Pattern Recognition (Sprint 1)
@@ -93,6 +95,59 @@ from .auto_activate import (
     is_active,
 )
 
+# Multi-Armed Bandit (Week 1)
+from .mab import (
+    MultiArmedBandit,
+    Strategy,
+    StrategyPerformance,
+    BanditConfig,
+    StrategyType,
+    BanditError,
+    StrategyError,
+    SelectionError,
+    BetaDistribution,
+    ThompsonSamplingStrategy,
+    EpsilonGreedyStrategy,
+    DecayMode,
+)
+
+# Rule Portability (Week 1)
+from .rule_portability import (
+    RulePortability,
+    ExportedRule,
+    RuleVersion,
+    RuleLineage,
+    RuleMergeStrategy,
+    RuleExportResult,
+    RuleImportResult,
+)
+
+# Learning Audit (Week 1)
+from .learning_audit import (
+    LearningAudit,
+    LearningEvent,
+    LearningEventType,
+    AuditLevel,
+    RuleExplanation,
+)
+
+# Decision Path (RL-004)
+from .decision_path import (
+    NodeType,
+    PathStatus,
+    FeedbackInfo,
+    DecisionNode,
+    DecisionPath,
+    DecisionPathTracker,
+    PathSummary,
+    DecisionPathVisualizer,
+    PathPattern,
+    PathStatistics,
+    SimilarPath,
+    AnomalousPath,
+    DecisionPathAnalyzer,
+)
+
 __all__ = [
     # Version
     '__version__',
@@ -154,4 +209,49 @@ __all__ = [
     'AutoActivator',
     'get_activator',
     'is_active',
+    
+    # Multi-Armed Bandit
+    'MultiArmedBandit',
+    'Strategy',
+    'StrategyPerformance',
+    'BanditConfig',
+    'StrategyType',
+    'BanditError',
+    'StrategyError',
+    'SelectionError',
+    'BetaDistribution',
+    'ThompsonSamplingStrategy',
+    'EpsilonGreedyStrategy',
+    'DecayMode',
+    
+    # Rule Portability
+    'RulePortability',
+    'ExportedRule',
+    'RuleVersion',
+    'RuleLineage',
+    'RuleMergeStrategy',
+    'RuleExportResult',
+    'RuleImportResult',
+    
+    # Learning Audit
+    'LearningAudit',
+    'LearningEvent',
+    'LearningEventType',
+    'AuditLevel',
+    'RuleExplanation',
+
+    # Decision Path (RL-004)
+    'NodeType',
+    'PathStatus',
+    'FeedbackInfo',
+    'DecisionNode',
+    'DecisionPath',
+    'DecisionPathTracker',
+    'PathSummary',
+    'DecisionPathVisualizer',
+    'PathPattern',
+    'PathStatistics',
+    'SimilarPath',
+    'AnomalousPath',
+    'DecisionPathAnalyzer',
 ]
