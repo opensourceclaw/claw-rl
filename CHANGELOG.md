@@ -9,28 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🎉 Official Release
 
-claw-rl v2.0.1 正式版发布。
+claw-rl v2.0.1 official release.
 
 ### Added
 
-- **Decision Path (RL-004)**: 完整的决策路径追踪功能
-  - DecisionNode - OODA 循环各阶段节点
-  - DecisionPath - 完整决策路径管理
-  - DecisionPathTracker - 路径生命周期管理
+- **Decision Path (RL-004)**: Complete decision path tracking functionality
+  - DecisionNode - OODA loop stages
+  - DecisionPath - Complete decision path management
+  - DecisionPathTracker - Path lifecycle management
 
-- **Multi-Armed Bandit (RL-003)**: MAB 算法优化
-- **OPD Hint Extractor (RL-002)**: OPD 提示提取器
-- **Binary RL Judge (RL-001)**: 二元强化学习判断器
+- **Multi-Armed Bandit (RL-003)**: MAB algorithm optimization
+- **OPD Hint Extractor (RL-002)**: OPD hint extraction
+- **Binary RL Judge (RL-001)**: Binary reinforcement learning judge
 
 ### Changed
 
-- 版本号更新到 2.0.1
-- 测试覆盖率提升
-- 文档更新
+- Version bump to 2.0.1
+- Improved test coverage
+- Documentation updates
 
 ### Dependencies
 
-- 无外部依赖
+- No external dependencies
 
 ---
 
