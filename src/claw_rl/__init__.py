@@ -16,7 +16,7 @@ This package provides self-learning capabilities for AI agents:
 Version: 2.0.0-rc.2
 """
 
-__version__ = "2.0.0-rc.3"
+__version__ = "2.0.1"
 __author__ = "OpenClaw Team"
 
 # Pattern Recognition (Sprint 1)
@@ -47,6 +47,7 @@ from .core import (
     CPALoop,
     CPALoopConfig,
 )
+from .core import bridge
 
 # Learning (Sprint 1-3)
 from .learning import (
@@ -175,6 +176,7 @@ __all__ = [
     'LearningDaemon',
     'CPALoop',
     'CPALoopConfig',
+    'bridge',
     
     # Learning
     'CalibrationLearner',
