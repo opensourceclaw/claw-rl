@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2026-04-17
+
+### Added
+
+- **Claude Code Plugin**: Full Claude Code integration
+  - `claude-code-plugin/` directory with TypeScript implementation
+  - SessionStartHook: Inject learned rules at session start
+  - PostToolUseHook: Collect feedback from user messages
+  - SessionEndHook: Log session summary
+  - CLI tools: `claw-rl-status`, `claw-rl-collect`
+  - npm package: `@opensourceclaw/claude-code-claw-rl`
+
+- **skill/SKILL.md**: ClawHub skill definition
+
+### Changed
+
+- Updated README with correct installation methods
+- Version bump to 2.0.2
+
+### npm Package
+
+- `@opensourceclaw/claude-code-claw-rl@2.0.0`
+
+### Compatibility
+
+- Python: >= 3.8
+- Claude Code: >= 1.0.0
+- OpenClaw: >= 2026.3.28
+
+---
+
 ## [2.0.1] - 2026-04-15
 
 ### 🎉 Official Release
