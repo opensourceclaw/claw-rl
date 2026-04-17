@@ -5,7 +5,7 @@ homepage: https://github.com/opensourceclaw/claw-rl
 metadata: {"clawdbot":{"emoji":"🔄","requires":{"bins":["python3"],"packages":["claw-rl"]}}}
 ---
 
-# claw-rl: Self-Improvement System
+# claw-rl: Self-Improvement System for AI agents
 
 Self-improvement system for AI agents with reinforcement learning and continuous learning.
 
