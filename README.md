@@ -25,29 +25,41 @@ claw-rl is a **self-improvement system** for AI agents, featuring:
 
 ## 📦 Installation
 
-### Python Package
+### Option 1: Via ClawHub (Recommended)
 
 ```bash
-pip install claw-rl
+# Install ClawHub skill
+npx clawhub@latest install opensourceclaw-claw-rl
+
+# Install Python package
+pip install git+https://github.com/opensourceclaw/claw-rl.git
 ```
 
-### OpenClaw Plugin
+### Option 2: From GitHub
 
 ```bash
-npm install @opensourceclaw/openclaw-claw-rl
+# Clone and install
+git clone https://github.com/opensourceclaw/claw-rl.git
+cd claw-rl
+pip install -e .
+```
+
+### Option 3: Direct pip install
+
+```bash
+pip install git+https://github.com/opensourceclaw/claw-rl.git
 ```
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### 1. Install
 
 ```bash
-# Python package
-pip install claw-rl
+# Install Python package
+pip install git+https://github.com/opensourceclaw/claw-rl.git
 
-# OpenClaw Plugin
-cd your-openclaw-project
-npm install /path/to/claw-rl/claw_rl_plugin
+# Or via ClawHub
+npx clawhub@latest install opensourceclaw-claw-rl
 ```
 
 ### 2. Configure OpenClaw
@@ -96,7 +108,7 @@ learning_status()
 Collect user feedback signal:
 
 ```
-collect_feedback(feedback="很好，谢谢！", action="created_file")
+collect_feedback(feedback="Great, thanks!", action="created_file")
 ```
 
 ### get_learned_rules
@@ -172,6 +184,11 @@ node test/test_integration.js
 **Coverage:** 78% (207 tests)
 
 ## 📝 Changelog
+
+### v2.0.1 (2026-04-17)
+
+- ✅ Published to ClawHub as `opensourceclaw-claw-rl`
+- ✅ Updated installation documentation
 
 ### v2.0.0 (2026-03-31)
 

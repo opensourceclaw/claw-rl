@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-04-15
+
+### 🎉 Official Release
+
+claw-rl v2.0.1 official release.
+
+### Added
+
+- **Decision Path (RL-004)**: Complete decision path tracking functionality
+  - DecisionNode - OODA loop stages
+  - DecisionPath - Complete decision path management
+  - DecisionPathTracker - Path lifecycle management
+
+- **Multi-Armed Bandit (RL-003)**: MAB algorithm optimization
+- **OPD Hint Extractor (RL-002)**: OPD hint extraction
+- **Binary RL Judge (RL-001)**: Binary reinforcement learning judge
+
+### Changed
+
+- Version bump to 2.0.1
+- Improved test coverage
+- Documentation updates
+
+### Dependencies
+
+- No external dependencies
+
+---
+
 ## [2.0.0-rc.3] - 2026-04-08
 
 **Status:** Release Candidate 1 - Decision Path Feature.
