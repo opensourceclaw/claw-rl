@@ -1,18 +1,19 @@
 ---
 name: claw-rl
-description: "Self-Improvement System for AI agents. Use when: (1) collecting user feedback (thumbs up/down, corrections), (2) extracting improvement hints from user messages, (3) learning from mistakes and preferences, (4) injecting learned rules into sessions. Features Binary RL evaluation, OPD hint extraction, Multi-Armed Bandit strategy selection, and continuous background learning."
+displayName: "claw-rl: Self-Improvement System for AI agents"
+description: "Self-Improvement System for AI agents. Features: feedback collection, hint extraction, rule learning. Use for: learning from user corrections."
 homepage: https://github.com/opensourceclaw/claw-rl
 metadata: {"clawdbot":{"emoji":"🔄","requires":{"bins":["python3"],"packages":["claw-rl"]}}}
 ---
 
 # claw-rl: Self-Improvement System for AI agents
 
-Self-improvement system for AI agents with reinforcement learning and continuous learning.
+Self-improvement system for AI agents with reinforcement learning.
 
 ## Prerequisites
 
 ```bash
-pip install claw-rl
+pip install git+https://github.com/opensourceclaw/claw-rl.git@v2.0.2
 ```
 
 ## Quick Start
@@ -21,7 +22,7 @@ pip install claw-rl
 
 ```bash
 python3 {baseDir}/scripts/collect_feedback.py "Great job!" --action file_created
-python3 {baseDir}/scripts/collect_feedback.py "Wrong, use Chinese instead" --action response --negative
+python3 {baseDir}/scripts/collect_feedback.py "Wrong, try X instead" --action response --negative
 ```
 
 ### Get Learned Rules
@@ -37,7 +38,7 @@ python3 {baseDir}/scripts/get_rules.py --context "user preference"
 python3 {baseDir}/scripts/status.py
 ```
 
-### Start Learning Daemon
+### Start Learning Daemon (Optional)
 
 ```bash
 python3 {baseDir}/scripts/daemon.py start
@@ -49,19 +50,10 @@ python3 {baseDir}/scripts/daemon.py status
 
 | Component | Purpose | Example |
 |-----------|---------|---------|
-| **Binary RL Judge** | Evaluate satisfaction from feedback | 👍 → positive, 👎 → negative |
+| **Binary RL Judge** | Evaluate satisfaction | 👍 → positive, 👎 → negative |
 | **OPD Extractor** | Extract improvement hints | "Use Chinese" → rule hint |
-| **Learning Loop** | Continuous background learning | Process feedback queue |
-| **MAB Strategy** | Strategy selection via bandits | Thompson Sampling, ε-greedy |
-
-## Learning Modes
-
-| Mode | Description | Use Case |
-|------|-------------|----------|
-| `calibration` | Calibration learning | User satisfaction calibration |
-| `strategy` | Strategy learning | Action selection optimization |
-| `value` | Value preference learning | User preference learning |
-| `context` | Context-aware learning | Situational rules |
+| **Learning Loop** | Background learning | Process feedback queue |
+| **MAB Strategy** | Strategy selection | Thompson Sampling, ε-greedy |
 
 ## Configuration
 
@@ -75,8 +67,6 @@ OpenClaw config (`openclaw.config.json`):
     "claw-rl": {
       "config": {
         "workspaceDir": "~/.openclaw/workspace",
-        "autoInject": true,
-        "autoLearn": true,
         "topK": 10
       }
     }
@@ -84,19 +74,18 @@ OpenClaw config (`openclaw.config.json`):
 }
 ```
 
+> **Note**: `autoInject` and `autoLearn` are disabled by default. Enable them only after reviewing learned rules.
+
 ## Performance
 
 | Operation | Latency |
-|-----------|---------|
+|-----------|--------|
 | Initialize | ~2ms |
 | Collect feedback | ~0.03ms |
 | Extract hint | ~1ms |
 | Get rules | ~0.7ms |
-| Process learning | ~0.5ms |
 
-## Advanced
+## Links
 
-See references for detailed documentation:
-- [Architecture](references/architecture.md) - System design
-- [Learning](references/learning.md) - Learning algorithms
-- [MAB](references/mab.md) - Multi-Armed Bandit strategies
+- [GitHub](https://github.com/opensourceclaw/claw-rl)
+- [Documentation](https://github.com/opensourceclaw/claw-rl#readme)

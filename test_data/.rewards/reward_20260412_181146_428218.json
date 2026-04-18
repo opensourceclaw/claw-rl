@@ -1,0 +1,10 @@
+{
+  "feedback": "test feedback",
+  "action": "test action",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-04-12T18:11:46.428195"
+}

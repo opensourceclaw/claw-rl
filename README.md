@@ -23,6 +23,37 @@ claw-rl is a **self-improvement system** for AI agents, featuring:
 - **Learning Loop**: Continuous background learning
 - **OpenClaw Plugin**: Seamless integration with v2.0.0+ architecture
 
+### 🆕 v2.1.0 New Features
+
+**"从能学习到持续智能学习"** - From passive to proactive intelligent learning.
+
+| Phase | Feature | Description |
+|-------|----------|-------------|
+| **Phase 1** | LLM-Enhanced PRM Judge | Multi-LLM backend, smart caching, 90%+ accuracy |
+| **Phase 2** | Memory-Consciousness Sync | Bidirectional Learning↔Memory sync, atomic transactions |
+| **Phase 3** | Adaptive MAB Strategies | Context-aware strategy selection, dynamic parameters |
+| **Phase 4** | Learning Observability | Prometheus/JSON/Markdown export, rule evolution tracking |
+| **Phase 5** | Rule Portability 2.0 | Multi-format export, validation, migration |
+
+```python
+# v2.1.0 Quick Examples
+
+# LLM-Enhanced PRM Judge
+from claw_rl.feedback import LLMEnhancedPRMJudge
+judge = LLMEnhancedPRMJudge()
+result = judge.judge("Created file", "谢谢，很好！")  # Uses LLM for accuracy
+
+# Adaptive MAB
+from claw_rl.mab import AdaptiveMAB, ContextFeatures
+mab = AdaptiveMAB()
+strategy = mab.select_strategy(ContextFeatures(operation_type="file"))
+
+# Observability
+from claw_rl.observability import get_exporter
+exporter = get_exporter()
+print(exporter.export_prometheus())  # Grafana-compatible metrics
+```
+
 ## 📦 Installation
 
 ### Option 1: Via ClawHub (Recommended)
@@ -166,6 +197,16 @@ get_learned_rules(top_k=10, context="user preference")
 
 ## 📖 Documentation
 
+### v2.1.0 Documentation
+- [v2.1.0 Iteration Plan](docs/v2.1.0/ITERATION_PLAN.md)
+- [Phase 1 Progress](docs/v2.1.0/PHASE1_PROGRESS.md) - LLM-Enhanced PRM Judge
+- [Phase 2 Progress](docs/v2.1.0/PHASE2_PROGRESS.md) - Memory-Consciousness Sync
+- [Phase 3 Progress](docs/v2.1.0/PHASE3_PROGRESS.md) - Adaptive MAB Strategies
+- [Phase 4 Progress](docs/v2.1.0/PHASE4_PROGRESS.md) - Learning Observability
+- [Phase 5 Progress](docs/v2.1.0/PHASE5_PROGRESS.md) - Rule Portability 2.0
+- [Review Report](docs/v2.1.0/REVIEW_REPORT.md)
+
+### v2.0.0 Documentation
 - [ADR-001: Plugin Architecture](docs/v2.0.0/ADR-001-plugin-architecture.md)
 - [User Stories](docs/v2.0.0/USER_STORIES.md)
 - [Migration Plan](docs/v2.0.0/MIGRATION_PLAN.md)

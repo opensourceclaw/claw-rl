@@ -10,6 +10,13 @@ from .bridge import ClawRLBridge
 from .learning_loop import LearningLoop
 from .memory_bridge import ClawMemBridge
 from .learning_daemon import LearningDaemon
+from .memory_consciousness_sync import (
+    MemoryConsciousnessSync,
+    Learning,
+    SyncResult,
+    SyncDirection,
+    SyncStatus,
+)
 
 __all__ = [
     # C-P-A Loop (Sprint 3)
@@ -20,4 +27,10 @@ __all__ = [
     'ClawRLBridge',
     'ClawMemBridge',
     'LearningDaemon',
+    # v2.1.0 Memory-Consciousness Sync
+    'MemoryConsciousnessSync',
+    'Learning',
+    'SyncResult',
+    'SyncDirection',
+    'SyncStatus',
 ]

@@ -40,6 +40,12 @@ from .epsilon_greedy import (
     EpsilonGreedyStrategy,
     DecayMode,
 )
+from .adaptive import (
+    AdaptiveMAB,
+    ContextFeatures,
+    MetaLearner,
+    AdaptationMode,
+)
 
 __all__ = [
     # Multi-Armed Bandit
@@ -57,4 +63,9 @@ __all__ = [
     # Epsilon Greedy
     "EpsilonGreedyStrategy",
     "DecayMode",
+    # Adaptive MAB (v2.1.0)
+    "AdaptiveMAB",
+    "ContextFeatures",
+    "MetaLearner",
+    "AdaptationMode",
 ]

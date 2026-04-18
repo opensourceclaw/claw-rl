@@ -180,22 +180,22 @@ class BinaryRLJudge:
         
         feedback_lower = feedback.lower()
         
+        # Check negative patterns FIRST (corrections are more important)
+        for i, regex in enumerate(self._negative_regex):
+            if regex.search(feedback_lower):
+                return RewardResult(
+                    reward=-1,
+                    confidence=0.95 if '应该' in self.NEGATIVE_PATTERNS[i] or '错了' in self.NEGATIVE_PATTERNS[i] else 0.9,
+                    pattern_matched=self.NEGATIVE_PATTERNS[i]
+                )
+        
         # Check positive patterns
         for i, regex in enumerate(self._positive_regex):
             if regex.search(feedback_lower):
                 return RewardResult(
                     reward=+1,
-                    confidence=0.95 if '谢谢' in self.POSITIVE_PATTERNS[i] else 0.9,
+                    confidence=0.95 if '谢谢' in self.POSITIVE_PATTERNS[i] or '很好' in self.POSITIVE_PATTERNS[i] else 0.9,
                     pattern_matched=self.POSITIVE_PATTERNS[i]
-                )
-        
-        # Check negative patterns
-        for i, regex in enumerate(self._negative_regex):
-            if regex.search(feedback_lower):
-                return RewardResult(
-                    reward=-1,
-                    confidence=0.95 if '应该' in self.NEGATIVE_PATTERNS[i] else 0.9,
-                    pattern_matched=self.NEGATIVE_PATTERNS[i]
                 )
         
         # Neutral
