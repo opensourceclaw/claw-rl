@@ -36,6 +36,10 @@ from .feedback import (
     RewardResult,
     OPDHint,
     OPDHintExtractor,
+    # v2.1.0
+    LLMEnhancedPRMJudge,
+    JudgeResult,
+    LLMBackend,
 )
 
 # Core
@@ -46,6 +50,12 @@ from .core import (
     LearningDaemon,
     CPALoop,
     CPALoopConfig,
+    # v2.1.0
+    MemoryConsciousnessSync,
+    Learning,
+    SyncResult,
+    SyncDirection,
+    SyncStatus,
 )
 from .core import bridge
 
@@ -110,6 +120,11 @@ from .mab import (
     ThompsonSamplingStrategy,
     EpsilonGreedyStrategy,
     DecayMode,
+    # Adaptive MAB (v2.1.0)
+    AdaptiveMAB,
+    ContextFeatures,
+    MetaLearner,
+    AdaptationMode,
 )
 
 # Rule Portability (Week 1)
@@ -121,6 +136,12 @@ from .rule_portability import (
     RuleMergeStrategy,
     RuleExportResult,
     RuleImportResult,
+)
+
+# Rule Portability v2.1.0
+from .rule_portability_v2 import (
+    RulePortabilityV2,
+    export_rules_to_markdown,
 )
 
 # Learning Audit (Week 1)
@@ -149,6 +170,18 @@ from .decision_path import (
     DecisionPathAnalyzer,
 )
 
+# Observability (v2.1.0)
+from .observability import (
+    LearningMetricsCollector,
+    LearningMetricsExporter,
+    get_collector,
+    get_exporter,
+    RuleEvolutionTracker,
+    RuleChangeEvent,
+    RuleSnapshot,
+    RuleChangeType,
+)
+
 __all__ = [
     # Version
     '__version__',
@@ -168,6 +201,10 @@ __all__ = [
     'RewardResult',
     'OPDHint',
     'OPDHintExtractor',
+    # v2.1.0
+    'LLMEnhancedPRMJudge',
+    'JudgeResult',
+    'LLMBackend',
     
     # Core
     'LearningLoop',
@@ -177,6 +214,12 @@ __all__ = [
     'CPALoop',
     'CPALoopConfig',
     'bridge',
+    # v2.1.0 Memory-Consciousness Sync
+    'MemoryConsciousnessSync',
+    'Learning',
+    'SyncResult',
+    'SyncDirection',
+    'SyncStatus',
     
     # Learning
     'CalibrationLearner',
@@ -225,6 +268,11 @@ __all__ = [
     'ThompsonSamplingStrategy',
     'EpsilonGreedyStrategy',
     'DecayMode',
+    # Adaptive MAB (v2.1.0)
+    'AdaptiveMAB',
+    'ContextFeatures',
+    'MetaLearner',
+    'AdaptationMode',
     
     # Rule Portability
     'RulePortability',
@@ -234,6 +282,9 @@ __all__ = [
     'RuleMergeStrategy',
     'RuleExportResult',
     'RuleImportResult',
+    # Rule Portability v2.1.0
+    'RulePortabilityV2',
+    'export_rules_to_markdown',
     
     # Learning Audit
     'LearningAudit',
@@ -256,4 +307,14 @@ __all__ = [
     'SimilarPath',
     'AnomalousPath',
     'DecisionPathAnalyzer',
+    
+    # Observability (v2.1.0)
+    'LearningMetricsCollector',
+    'LearningMetricsExporter',
+    'get_collector',
+    'get_exporter',
+    'RuleEvolutionTracker',
+    'RuleChangeEvent',
+    'RuleSnapshot',
+    'RuleChangeType',
 ]

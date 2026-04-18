@@ -5,6 +5,88 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-04-18
+
+### 🎯 Major Release: "从能学习到持续智能学习"
+
+v2.1.0 核心目标是让 claw-rl 从被动学习系统升级为主动智能学习系统。
+
+### Added
+
+#### Phase 1: LLM-Enhanced PRM Judge
+- **LLMEnhancedPRMJudge** (~500 lines): 多 LLM 后端支持
+  - OpenAI, Anthropic, Local/Ollama 后端
+  - 智能 TTL 缓存
+  - 置信度感知规则回退
+  - 性能指标追踪
+- 新文件: `src/claw_rl/feedback/llm_enhanced_prm.py`
+- 测试: 33 tests, 80% coverage
+
+#### Phase 2: Deep claw-mem Integration
+- **MemoryConsciousnessSync** (~550 lines): 双向同步系统
+  - Learning ↔ Memory 双向流动
+  - 原子事务 (all-or-nothing)
+  - 实时事件传播
+  - 统一状态存储 (SQLite)
+- 新文件: `src/claw_rl/core/memory_consciousness_sync.py`
+- 测试: 24 tests, 77% coverage
+
+#### Phase 3: Adaptive MAB Strategies
+- **AdaptiveMAB** (~580 lines): 上下文感知策略选择
+  - 四种自适应模式 (STATIC, CONTEXTUAL, REACTIVE, HYBRID)
+  - Meta-Learner 自动学习策略选择
+  - 动态参数调整 (epsilon 衰减 + 性能感知)
+  - 完整指标追踪
+- **ContextFeatures**: 11 维上下文特征向量
+- 新文件: `src/claw_rl/mab/adaptive.py`
+- 测试: 35 tests, 90% coverage
+
+#### Phase 4: Learning Observability
+- **LearningMetricsExporter** (~380 lines): 多格式指标导出
+  - Prometheus 格式 (Grafana 兼容)
+  - JSON/Markdown 格式
+  - 全局 Collector 单例
+- **RuleEvolutionTracker** (~400 lines): 规则演化追踪
+  - 规则变更历史
+  - 演化时间线
+  - Diff 比较
+- 新目录: `src/claw_rl/observability/`
+- 测试: 31 tests, 93%/79% coverage
+
+#### Phase 5: Rule Portability 2.0
+- **RulePortabilityV2** (~320 lines): 增强导出功能
+  - 多格式导出 (JSON/YAML/Markdown)
+  - 规则验证
+  - 格式迁移 (v1.0 → v2.1)
+  - 规则差异比较
+- 新文件: `src/claw_rl/rule_portability_v2.py`
+- 测试: 12 tests, 88% coverage
+
+### Changed
+
+- 更新 `src/claw_rl/__init__.py` 导出所有新模块
+- 更新 `src/claw_rl/mab/__init__.py` 导出 AdaptiveMAB
+- 更新 `src/claw_rl/core/__init__.py` 导出 MemoryConsciousnessSync
+- 修复 `binary_rl.py` 负面模式检查顺序
+
+### Statistics
+
+| Metric | Value |
+|--------|-------|
+| Total Tests | 135 passed |
+| Avg Coverage | 85% |
+| New Code | ~2,730 lines |
+| New Tests | ~1,860 lines |
+| Phases Complete | 5/5 |
+
+### Compatibility
+
+- Python: >= 3.9
+- OpenClaw: >= 2026.4.18
+- claw-mem: >= 2.0.0 (optional)
+
+---
+
 ## [2.0.2] - 2026-04-17
 
 ### Added

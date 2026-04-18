@@ -6,6 +6,11 @@ Binary RL and OPD Hint extraction for feedback-driven learning.
 
 from .binary_rl import BinaryRLJudge, RewardResult
 from .opd_hint import OPDHint, OPDHintExtractor
+from .llm_enhanced_prm import (
+    LLMEnhancedPRMJudge,
+    JudgeResult,
+    LLMBackend,
+)
 from .collector import (
     Feedback,
     FeedbackType,
@@ -33,6 +38,10 @@ __all__ = [
     # OPD Hint
     'OPDHint',
     'OPDHintExtractor',
+    # LLM-Enhanced PRM
+    'LLMEnhancedPRMJudge',
+    'JudgeResult',
+    'LLMBackend',
     # Feedback Collector
     'Feedback',
     'FeedbackType',

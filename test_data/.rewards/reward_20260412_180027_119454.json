@@ -1,0 +1,10 @@
+{
+  "feedback": "很好！",
+  "action": "created file",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "很好",
+  "hints": [],
+  "timestamp": "2026-04-12T18:00:27.119417"
+}
