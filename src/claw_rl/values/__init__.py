@@ -18,6 +18,7 @@ Values Module - 价值观学习
 
 from .value_learner import ValueLearner, Interaction, ExtractedPrinciple, LearningSource
 from .scenario_rules import ScenarioType, ScenarioRule, ScenarioRules
+from .value_reasoner import ValueReasoner, ReasoningContext, ReasoningResult, ReasoningType
 
 __all__ = [
     "ValueLearner",
@@ -27,4 +28,8 @@ __all__ = [
     "ScenarioType",
     "ScenarioRule",
     "ScenarioRules",
+    "ValueReasoner",
+    "ReasoningContext",
+    "ReasoningResult",
+    "ReasoningType",
 ]
