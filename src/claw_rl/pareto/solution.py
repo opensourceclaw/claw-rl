@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Solution - 解的数据结构
+Solution - solution data structure
 """
 
 from dataclasses import dataclass, field
@@ -23,7 +23,7 @@ import uuid
 
 @dataclass
 class Solution:
-    """Pareto 优化解"""
+    """Pareto optimizesolution"""
     id: str = field(default_factory=lambda: str(uuid.uuid4())[:8])
     parameters: Dict[str, Any] = field(default_factory=dict)
     objectives: Dict[str, float] = field(default_factory=dict)  # objective_name -> score
@@ -32,7 +32,7 @@ class Solution:
     domination_count: int = 0
     dominated_by: List[str] = field(default_factory=list)
     crowding_distance: float = 0.0
-    rank: int = 0  # Pareto 前沿等级
+    rank: int = 0  # Pareto front level
 
     def __hash__(self):
         return hash(self.id)
@@ -43,7 +43,7 @@ class Solution:
         return self.id == other.id
 
     def dominates(self, other: "Solution") -> bool:
-        """判断是否支配另一个解"""
+        """判断是否支配另一个solution"""
         if self.id == other.id:
             return False
 
@@ -62,7 +62,7 @@ class Solution:
         return at_least_as_good and strictly_better
 
     def to_dict(self) -> Dict[str, Any]:
-        """转换为字典"""
+        """convertto dict"""
         return {
             "id": self.id,
             "parameters": self.parameters,
@@ -77,7 +77,7 @@ class Solution:
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Solution":
-        """从字典创建"""
+        """from dictcreate"""
         return cls(
             id=data.get("id", str(uuid.uuid4())[:8]),
             parameters=data.get("parameters", {}),

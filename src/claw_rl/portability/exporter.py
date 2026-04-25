@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Rule Exporter - 规则导出器
+Rule Exporter - 规thenexport器
 """
 
 import json
@@ -29,31 +29,31 @@ except ImportError:
 
 
 class RuleExporter:
-    """规则导出器 - 支持多种格式导出"""
+    """规thenexport器 - 支持多种formatexport"""
 
     def __init__(self):
         self.export_format_version = "2.2.0"
 
     def to_json(self, rule: Dict[str, Any]) -> str:
-        """导出为 JSON 格式
+        """export为 JSON format
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
 
         Returns:
-            str: JSON 格式的规则
+            str: JSON format的规then
         """
         export_data = self._prepare_rule_for_export(rule)
         return json.dumps(export_data, indent=2, ensure_ascii=False)
 
     def to_yaml(self, rule: Dict[str, Any]) -> str:
-        """导出为 YAML 格式
+        """export为 YAML format
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
 
         Returns:
-            str: YAML 格式的规则
+            str: YAML format的规then
         """
         if not YAML_AVAILABLE:
             raise ImportError("PyYAML is required for YAML export. Install with: pip install pyyaml")
@@ -62,13 +62,13 @@ class RuleExporter:
         return yaml.dump(export_data, allow_unicode=True, default_flow_style=False)
 
     def to_markdown(self, rule: Dict[str, Any]) -> str:
-        """导出为 Markdown 文档格式
+        """export为 Markdown 文档format
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
 
         Returns:
-            str: Markdown 格式的规则文档
+            str: Markdown format的规then文档
         """
         export_data = self._prepare_rule_for_export(rule)
 
@@ -118,12 +118,12 @@ class RuleExporter:
         return "\n".join(md_lines)
 
     def export_to_file(self, rule: Dict[str, Any], path: Path, format: str = "json") -> None:
-        """导出规则到文件
+        """export规then到file
 
         Args:
-            rule: 规则字典
-            path: 目标文件路径
-            format: 导出格式 (json/yaml/markdown)
+            rule: 规thendict
+            path: objectivefilepath
+            format: exportformat (json/yaml/markdown)
         """
         if format == "json":
             content = self.to_json(rule)
@@ -137,13 +137,13 @@ class RuleExporter:
         path.write_text(content, encoding="utf-8")
 
     def _prepare_rule_for_export(self, rule: Dict[str, Any]) -> Dict[str, Any]:
-        """准备规则数据用于导出
+        """准备规thendata用于export
 
         Args:
-            rule: 原始规则字典
+            rule: 原始规thendict
 
         Returns:
-            Dict: 添加了导出元数据的规则
+            Dict: add了export元data的规then
         """
         export_data = {
             **rule,

@@ -36,7 +36,7 @@ class ClawMemBridge:
         
         # Write a learned pattern
         bridge.write_pattern(
-            pattern="操作前先检查目标文件是否存在",
+            pattern="Check if target file exists before operation",
             confidence=0.85,
             source="User correction",
             session_id="session_001"

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-ParetoOptimizer - Pareto 优化器
+ParetoOptimizer - Pareto optimize器
 """
 
 from typing import List, Dict, Any, Optional
@@ -23,13 +23,13 @@ from .objective import Objective, get_predefined_objectives
 
 
 class ParetoOptimizer:
-    """Pareto 多目标优化器"""
+    """Pareto 多objectiveoptimize器"""
 
     def __init__(self, objectives: Optional[List[Objective]] = None):
-        """初始化优化器
+        """initializeoptimize器
 
         Args:
-            objectives: 目标列表，如果为 None 则使用预定义目标
+            objectives: objectivelist，if为 None then使用预定义objective
         """
         if objectives is None:
             self.objectives = list(get_predefined_objectives().values())
@@ -43,16 +43,16 @@ class ParetoOptimizer:
         candidates: List[Dict[str, Any]],
         normalize: bool = True
     ) -> List[Solution]:
-        """执行 Pareto 优化
+        """execute Pareto optimize
 
         Args:
-            candidates: 候选解列表（字典形式）
-            normalize: 是否归一化目标值
+            candidates: 候选solutionlist（dict形式）
+            normalize: 是否normalizeobjectivevalue
 
         Returns:
-            List[Solution]: Pareto 最优解列表
+            List[Solution]: Pareto 最优solutionlist
         """
-        # 转换为 Solution 对象
+        # convert为 Solution object
         solutions = []
         for cand in candidates:
             sol = Solution(
@@ -61,34 +61,34 @@ class ParetoOptimizer:
             )
             solutions.append(sol)
 
-        # 归一化目标值
+        # normalizeobjectivevalue
         if normalize:
             self._normalize_objectives(solutions)
 
-        # 非支配排序
+        # non-dominated sorting
         self.front.non_dominated_sort(solutions)
 
         return self.front.get_pareto_front()
 
     def get_best(self, solutions: List[Solution], n: int, use_crowding: bool = True) -> List[Solution]:
-        """获取 top-n 解
+        """get top-n solution
 
         Args:
-            solutions: 解列表
-            n: 数量
-            use_crowding: 是否使用拥挤度
+            solutions: solutionlist
+            n: count
+            use_crowding: 是否使用拥挤degree
 
         Returns:
-            List[Solution]: 选中的解
+            List[Solution]: 选中的solution
         """
         return self.front.select_elite(solutions, n, use_crowding)
 
     def _normalize_objectives(self, solutions: List[Solution]) -> None:
-        """归一化所有目标值"""
+        """normalize所有objectivevalue"""
         if not solutions:
             return
 
-        # 获取每个目标的范围
+        # get每个objective的范围
         obj_ranges: Dict[str, tuple] = {}
         for obj in self.objectives:
             values = [sol.objectives.get(obj.name, 0.0) for sol in solutions]
@@ -96,7 +96,7 @@ class ParetoOptimizer:
             max_val = max(values)
             obj_ranges[obj.name] = (min_val, max_val)
 
-        # 归一化
+        # normalize
         for sol in solutions:
             sol.objectives_normalized = {}
             for obj in self.objectives:
@@ -106,13 +106,13 @@ class ParetoOptimizer:
                 sol.objectives_normalized[obj.name] = normalized
 
     def get_statistics(self, solutions: List[Solution]) -> Dict[str, Any]:
-        """获取解集的统计信息
+        """getsolution集的statisticsinfo
 
         Args:
-            solutions: 解列表
+            solutions: solutionlist
 
         Returns:
-            Dict: 统计信息
+            Dict: statisticsinfo
         """
         if not solutions:
             return {"count": 0}
@@ -123,12 +123,12 @@ class ParetoOptimizer:
             "avg_objectives": {},
         }
 
-        # 按等级统计
+        # 按等级statistics
         for sol in solutions:
             rank = sol.rank
             stats["by_rank"][rank] = stats["by_rank"].get(rank, 0) + 1
 
-        # 平均目标值
+        # 平均objectivevalue
         for obj in self.objectives:
             values = [sol.objectives.get(obj.name, 0.0) for sol in solutions]
             stats["avg_objectives"][obj.name] = sum(values) / len(values) if values else 0.0

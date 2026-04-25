@@ -193,7 +193,7 @@ class LLMEnhancedPRMJudge:
         
         result = judge.judge(
             action="Created file /workspace/test.md",
-            response="谢谢，很好！"
+            response="thanks，great！"
         )
         # result.reward = 1, result.confidence = 0.95
     """
@@ -487,16 +487,16 @@ JSON Response:"""
     def _get_rule_reason(self, reward: int, response: str) -> str:
         """Get human-readable reason from rule-based judge"""
         if reward == 1:
-            if '谢谢' in response or '感谢' in response:
+            if 'thanks' in response or 'thank you' in response:
                 return "User expressed gratitude"
-            elif '好的' in response or '很好' in response or '不错' in response:
+            elif 'okay' in response or 'great' in response or 'good' in response:
                 return "User expressed approval"
             else:
                 return "User seems satisfied"
         elif reward == -1:
-            if '不对' in response or '错了' in response or '错误' in response:
+            if 'incorrect' in response or 'wrong' in response or 'error' in response:
                 return "User indicated error"
-            elif '应该' in response:
+            elif 'should' in response:
                 return "User provided correction"
             else:
                 return "User seems dissatisfied"

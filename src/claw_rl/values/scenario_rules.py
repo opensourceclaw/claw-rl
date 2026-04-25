@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Scenario Rules - 场景规则
+Scenario Rules - Scenario Rules
 """
 
 from dataclasses import dataclass, field
@@ -23,17 +23,17 @@ import re
 
 
 class ScenarioType(Enum):
-    """场景类型"""
-    INVESTMENT = "investment"    # 投资
-    MEDICAL = "medical"          # 医疗
-    LEGAL = "legal"              # 法律
-    FINANCIAL = "financial"      # 财务
+    """Scenario Type"""
+    INVESTMENT = "investment"    # investment
+    MEDICAL = "medical"          # medical
+    LEGAL = "legal"              # legal
+    FINANCIAL = "financial"      # finance
     GENERAL = "general"          # 通用
 
 
 @dataclass
 class ScenarioRule:
-    """场景规则"""
+    """Scenario Rules"""
     scenario: ScenarioType
     name: str
     description: str
@@ -44,19 +44,19 @@ class ScenarioRule:
 
 
 class ScenarioRules:
-    """场景规则管理器"""
+    """Scenario Rules管理器"""
 
-    # 预定义场景规则
+    # 预定义Scenario Rules
     SCENARIO_RULES = {
         ScenarioType.INVESTMENT: ScenarioRule(
             scenario=ScenarioType.INVESTMENT,
-            name="投资场景规则",
-            description="投资相关建议的规则",
-            keywords=["投资", "股票", "基金", "理财", "炒", "买", "卖", "盈利", "收益"],
+            name="investmentScenario Rules",
+            description="investment相关建议的规then",
+            keywords=["investment", "股票", "基金", "financial management", "炒", "买", "卖", "盈利", "收益"],
             required_statements=[
-                "投资有风险",
+                "investment有风险",
                 "请谨慎",
-                "不保证收益",
+                "not保证收益",
                 "可能亏损"
             ],
             prohibited_actions=[
@@ -70,44 +70,44 @@ class ScenarioRules:
         ),
         ScenarioType.MEDICAL: ScenarioRule(
             scenario=ScenarioType.MEDICAL,
-            name="医疗场景规则",
-            description="医疗健康相关建议的规则",
-            keywords=["医生", "诊断", "治疗", "药", "医院", "健康", "疾病", "症状"],
+            name="medicalScenario Rules",
+            description="medicalhealth相关建议的规then",
+            keywords=["医生", "诊断", "治疗", "药", "医院", "health", "疾病", "症状"],
             required_statements=[
                 "请咨询专业医生",
-                "不是专业医疗建议",
-                "建议就医"
+                "not专业medical建议",
+                "建议then医"
             ],
             prohibited_actions=[
                 "确诊",
-                "诊断为",
+                "diagnosed as",
                 "自行服药",
-                "不需要看医生"
+                "notneed看医生"
             ],
             severity="critical"
         ),
         ScenarioType.LEGAL: ScenarioRule(
             scenario=ScenarioType.LEGAL,
-            name="法律场景规则",
-            description="法律相关建议的规则",
-            keywords=["律师", "法律", "诉讼", "起诉", "法院", "犯罪", "违法"],
+            name="legalScenario Rules",
+            description="legal相关建议的规then",
+            keywords=["律师", "legal", "诉讼", "起诉", "法院", "犯罪", "违法"],
             required_statements=[
                 "请咨询专业律师",
-                "不是法律建议",
+                "notlegal建议",
                 "建议咨询律师"
             ],
             prohibited_actions=[
                 "可以起诉",
-                "不违法",
-                "没问题",
-                "不会坐牢"
+                "not违法",
+                "no problem",
+                "not会坐牢"
             ],
             severity="high"
         ),
         ScenarioType.FINANCIAL: ScenarioRule(
             scenario=ScenarioType.FINANCIAL,
-            name="财务场景规则",
-            description="财务税务相关建议的规则",
+            name="financeScenario Rules",
+            description="finance税务相关建议的规then",
             keywords=["税", "退税", "避税", "省钱", "逃税", "发票"],
             required_statements=[
                 "请合规操作",
@@ -118,14 +118,14 @@ class ScenarioRules:
                 "逃税",
                 "避税",
                 "少交税",
-                "不用交税"
+                "not用交税"
             ],
             severity="critical"
         ),
     }
 
     def __init__(self):
-        """初始化场景规则"""
+        """initializeScenario Rules"""
         self._rules = self.SCENARIO_RULES.copy()
         self._custom_rules: Dict[ScenarioType, ScenarioRule] = {}
 
@@ -136,13 +136,13 @@ class ScenarioRules:
             text: 待检测的文本
 
         Returns:
-            List[ScenarioType]: 匹配的场景类型列表
+            List[ScenarioType]: match的Scenario Typelist
         """
         detected = []
         text_lower = text.lower()
 
         for scenario, rule in self._rules.items():
-            # 检查关键词
+            # check关key词
             for keyword in rule.keywords:
                 if keyword in text_lower:
                     detected.append(scenario)
@@ -151,14 +151,14 @@ class ScenarioRules:
         return detected
 
     def check_scenario(self, text: str, scenario: ScenarioType) -> Dict[str, Any]:
-        """检查文本是否符合场景规则
+        """check文本是否符合Scenario Rules
 
         Args:
-            text: 待检查的文本
-            scenario: 场景类型
+            text: 待check的文本
+            scenario: Scenario Type
 
         Returns:
-            Dict: 检查结果
+            Dict: check结果
         """
         rule = self._rules.get(scenario)
         if not rule:
@@ -172,7 +172,7 @@ class ScenarioRules:
         warnings = []
         text_lower = text.lower()
 
-        # 检查禁止的行为
+        # check禁止的行为
         for prohibited in rule.prohibited_actions:
             if prohibited in text_lower:
                 violations.append({
@@ -182,7 +182,7 @@ class ScenarioRules:
                     "severity": rule.severity
                 })
 
-        # 检查是否包含必需的声明
+        # check是否包含必需的声明
         for required in rule.required_statements:
             if required not in text_lower:
                 warnings.append({
@@ -200,22 +200,22 @@ class ScenarioRules:
         }
 
     def get_rule(self, scenario: ScenarioType) -> Optional[ScenarioRule]:
-        """获取场景规则"""
+        """getScenario Rules"""
         return self._rules.get(scenario)
 
     def add_custom_rule(self, rule: ScenarioRule) -> None:
-        """添加自定义规则"""
+        """add自定义规then"""
         self._custom_rules[rule.scenario] = rule
 
     def remove_custom_rule(self, scenario: ScenarioType) -> bool:
-        """移除自定义规则"""
+        """remove自定义规then"""
         if scenario in self._custom_rules:
             del self._custom_rules[scenario]
             return True
         return False
 
     def get_all_scenarios(self) -> List[ScenarioType]:
-        """获取所有场景类型"""
+        """get所有Scenario Type"""
         return list(self._rules.keys())
 
 

@@ -63,8 +63,8 @@ class PostSessionHook:
             session_id="session_001",
             user_id="peter",
             turns=[
-                Turn(turn_id=1, action="Created file", next_state="谢谢，很好！"),
-                Turn(turn_id=2, action="Edited file", next_state="不对，应该放这里")
+                Turn(turn_id=1, action="Created file", next_state="thanks，great！"),
+                Turn(turn_id=2, action="Edited file", next_state="incorrect，shouldput here")
             ]
         ))
         print(result.summary)
@@ -137,19 +137,19 @@ class PostSessionHook:
         response_lower = response.lower()
         
         # Positive signals
-        positive_keywords = ['谢谢', '感谢', '好的', '很好', '不错', '可以', '对的', '正确', '完美', 'thanks', 'good', 'great', 'nice']
+        positive_keywords = ['thanks', 'thank you', 'okay', 'great', 'good', '可以', 'correct', 'correct', 'perfect', 'thanks', 'good', 'great', 'nice']
         for keyword in positive_keywords:
             if keyword in response_lower:
                 return +1
         
         # Continue conversation (implicit satisfaction)
-        continue_keywords = ['然后', '接下来', '继续', '还有', '另外', '那', 'and then', 'next', 'continue']
+        continue_keywords = ['then', '接下来', 'continue', '还有', '另外', '那', 'and then', 'next', 'continue']
         for keyword in continue_keywords:
             if keyword in response_lower:
                 return +1
         
         # Negative signals
-        negative_keywords = ['不对', '错了', '应该', '不要', '不行', '不好', '重新', '改一下', 'wrong', 'error', 'incorrect', 'should']
+        negative_keywords = ['incorrect', 'wrong', 'should', 'dont', 'not okay', 'not good', 'retry', 'fix', 'wrong', 'error', 'incorrect', 'should']
         for keyword in negative_keywords:
             if keyword in response_lower:
                 return -1
@@ -174,27 +174,27 @@ class PostSessionHook:
         """
         import re
         
-        # Pattern: "应该 X" -> "操作前 X"
-        if '应该' in correction:
-            match = re.search(r'应该(.+)', correction)
+        # Pattern: "should X" -> "before operation X"
+        if 'should' in correction:
+            match = re.search(r'should(.+)', correction)
             if match:
-                return f"操作前{match.group(1).strip()}"
+                return f"before operation{match.group(1).strip()}"
         
-        # Pattern: "不要 X" -> "避免 X"
-        if '不要' in correction:
-            match = re.search(r'不要(.+)', correction)
+        # Pattern: "dont X" -> "avoid X"
+        if 'dont' in correction:
+            match = re.search(r'dont(.+)', correction)
             if match:
-                return f"避免{match.group(1).strip()}"
+                return f"avoid{match.group(1).strip()}"
         
-        # Pattern: "先 X 再 Y" -> "顺序：先 X 再 Y"
-        if '先' in correction and '再' in correction:
-            return f"顺序：{correction}"
+        # Pattern: "first X 再 Y" -> "order：first X 再 Y"
+        if 'first' in correction and '再' in correction:
+            return f"order：{correction}"
         
-        # Pattern: "用 X 方法" -> "优先使用 X"
-        if '用' in correction and '方法' in correction:
-            match = re.search(r'用(.+)方法', correction)
+        # Pattern: "用 X method" -> "优first使用 X"
+        if '用' in correction and 'method' in correction:
+            match = re.search(r'用(.+)method', correction)
             if match:
-                return f"优先使用{match.group(1).strip()}方法"
+                return f"优first使用{match.group(1).strip()}method"
         
         # Default: use original correction
         return correction.strip() if len(correction) < 100 else None

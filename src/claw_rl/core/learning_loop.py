@@ -27,7 +27,7 @@ class LearningLoop:
     Example:
         >>> loop = LearningLoop(data_dir=Path("./data"))
         >>> result = loop.process_feedback(
-        ...     feedback="不对，应该放到这里",
+        ...     feedback="incorrect，shouldput here",
         ...     action="created file",
         ...     context="User asked to create a file"
         ... )
@@ -90,7 +90,7 @@ class LearningLoop:
             >>> from pathlib import Path
             >>> loop = LearningLoop(Path("./data"))
             >>> result = loop.process_feedback(
-            ...     feedback="谢谢，很好！",
+            ...     feedback="thanks，great！",
             ...     action="created file",
             ...     context="User asked to create test.txt"
             ... )
@@ -168,8 +168,8 @@ class LearningLoop:
             >>> from pathlib import Path
             >>> loop = LearningLoop(Path("./data"))
             >>> feedbacks = [
-            ...     {'feedback': '谢谢', 'action': 'created file'},
-            ...     {'feedback': '不对', 'action': 'deleted file'},
+            ...     {'feedback': 'thanks', 'action': 'created file'},
+            ...     {'feedback': 'incorrect', 'action': 'deleted file'},
             ... ]
             >>> results = loop.process_batch(feedbacks)
             >>> len(results)

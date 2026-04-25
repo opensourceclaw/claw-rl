@@ -13,9 +13,9 @@
 # limitations under the License.
 
 """
-Portability Module - 规则可移植性
+Portability Module - 规then可移植性
 
-提供规则的导出、导入和格式转换功能。
+提供规then的export、import和formatconvert功能。
 """
 
 from .exporter import RuleExporter

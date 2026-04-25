@@ -139,7 +139,7 @@ class RuleEvolutionTracker:
             change_type=RuleChangeType.CREATED,
             after=RuleSnapshot(
                 rule_id="rule-001",
-                pattern="操作前检查目标路径",
+                pattern="before operationchecktarget path",
                 confidence=0.65,
                 source="user_feedback",
                 timestamp=datetime.now()

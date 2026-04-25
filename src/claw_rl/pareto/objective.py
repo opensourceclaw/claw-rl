@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Objective - 目标定义
+Objective - objective定义
 """
 
 from abc import ABC, abstractmethod
@@ -21,7 +21,7 @@ from typing import Any, Dict, Optional
 
 
 class Objective(ABC):
-    """目标抽象基类"""
+    """objective抽象基class"""
 
     def __init__(self, name: str, weight: float = 1.0, minimize: bool = False):
         self.name = name
@@ -30,11 +30,11 @@ class Objective(ABC):
 
     @abstractmethod
     def evaluate(self, solution: Dict[str, Any]) -> float:
-        """评估目标值"""
+        """评估objectivevalue"""
         pass
 
     def normalize(self, value: float, min_val: float = 0.0, max_val: float = 1.0) -> float:
-        """归一化目标值到 [0, 1]"""
+        """normalizeobjectivevalue到 [0, 1]"""
         if max_val == min_val:
             return 0.5
         normalized = (value - min_val) / (max_val - min_val)
@@ -42,7 +42,7 @@ class Objective(ABC):
 
 
 class AccuracyObjective(Objective):
-    """准确率目标"""
+    """准确率objective"""
 
     def __init__(self, weight: float = 1.0):
         super().__init__("accuracy", weight, minimize=False)
@@ -52,20 +52,20 @@ class AccuracyObjective(Objective):
 
 
 class EfficiencyObjective(Objective):
-    """效率目标"""
+    """efficiency goal"""
 
     def __init__(self, weight: float = 1.0):
         super().__init__("efficiency", weight, minimize=False)
 
     def evaluate(self, solution: Dict[str, Any]) -> float:
-        # 效率可以是执行时间、内存使用等
-        # 归一化：越低越好，所以取反
+        # 效率可以是execute间、memory usage etc
+        # normalize：lower is better，所以取反
         efficiency = solution.get("efficiency", 0.0)
         return efficiency if not self.minimize else 1.0 - efficiency
 
 
 class MaintainabilityObjective(Objective):
-    """可维护性目标"""
+    """可维护性objective"""
 
     def __init__(self, weight: float = 1.0):
         super().__init__("maintainability", weight, minimize=False)
@@ -75,7 +75,7 @@ class MaintainabilityObjective(Objective):
 
 
 class CompositeObjective(Objective):
-    """复合目标 - 多个目标的加权和"""
+    """复合objective - 多个objective的加权和"""
 
     def __init__(self, name: str, objectives: list[Objective]):
         super().__init__(name, weight=1.0)
@@ -89,7 +89,7 @@ class CompositeObjective(Objective):
 
 
 def get_predefined_objectives() -> Dict[str, Objective]:
-    """获取预定义目标"""
+    """get预定义objective"""
     return {
         "accuracy": AccuracyObjective(),
         "efficiency": EfficiencyObjective(),

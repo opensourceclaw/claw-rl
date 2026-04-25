@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Ethics Rule Base - 伦理规则库
+Ethics Rule Base - Ethical Rules Library
 """
 
 import re
@@ -23,15 +23,15 @@ from typing import Any, Dict, List, Optional
 
 
 class RuleCategory(Enum):
-    """规则分类"""
-    LEGAL = "legal"          # 法律法规
+    """规then分class"""
+    LEGAL = "legal"          # legal法规
     SAFETY = "safety"        # 安全底线
     ETHICS = "ethics"        # 通用伦理
-    CUSTOM = "custom"        # 自定义规则
+    CUSTOM = "custom"        # 自定义规then
 
 
 class ViolationSeverity(Enum):
-    """违规严重程度"""
+    """违规严重程degree"""
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -40,12 +40,12 @@ class ViolationSeverity(Enum):
 
 @dataclass
 class EthicsRule:
-    """伦理规则"""
+    """伦理规then"""
     id: str
     name: str
     description: str
     category: RuleCategory
-    pattern: str  # 正则表达式或关键词
+    pattern: str  # 正then表达式或关key词
     severity: ViolationSeverity = ViolationSeverity.MEDIUM
     message: str = ""
     enabled: bool = True
@@ -65,7 +65,7 @@ class EthicsRule:
 
 @dataclass
 class CheckResult:
-    """检查结果"""
+    """check结果"""
     passed: bool
     violations: List[Dict[str, Any]] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
@@ -79,56 +79,56 @@ class CheckResult:
 
 
 class EthicsRuleBase:
-    """伦理规则库"""
+    """Ethical Rules Library"""
 
-    # 内置规则
+    # 内置规then
     DEFAULT_RULES = [
-        # 法律法规
+        # legal法规
         EthicsRule(
             id="legal_fraud",
             name="禁止欺诈",
-            description="不得进行欺诈行为",
+            description="not得进行欺诈行为",
             category=RuleCategory.LEGAL,
             pattern=r"(诈骗|欺诈|骗钱|假冒)",
             severity=ViolationSeverity.CRITICAL,
-            message="检测到疑似欺诈内容"
+            message="检测到疑似欺诈content"
         ),
         EthicsRule(
             id="legal_copyright",
             name="尊重版权",
-            description="不得侵犯版权",
+            description="not得侵犯版权",
             category=RuleCategory.LEGAL,
-            pattern=r"(盗版|侵权|破解)",
+            pattern=r"(盗版|侵权|破solution)",
             severity=ViolationSeverity.HIGH,
-            message="检测到疑似侵权内容"
+            message="检测到疑似侵权content"
         ),
         # 安全底线
         EthicsRule(
             id="safety_harm",
             name="禁止伤害",
-            description="不得伤害他人",
+            description="not得伤害他人",
             category=RuleCategory.SAFETY,
             pattern=r"(杀人|伤害|暴力|攻击)",
             severity=ViolationSeverity.CRITICAL,
-            message="检测到疑似伤害内容"
+            message="检测到疑似伤害content"
         ),
         EthicsRule(
             id="safety_privacy",
             name="保护隐私",
-            description="不得泄露隐私",
+            description="not得泄露隐私",
             category=RuleCategory.SAFETY,
-            pattern=r"(泄露.*密码|泄露.*地址|泄露.*电话)",
+            pattern=r"(泄露.*密码|泄露.*address|泄露.*电话)",
             severity=ViolationSeverity.HIGH,
             message="检测到疑似隐私泄露"
         ),
         EthicsRule(
             id="safety_malware",
             name="禁止恶意软件",
-            description="不得创建恶意软件",
+            description="not得create恶意软件",
             category=RuleCategory.SAFETY,
             pattern=r"(病毒|木马|蠕虫|勒索)",
             severity=ViolationSeverity.CRITICAL,
-            message="检测到疑似恶意软件相关内容"
+            message="检测到疑似恶意软件相关content"
         ),
         # 通用伦理
         EthicsRule(
@@ -138,36 +138,36 @@ class EthicsRuleBase:
             category=RuleCategory.ETHICS,
             pattern=r"(欺骗|说谎|虚假)",
             severity=ViolationSeverity.MEDIUM,
-            message="检测到疑似不诚实内容"
+            message="检测到疑似not诚实content"
         ),
         EthicsRule(
             id="ethics_fair",
             name="公平公正",
             description="应公平对待",
             category=RuleCategory.ETHICS,
-            pattern=r"(歧视|偏见|不公平)",
+            pattern=r"(歧视|偏见|not公平)",
             severity=ViolationSeverity.HIGH,
-            message="检测到疑似歧视内容"
+            message="检测到疑似歧视content"
         ),
     ]
 
     def __init__(self):
-        """初始化规则库"""
+        """initialize规then库"""
         self._rules: Dict[str, EthicsRule] = {}
         self._rules_by_category: Dict[RuleCategory, List[EthicsRule]] = {}
 
-        # 加载内置规则
+        # load内置规then
         for rule in self.DEFAULT_RULES:
             self._add_rule_internal(rule)
 
     def check_action(self, action: str) -> CheckResult:
-        """检查动作是否合规
+        """check动作是否合规
 
         Args:
-            action: 待检查的动作或内容
+            action: 待check的动作或content
 
         Returns:
-            CheckResult: 检查结果
+            CheckResult: check结果
         """
         violations = []
         warnings = []
@@ -176,7 +176,7 @@ class EthicsRuleBase:
             if not rule.enabled:
                 continue
 
-            # 使用正则表达式匹配
+            # 使用正then表达式match
             try:
                 if re.search(rule.pattern, action, re.IGNORECASE):
                     violations.append({
@@ -189,7 +189,7 @@ class EthicsRuleBase:
                     if rule.severity == ViolationSeverity.LOW:
                         warnings.append(rule.message or rule.description)
             except re.error:
-                # 如果正则表达式无效，使用简单的子串匹配
+                # if正then表达式invalid，使用简单的子串match
                 if rule.pattern.lower() in action.lower():
                     violations.append({
                         "rule_id": rule.id,
@@ -205,21 +205,21 @@ class EthicsRuleBase:
         )
 
     def add_rule(self, rule: EthicsRule) -> None:
-        """添加规则
+        """add规then
 
         Args:
-            rule: 伦理规则
+            rule: 伦理规then
         """
         self._add_rule_internal(rule)
 
     def remove_rule(self, rule_id: str) -> bool:
-        """移除规则
+        """remove规then
 
         Args:
-            rule_id: 规则 ID
+            rule_id: 规then ID
 
         Returns:
-            bool: 是否成功移除
+            bool: 是否successremove
         """
         if rule_id in self._rules:
             rule = self._rules[rule_id]
@@ -233,36 +233,36 @@ class EthicsRuleBase:
         return False
 
     def get_rules_by_category(self, category: RuleCategory) -> List[EthicsRule]:
-        """获取分类规则
+        """get分class规then
 
         Args:
-            category: 规则分类
+            category: 规then分class
 
         Returns:
-            List[EthicsRule]: 规则列表
+            List[EthicsRule]: 规thenlist
         """
         return self._rules_by_category.get(category, [])
 
     def get_all_rules(self) -> List[EthicsRule]:
-        """获取所有规则"""
+        """get所有规then"""
         return list(self._rules.values())
 
     def enable_rule(self, rule_id: str) -> bool:
-        """启用规则"""
+        """启用规then"""
         if rule_id in self._rules:
             self._rules[rule_id].enabled = True
             return True
         return False
 
     def disable_rule(self, rule_id: str) -> bool:
-        """禁用规则"""
+        """禁用规then"""
         if rule_id in self._rules:
             self._rules[rule_id].enabled = False
             return True
         return False
 
     def _add_rule_internal(self, rule: EthicsRule) -> None:
-        """内部添加规则方法"""
+        """内部add规thenmethod"""
         self._rules[rule.id] = rule
 
         if rule.category not in self._rules_by_category:

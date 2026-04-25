@@ -37,7 +37,7 @@ class LLMPRMJudge:
         
         reward, reason = judge.judge(
             action="Created file /workspace/test.md",
-            response="谢谢，很好！"
+            response="thanks，great！"
         )
         # Returns: (+1, "User expressed gratitude and praise")
     """
@@ -62,12 +62,12 @@ Respond with ONLY the score and a brief reason in this format:
 SCORE | REASON
 
 Examples:
-Action: "Created file test.md" | Response: "谢谢，很好！" → +1 | User expressed gratitude and praise
-Action: "Edited config.yaml" | Response: "不对，应该放这里" → -1 | User corrected the action
-Action: "Generated code" | Response: "然后呢？" → +1 | User wants to continue (satisfied)
-Action: "Fixed bug" | Response: "还是不行" → -1 | User indicates problem persists
-Action: "Added feature" | Response: "好的" → +1 | User acknowledged and accepted
-Action: "Created report" | Response: "重新做" → -1 | User requested redo (dissatisfied)
+Action: "Created file test.md" | Response: "thanks，great！" → +1 | User expressed gratitude and praise
+Action: "Edited config.yaml" | Response: "incorrect，shouldput here" → -1 | User corrected the action
+Action: "Generated code" | Response: "then？" → +1 | User wants to continue (satisfied)
+Action: "Fixed bug" | Response: "still not working" → -1 | User indicates problem persists
+Action: "Added feature" | Response: "okay" → +1 | User acknowledged and accepted
+Action: "Created report" | Response: "redo" → -1 | User requested redo (dissatisfied)
 
 Now evaluate:"""
     
@@ -228,16 +228,16 @@ Now evaluate:"""
     def _get_rule_reason(self, reward: int, response: str) -> str:
         """Get reason from rule-based judge"""
         if reward == 1:
-            if '谢谢' in response or '感谢' in response:
+            if 'thanks' in response or 'thank you' in response:
                 return "User expressed gratitude"
-            elif '好的' in response or '很好' in response:
+            elif 'okay' in response or 'great' in response:
                 return "User expressed approval"
             else:
                 return "User seems satisfied"
         elif reward == -1:
-            if '不对' in response or '错了' in response:
+            if 'incorrect' in response or 'wrong' in response:
                 return "User indicated error"
-            elif '应该' in response:
+            elif 'should' in response:
                 return "User provided correction"
             else:
                 return "User seems dissatisfied"

@@ -128,10 +128,10 @@ class ValuePreferenceLearner:
     def _initialize_default_preferences(self) -> None:
         """Initialize default value preferences"""
         default_values = [
-            ValuePreference(name="家庭", category="family", priority=8.0),
-            ValuePreference(name="财富", category="wealth", priority=7.0),
-            ValuePreference(name="健康", category="health", priority=9.0),
-            ValuePreference(name="事业", category="career", priority=7.0),
+            ValuePreference(name="family", category="family", priority=8.0),
+            ValuePreference(name="wealth", category="wealth", priority=7.0),
+            ValuePreference(name="health", category="health", priority=9.0),
+            ValuePreference(name="career", category="career", priority=7.0),
         ]
         
         for pref in default_values:

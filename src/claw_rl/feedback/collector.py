@@ -98,7 +98,7 @@ class FeedbackCollector:
         'positive'
         >>> 
         >>> # Collect text feedback
-        >>> fb = collector.collect_text("谢谢，很好！", source="webchat")
+        >>> fb = collector.collect_text("thanks，great！", source="webchat")
         >>> print(fb.signal)
         'positive'
         >>> 
@@ -114,18 +114,18 @@ class FeedbackCollector:
     
     # Positive text patterns
     POSITIVE_PATTERNS = [
-        "谢谢", "感谢", "多谢", "太感谢了",
-        "很好", "太好了", "不错", "好的", "正确", "对了", "完美", "满意", "喜欢",
-        "继续", "再来",
+        "thanks", "thank you", "多谢", "太thank you了",
+        "great", "awesome", "good", "okay", "correct", "对了", "perfect", "satisfied", "like",
+        "continue", "again",
         "👍", "👌", "✅", "😊", "😄",
     ]
     
     # Negative text patterns
     NEGATIVE_PATTERNS = [
-        "不对", "错了", "错误", "不正确", "有问题",
-        "应该", "应该是", "要", "需要",
-        "不满意", "不喜欢", "反对", "失望", "不好",
-        "不要", "别", "不是",
+        "incorrect", "wrong", "error", "notcorrect", "有问题",
+        "should", "should是", "要", "need",
+        "notsatisfied", "notlike", "反对", "disappointed", "not好",
+        "don't", "don't", "not",
         "👎", "❌", "😠",
     ]
     
@@ -431,13 +431,13 @@ class FeedbackCollector:
         # Check negative patterns first (corrections are more important)
         for pattern in self.NEGATIVE_PATTERNS:
             if pattern in text_lower:
-                confidence = 0.95 if pattern in ["应该", "错了"] else 0.9
+                confidence = 0.95 if pattern in ["should", "wrong"] else 0.9
                 return ("negative", confidence)
         
         # Check positive patterns
         for pattern in self.POSITIVE_PATTERNS:
             if pattern in text_lower:
-                confidence = 0.95 if pattern in ["谢谢", "很好"] else 0.9
+                confidence = 0.95 if pattern in ["thanks", "great"] else 0.9
                 return ("positive", confidence)
         
         # No pattern matched
@@ -458,45 +458,45 @@ class FeedbackCollector:
         
         text = text.strip()
         
-        # Pattern 1: "应该 X" → "操作前 X"
-        if text.startswith("应该"):
+        # Pattern 1: "should X" → "before operation X"
+        if text.startswith("should"):
             action = text[2:].strip()
             if action:
-                return ("should", f"操作前{action}")
+                return ("should", f"before operation{action}")
         
-        # Pattern 2: "不要 X" → "避免 X"
-        if text.startswith("不要"):
+        # Pattern 2: "don't X" → "avoid X"
+        if text.startswith("don't"):
             action = text[2:].strip()
             if action:
-                return ("should_not", f"避免{action}")
+                return ("should_not", f"avoid{action}")
         
-        # Pattern 3: "先 X 再 Y" → "顺序：先 X 再 Y"
-        if "先" in text and "再" in text:
-            first_idx = text.find("先")
+        # Pattern 3: "first X 再 Y" → "order：first X 再 Y"
+        if "first" in text and "再" in text:
+            first_idx = text.find("first")
             again_idx = text.find("再", first_idx + 1)
             if first_idx >= 0 and again_idx > first_idx:
                 step1 = text[first_idx+1:again_idx].strip()
                 step2 = text[again_idx+1:].strip()
                 if step1 and step2:
-                    return ("sequence", f"顺序：先{step1}再{step2}")
+                    return ("sequence", f"order：first{step1}再{step2}")
         
-        # Pattern 4: "如果 X，则 Y" → "条件：X → Y"
-        if "如果" in text and ("则" in text or "就" in text):
-            if_pos = text.find("如果")
+        # Pattern 4: "if X，then Y" → "condition：X → Y"
+        if "if" in text and ("then" in text or "then" in text):
+            if_pos = text.find("if")
             then_pos = -1
             then_word = ""
-            if "则" in text:
-                then_pos = text.find("则", if_pos + 2)
-                then_word = "则"
-            elif "就" in text:
-                then_pos = text.find("就", if_pos + 2)
-                then_word = "就"
+            if "then" in text:
+                then_pos = text.find("then", if_pos + 2)
+                then_word = "then"
+            elif "then" in text:
+                then_pos = text.find("then", if_pos + 2)
+                then_word = "then"
             
             if if_pos >= 0 and then_pos > if_pos:
                 condition = text[if_pos+2:then_pos].strip()
                 action = text[then_pos+1:].strip()
                 if condition and action:
-                    return ("conditional", f"条件：{condition} → {action}")
+                    return ("conditional", f"condition：{condition} → {action}")
         
         return (None, None)
     

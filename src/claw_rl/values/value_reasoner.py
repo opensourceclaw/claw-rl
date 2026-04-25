@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Value Reasoner - LLM 价值观推理
+Value Reasoner - LLM Value Reasoning
 """
 
 from dataclasses import dataclass, field
@@ -23,11 +23,11 @@ from enum import Enum
 
 
 class ReasoningType(Enum):
-    """推理类型"""
+    """推理class型"""
     ETHICS_ASSESSMENT = "ethics_assessment"     # 伦理评估
-    CONFLICT_RESOLUTION = "conflict_resolution" # 冲突解决
-    AMBIGUOUS_CASE = "ambiguous_case"           # 模糊场景
-    EXPLANATION = "explanation"                 # 决策解释
+    CONFLICT_RESOLUTION = "conflict_resolution" # 冲突solution决
+    AMBIGUOUS_CASE = "ambiguous_case"           # ambiguous scenario
+    EXPLANATION = "explanation"                 # 决策solution释
 
 
 @dataclass
@@ -65,27 +65,27 @@ class ReasoningResult:
 
 
 class ValueReasoner:
-    """价值观推理器 - 使用 LLM 进行复杂道德推理"""
+    """Value Reasoning器 - 使用 LLM 进行复杂道德推理"""
 
     def __init__(self, llm_provider: Optional[Any] = None):
-        """初始化推理器
+        """initialize推理器
 
         Args:
-            llm_provider: LLM 提供者，如果为 None 则使用模拟推理
+            llm_provider: LLM 提供者，if为 None then使用模拟推理
         """
         self.llm_provider = llm_provider
 
-        # 预定义的伦理原则（用于无 LLM 时的回退）
+        # 预定义的伦理原then（用于无 LLM 的回退）
         self._default_principles = [
-            "不伤害他人",
-            "尊重用户自主权",
+            "not伤害他人",
+            "尊重user自主权",
             "保持诚实",
             "保护隐私",
-            "遵守法律",
+            "遵守legal",
         ]
 
     def reason_ambiguous_case(self, context: ReasoningContext) -> ReasoningResult:
-        """模糊场景推理
+        """ambiguous scenario推理
 
         Args:
             context: 推理上下文
@@ -93,24 +93,24 @@ class ValueReasoner:
         Returns:
             ReasoningResult: 推理结果
         """
-        # 如果有 LLM，使用 LLM 推理
+        # if有 LLM，使用 LLM 推理
         if self.llm_provider:
             return self._llm_reason(context, ReasoningType.AMBIGUOUS_CASE)
 
-        # 否则使用规则回退
+        # 否then使用规then回退
         return self._rule_based_reason(context)
 
     def resolve_conflict(self, values_a: Dict[str, Any], values_b: Dict[str, Any]) -> ReasoningResult:
-        """多价值观冲突协调
+        """多价value观冲突协调
 
         Args:
-            values_a: 第一组价值观
-            values_b: 第二组价值观
+            values_a: 第一group价value观
+            values_b: 第二group价value观
 
         Returns:
             ReasoningResult: 推理结果
         """
-        # 提取冲突点
+        # extract conflict points
         conflicts = []
         for key in values_a:
             if key in values_b and values_a[key] != values_b[key]:
@@ -125,12 +125,12 @@ class ValueReasoner:
                 reasoning_type=ReasoningType.CONFLICT_RESOLUTION,
                 decision="allow",
                 confidence=1.0,
-                explanation="没有发现价值观冲突",
-                considerations=["价值观一致"]
+                explanation="没有发现价value观冲突",
+                considerations=["价value观一致"]
             )
 
-        # 简单的冲突解决策略
-        # 优先级：红线 > 原则 > 偏好
+        # 简单的冲突solution决策略
+        # 优first级：红线 > 原then > 偏好
         resolution = self._resolve_by_priority(values_a, values_b, conflicts)
 
         return ReasoningResult(
@@ -143,18 +143,18 @@ class ValueReasoner:
         )
 
     def generate_explanation(self, decision: Dict[str, Any]) -> ReasoningResult:
-        """生成决策解释
+        """生成决策solution释
 
         Args:
-            decision: 决策数据
+            decision: 决策data
 
         Returns:
-            ReasoningResult: 包含解释的推理结果
+            ReasoningResult: 包含solution释的推理结果
         """
         decision_type = decision.get("decision", "unknown")
         reason = decision.get("reason", "")
 
-        # 生成解释
+        # 生成solution释
         explanation = self._generate_explanation_text(decision_type, reason)
 
         return ReasoningResult(
@@ -162,7 +162,7 @@ class ValueReasoner:
             decision=decision_type,
             confidence=0.9,
             explanation=explanation,
-            considerations=[f"决策类型: {decision_type}", f"原因: {reason}"]
+            considerations=[f"决策class型: {decision_type}", f"reason: {reason}"]
         )
 
     def assess_ethics(self, action: str, context: ReasoningContext) -> ReasoningResult:
@@ -175,10 +175,10 @@ class ValueReasoner:
         Returns:
             ReasoningResult: 伦理评估结果
         """
-        # 基本伦理检查
+        # 基本伦理check
         ethical_issues = []
 
-        # 检查是否触犯基本原则
+        # check是否触犯基本原then
         action_lower = action.lower()
 
         harm_keywords = ["伤害", "杀", "攻击", "暴力"]
@@ -189,9 +189,9 @@ class ValueReasoner:
         dishonest_keywords = ["欺骗", "说谎", "虚假"]
         for kw in dishonest_keywords:
             if kw in action_lower:
-                ethical_issues.append(f"可能不诚实: {kw}")
+                ethical_issues.append(f"可能not诚实: {kw}")
 
-        privacy_keywords = ["泄露", "暴露", "偷看"]
+        privacy_keywords = ["泄露", "expose", "偷看"]
         for kw in privacy_keywords:
             if kw in action_lower:
                 ethical_issues.append(f"可能侵犯隐私: {kw}")
@@ -211,34 +211,34 @@ class ValueReasoner:
             reasoning_type=ReasoningType.ETHICS_ASSESSMENT,
             decision=decision,
             confidence=confidence,
-            explanation=self._generate_explanation_text(decision, "; ".join(ethical_issues) if ethical_issues else "通过伦理检查"),
+            explanation=self._generate_explanation_text(decision, "; ".join(ethical_issues) if ethical_issues else "通过伦理check"),
             considerations=ethical_issues,
             ethical_basis={"issues": ethical_issues, "action": action}
         )
 
     def _llm_reason(self, context: ReasoningContext, reasoning_type: ReasoningType) -> ReasoningResult:
         """使用 LLM 进行推理"""
-        # 构建提示
+        # build提示
         prompt = self._build_prompt(context, reasoning_type)
 
         # 调用 LLM
         response = self.llm_provider.complete(prompt)
 
-        # 解析结果
+        # parse结果
         return self._parse_llm_response(response, reasoning_type)
 
     def _rule_based_reason(self, context: ReasoningContext) -> ReasoningResult:
-        """基于规则的推理（无 LLM 时的回退）"""
+        """基于规then的推理（无 LLM 的回退）"""
         action = context.action.lower()
 
-        # 简单规则
+        # 简单规then
         if any(kw in action for kw in ["伤害", "杀", "攻击"]):
             return ReasoningResult(
                 reasoning_type=ReasoningType.AMBIGUOUS_CASE,
                 decision="deny",
                 confidence=0.9,
-                explanation="动作可能造成伤害",
-                considerations=["安全优先"]
+                explanation="action may cause harm",
+                considerations=["安全优first"]
             )
 
         if context.user_values:
@@ -249,8 +249,8 @@ class ValueReasoner:
                         reasoning_type=ReasoningType.AMBIGUOUS_CASE,
                         decision="deny",
                         confidence=0.95,
-                        explanation=f"触犯用户红线: {line}",
-                        considerations=["用户红线优先"]
+                        explanation=f"触犯user红线: {line}",
+                        considerations=["user红线优first"]
                     )
 
         return ReasoningResult(
@@ -258,67 +258,67 @@ class ValueReasoner:
             decision="allow",
             confidence=0.6,
             explanation="未发现明显问题",
-            considerations=["默认允许"]
+            considerations=["default允许"]
         )
 
     def _resolve_by_priority(self, values_a: Dict[str, Any], values_b: Dict[str, Any], conflicts: List[Dict]) -> Dict[str, Any]:
-        """按优先级解决冲突"""
-        # 优先级：red_lines > principles > preferences
+        """按优first级solution决冲突"""
+        # 优first级：red_lines > principles > preferences
 
-        # 检查红线冲突
+        # check红线冲突
         red_lines_a = values_a.get("red_lines", [])
         red_lines_b = values_b.get("red_lines", [])
 
         if red_lines_a and red_lines_b:
             return {
                 "decision": "human",
-                "explanation": "两个价值观都有红线，需要人工确认"
+                "explanation": "两个价value观都有红线，need人工确认"
             }
 
-        # 检查原则冲突
+        # check原then冲突
         principles_a = values_a.get("principles", [])
         principles_b = values_b.get("principles", [])
 
         if principles_a and principles_b:
             return {
                 "decision": "warn",
-                "explanation": "原则存在冲突，建议谨慎处理"
+                "explanation": "原then存在冲突，建议谨慎process"
             }
 
         return {
             "decision": "allow",
-            "explanation": "仅偏好冲突，可协商解决"
+            "explanation": "仅偏好冲突，可协商solution决"
         }
 
     def _generate_explanation_text(self, decision: str, reason: str) -> str:
-        """生成解释文本"""
+        """生成solution释文本"""
         decision_text = {
             "allow": "允许",
             "deny": "拒绝",
-            "warn": "警告后执行",
-            "human": "需要人工确认"
+            "warn": "warning后execute",
+            "human": "need人工确认"
         }
 
-        return f"决策: {decision_text.get(decision, decision)}。原因: {reason}"
+        return f"决策: {decision_text.get(decision, decision)}。reason: {reason}"
 
     def _build_prompt(self, context: ReasoningContext, reasoning_type: ReasoningType) -> str:
-        """构建 LLM 提示"""
-        return f"""请分析以下场景并给出伦理决策:
+        """build LLM 提示"""
+        return f"""请analyze以下场景并给出伦理决策:
 
-用户ID: {context.user_id}
+userID: {context.user_id}
 动作: {context.action}
 上下文: {context.context}
 
-请判断: 允许(allow)/拒绝(deny)/警告(warn)/人工确认(human)
-并给出解释。"""
+请判断: 允许(allow)/拒绝(deny)/warning(warn)/人工确认(human)
+并给出solution释。"""
 
     def _parse_llm_response(self, response: str, reasoning_type: ReasoningType) -> ReasoningResult:
-        """解析 LLM 响应"""
-        # 简单解析（实际应该更复杂）
+        """parse LLM response"""
+        # 简单parse（实际should更复杂）
         decision = "allow"
         if "拒绝" in response or "deny" in response.lower():
             decision = "deny"
-        elif "警告" in response or "warn" in response.lower():
+        elif "warning" in response or "warn" in response.lower():
             decision = "warn"
         elif "确认" in response or "human" in response.lower():
             decision = "human"

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Rule Store - 规则存储
+Rule Store - 规then存储
 """
 
 import json
@@ -23,13 +23,13 @@ from typing import Dict, Any, List, Optional
 
 
 class RuleStore:
-    """规则存储 - 本地 JSON 文件存储"""
+    """规then存储 - 本地 JSON file存储"""
 
     def __init__(self, storage_path: str = None):
-        """初始化规则存储
+        """initialize规then存储
 
         Args:
-            storage_path: 存储路径，默认 ~/.claw_rl/rules.json
+            storage_path: 存储path，default ~/.claw_rl/rules.json
         """
         if storage_path is None:
             home = Path.home()
@@ -40,7 +40,7 @@ class RuleStore:
         self._load()
 
     def _load(self) -> None:
-        """从文件加载规则"""
+        """从fileload规then"""
         if self.storage_path.exists():
             try:
                 with open(self.storage_path, 'r', encoding='utf-8') as f:
@@ -50,11 +50,11 @@ class RuleStore:
                 self._rules = {}
 
     def _save(self) -> None:
-        """保存规则到文件"""
-        # 确保目录存在
+        """save规then到file"""
+        # 确保directory存在
         self.storage_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # 保存数据
+        # savedata
         data = {
             'version': '1.0',
             'rules': self._rules,
@@ -65,13 +65,13 @@ class RuleStore:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
     def save_rule(self, rule: Dict[str, Any]) -> bool:
-        """保存规则
+        """save规then
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
 
         Returns:
-            bool: 是否保存成功
+            bool: 是否savesuccess
         """
         rule_id = rule.get('id')
         if not rule_id:
@@ -82,13 +82,13 @@ class RuleStore:
         return True
 
     def get_rule(self, rule_id: str) -> Optional[Dict[str, Any]]:
-        """获取规则
+        """get规then
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
 
         Returns:
-            Optional[Dict]: 规则，如果不存在返回None
+            Optional[Dict]: 规then，ifnot存在returnNone
         """
         return self._rules.get(rule_id)
 
@@ -96,20 +96,20 @@ class RuleStore:
         self,
         filters: Dict[str, Any] = None
     ) -> List[Dict[str, Any]]:
-        """列出规则
+        """列出规then
 
         Args:
-            filters: 过滤条件 (type, severity, version)
+            filters: filtercondition (type, severity, version)
 
         Returns:
-            List[Dict]: 规则列表
+            List[Dict]: 规thenlist
         """
         rules = list(self._rules.values())
 
         if not filters:
             return rules
 
-        # 应用过滤条件
+        # 应用filtercondition
         filtered = []
         for rule in rules:
             match = True
@@ -129,13 +129,13 @@ class RuleStore:
         return filtered
 
     def delete_rule(self, rule_id: str) -> bool:
-        """删除规则
+        """delete规then
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
 
         Returns:
-            bool: 是否删除成功
+            bool: 是否deletesuccess
         """
         if rule_id in self._rules:
             del self._rules[rule_id]
@@ -144,23 +144,23 @@ class RuleStore:
         return False
 
     def count_rules(self) -> int:
-        """获取规则数量
+        """get规thencount
 
         Returns:
-            int: 规则数量
+            int: 规thencount
         """
         return len(self._rules)
 
     def clear(self) -> None:
-        """清空所有规则"""
+        """清空所有规then"""
         self._rules = {}
         self._save()
 
     def get_statistics(self) -> Dict[str, Any]:
-        """获取规则统计信息
+        """get规thenstatisticsinfo
 
         Returns:
-            Dict: 统计信息
+            Dict: statisticsinfo
         """
         stats = {
             'total': len(self._rules),
@@ -170,15 +170,15 @@ class RuleStore:
         }
 
         for rule in self._rules.values():
-            # 按类型统计
+            # 按class型statistics
             rule_type = rule.get('type', 'unknown')
             stats['by_type'][rule_type] = stats['by_type'].get(rule_type, 0) + 1
 
-            # 按严重程度统计
+            # 按严重程degreestatistics
             severity = rule.get('severity', 'unknown')
             stats['by_severity'][severity] = stats['by_severity'].get(severity, 0) + 1
 
-            # 按版本统计
+            # 按版本statistics
             version = rule.get('version', 'unknown')
             stats['by_version'][version] = stats['by_version'].get(version, 0) + 1
 
@@ -186,10 +186,10 @@ class RuleStore:
 
     @staticmethod
     def _get_timestamp() -> str:
-        """获取当前时间戳
+        """getwhen前间戳
 
         Returns:
-            str: ISO 格式时间戳
+            str: ISO format间戳
         """
         from datetime import datetime, timezone
         return datetime.now(timezone.utc).isoformat()

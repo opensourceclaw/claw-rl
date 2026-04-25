@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Rule Importer - 规则导入器
+Rule Importer - 规thenimport器
 """
 
 import json
@@ -29,19 +29,19 @@ except ImportError:
 
 
 class RuleImporter:
-    """规则导入器 - 支持多种格式导入"""
+    """规thenimport器 - 支持多种formatimport"""
 
     def from_json(self, json_str: str) -> Dict[str, Any]:
-        """从 JSON 格式导入
+        """从 JSON formatimport
 
         Args:
-            json_str: JSON 格式的规则字符串
+            json_str: JSON format的规then字符串
 
         Returns:
-            Dict: 规则字典
+            Dict: 规thendict
 
         Raises:
-            ValueError: JSON 解析错误
+            ValueError: JSON parseerror
         """
         try:
             rule = json.loads(json_str)
@@ -50,17 +50,17 @@ class RuleImporter:
             raise ValueError(f"Invalid JSON: {e}")
 
     def from_yaml(self, yaml_str: str) -> Dict[str, Any]:
-        """从 YAML 格式导入
+        """从 YAML formatimport
 
         Args:
-            yaml_str: YAML 格式的规则字符串
+            yaml_str: YAML format的规then字符串
 
         Returns:
-            Dict: 规则字典
+            Dict: 规thendict
 
         Raises:
             ImportError: PyYAML 未安装
-            ValueError: YAML 解析错误
+            ValueError: YAML parseerror
         """
         if not YAML_AVAILABLE:
             raise ImportError("PyYAML is required for YAML import. Install with: pip install pyyaml")
@@ -72,13 +72,13 @@ class RuleImporter:
             raise ValueError(f"Invalid YAML: {e}")
 
     def from_markdown(self, md_str: str) -> Dict[str, Any]:
-        """从 Markdown 格式导入
+        """从 Markdown formatimport
 
         Args:
-            md_str: Markdown 格式的规则字符串
+            md_str: Markdown format的规then字符串
 
         Returns:
-            Dict: 规则字典
+            Dict: 规thendict
         """
         rule: Dict[str, Any] = {}
 
@@ -141,13 +141,13 @@ class RuleImporter:
         return rule
 
     def import_from_file(self, path: Path) -> Dict[str, Any]:
-        """从文件导入规则
+        """从fileimport规then
 
         Args:
-            path: 规则文件路径
+            path: 规thenfilepath
 
         Returns:
-            Dict: 规则字典
+            Dict: 规thendict
         """
         content = path.read_text(encoding="utf-8")
         suffix = path.suffix.lower()
@@ -162,13 +162,13 @@ class RuleImporter:
             raise ValueError(f"Unsupported file format: {suffix}")
 
     def import_multiple_from_file(self, path: Path) -> List[Dict[str, Any]]:
-        """从文件导入多个规则（JSON 数组格式）
+        """从fileimport多个规then（JSON 数groupformat）
 
         Args:
-            path: 规则文件路径
+            path: 规thenfilepath
 
         Returns:
-            List[Dict]: 规则字典列表
+            List[Dict]: 规thendictlist
         """
         content = path.read_text(encoding="utf-8")
         suffix = path.suffix.lower()
@@ -182,13 +182,13 @@ class RuleImporter:
             raise ValueError(f"Multiple import only supports JSON: {suffix}")
 
     def _clean_imported_rule(self, rule: Dict[str, Any]) -> Dict[str, Any]:
-        """清理导入的规则数据
+        """清理import的规thendata
 
         Args:
-            rule: 导入的规则字典
+            rule: import的规thendict
 
         Returns:
-            Dict: 清理后的规则
+            Dict: 清理后的规then
         """
         # Remove export metadata
         cleaned = {k: v for k, v in rule.items() if not k.startswith('_')}

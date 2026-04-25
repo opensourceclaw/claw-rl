@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Value Learner - 价值观隐式学习
+Value Learner - Implicit Value Learning
 """
 
 from dataclasses import dataclass, field
@@ -26,7 +26,7 @@ from claw_mem.values import UserValueStore
 
 
 class LearningSource(Enum):
-    """学习来源类型"""
+    """Learning Source Type"""
     EXPLICIT_CORRECTION = "explicit_correction"  # 明确纠正
     REPEATED_BEHAVIOR = "repeated_behavior"       # 重复行为
     REJECTED_SUGGESTION = "rejected_suggestion"   # 拒绝建议
@@ -57,7 +57,7 @@ class Interaction:
 
 @dataclass
 class ExtractedPrinciple:
-    """提取的原则"""
+    """提取的原then"""
     principle: str
     source: LearningSource
     confidence: float
@@ -75,13 +75,13 @@ class ExtractedPrinciple:
 
 
 class ValueLearner:
-    """价值观学习器 - 从交互中隐式学习用户价值观"""
+    """Value Learning器 - 从交互中隐式学习user价value观"""
 
     def __init__(self, value_store: Optional[UserValueStore] = None):
-        """初始化学习器
+        """initialize学习器
 
         Args:
-            value_store: 用户价值观存储，如果为 None 则创建新的
+            value_store: user价value观存储，if为 None thencreate新的
         """
         self.value_store = value_store or UserValueStore()
 
@@ -90,16 +90,16 @@ class ValueLearner:
         self._extracted_principles: Dict[str, List[ExtractedPrinciple]] = {}
 
     def learn_from_interaction(self, user_id: str, interaction: Dict[str, Any]) -> List[ExtractedPrinciple]:
-        """从交互中学习价值观
+        """从交互中学习价value观
 
         Args:
-            user_id: 用户 ID
-            interaction: 交互数据
+            user_id: user ID
+            interaction: 交互data
 
         Returns:
-            List[ExtractedPrinciple]: 提取的原则列表
+            List[ExtractedPrinciple]: 提取的原thenlist
         """
-        # 创建交互记录
+        # create交互记录
         interaction_record = Interaction(
             user_id=user_id,
             user_input=interaction.get("user_input", ""),
@@ -110,11 +110,11 @@ class ValueLearner:
 
         self._interaction_history.append(interaction_record)
 
-        # 根据反馈类型学习
+        # 根据反馈class型学习
         extracted = []
 
         if interaction_record.feedback_type == "correction":
-            # 用户明确纠正
+            # user明确纠正
             principle = self.extract_principle(interaction_record)
             if principle:
                 extracted.append(principle)
@@ -126,14 +126,14 @@ class ValueLearner:
             if red_line:
                 self.value_store.save_red_line(user_id, red_line)
                 extracted.append(ExtractedPrinciple(
-                    principle=f"不应该: {red_line}",
+                    principle=f"notshould: {red_line}",
                     source=LearningSource.REJECTED_SUGGESTION,
                     confidence=0.8,
                     evidence=[interaction_record.agent_response]
                 ))
 
         elif interaction_record.feedback_type == "positive":
-            # 正面反馈 - 确认当前做法
+            # 正面反馈 - 确认when前做法
             principle = self.extract_principle_from_positive(interaction_record)
             if principle:
                 extracted.append(principle)
@@ -141,13 +141,13 @@ class ValueLearner:
         return extracted
 
     def extract_principle(self, interaction: Interaction) -> Optional[ExtractedPrinciple]:
-        """从纠正反馈中提取原则
+        """从纠正反馈中提取原then
 
         Args:
             interaction: 交互记录
 
         Returns:
-            Optional[ExtractedPrinciple]: 提取的原则
+            Optional[ExtractedPrinciple]: 提取的原then
         """
         if not interaction.user_feedback:
             return None
@@ -156,10 +156,10 @@ class ValueLearner:
 
         # 常见的纠正模式
         correction_patterns = [
-            (r"不要(.*?)$", r"\1"),
-            (r"不应该(.*?)$", r"\1"),
-            (r"别(.*?)$", r"\1"),
-            (r"不要做(.*?)$", r"\1"),
+            (r"don't(.*?)$", r"\1"),
+            (r"notshould(.*?)$", r"\1"),
+            (r"don't(.*?)$", r"\1"),
+            (r"don't做(.*?)$", r"\1"),
             (r"禁止(.*?)$", r"\1"),
         ]
 
@@ -168,13 +168,13 @@ class ValueLearner:
             if match:
                 principle_text = match.group(1).strip()
                 return ExtractedPrinciple(
-                    principle=f"不应该{principle_text}",
+                    principle=f"notshould{principle_text}",
                     source=LearningSource.EXPLICIT_CORRECTION,
                     confidence=0.9,
                     evidence=[interaction.user_feedback, interaction.agent_response]
                 )
 
-        # 如果没有匹配模式，直接使用反馈作为原则
+        # if没有match模式，直接使用反馈作为原then
         return ExtractedPrinciple(
             principle=interaction.user_feedback,
             source=LearningSource.EXPLICIT_CORRECTION,
@@ -183,30 +183,30 @@ class ValueLearner:
         )
 
     def extract_principle_from_positive(self, interaction: Interaction) -> Optional[ExtractedPrinciple]:
-        """从正面反馈中提取原则
+        """从正面反馈中提取原then
 
         Args:
             interaction: 交互记录
 
         Returns:
-            Optional[ExtractedPrinciple]: 提取的原则
+            Optional[ExtractedPrinciple]: 提取的原then
         """
         if not interaction.user_feedback:
             return None
 
         # 正面反馈模式
         positive_patterns = [
-            r"很好",
-            r"不错",
-            r"对的",
-            r"正确",
-            r"满意",
+            r"great",
+            r"good",
+            r"correct",
+            r"correct",
+            r"satisfied",
             r"正是",
         ]
 
         feedback = interaction.user_feedback.lower()
         if any(re.search(p, feedback) for p in positive_patterns):
-            # 从 Agent 响应中提取被认可的部分
+            # 从 Agent response中提取被认可的部分
             return ExtractedPrinciple(
                 principle=f"保持: {interaction.agent_response[:100]}",
                 source=LearningSource.POSITIVE_FEEDBACK,
@@ -220,11 +220,11 @@ class ValueLearner:
         """从行为中检测偏好
 
         Args:
-            user_id: 用户 ID
+            user_id: user ID
             behavior: 行为描述
 
         Returns:
-            Dict: 检测到的偏好
+            Dict: detected preference
         """
         preferences = {}
 
@@ -234,7 +234,7 @@ class ValueLearner:
         # 风格偏好
         if any(word in behavior_lower for word in ["简洁", "简单", "short", "brief"]):
             preferences["style"] = "concise"
-        elif any(word in behavior_lower for word in ["详细", "详细说明", "详细解释"]):
+        elif any(word in behavior_lower for word in ["详细", "详细说明", "详细solution释"]):
             preferences["style"] = "detailed"
 
         # 语气偏好
@@ -243,8 +243,8 @@ class ValueLearner:
         elif any(word in behavior_lower for word in ["随意", "casual"]):
             preferences["tone"] = "casual"
 
-        # 格式偏好
-        if any(word in behavior_lower for word in ["列表", "list", " bullet"]):
+        # format偏好
+        if any(word in behavior_lower for word in ["list", "list", " bullet"]):
             preferences["format"] = "list"
         elif any(word in behavior_lower for word in ["段落", "paragraph"]):
             preferences["format"] = "paragraph"
@@ -252,10 +252,10 @@ class ValueLearner:
         return preferences
 
     def update_red_line(self, user_id: str, new_line: str) -> None:
-        """更新用户红线
+        """updateuser红线
 
         Args:
-            user_id: 用户 ID
+            user_id: user ID
             new_line: 新红线
         """
         self.value_store.save_red_line(user_id, new_line)
@@ -274,11 +274,11 @@ class ValueLearner:
 
         response = interaction.agent_response.lower()
 
-        # 常见的触犯红线的内容
+        # 常见的触犯红线的content
         red_line_patterns = {
             "攻击性语言": ["骂", "滚", "傻", "笨", "蠢"],
-            "不当建议": ["做坏事", "骗人", "作弊"],
-            "隐私相关": ["泄露", "暴露", "公开"],
+            "notwhen建议": ["do wrong", "骗人", "作弊"],
+            "隐私相关": ["泄露", "expose", "公开"],
         }
 
         for line_type, keywords in red_line_patterns.items():
@@ -288,11 +288,11 @@ class ValueLearner:
         return None
 
     def _save_learned_principle(self, user_id: str, principle: ExtractedPrinciple) -> None:
-        """保存学习到的原则
+        """save学习到的原then
 
         Args:
-            user_id: 用户 ID
-            principle: 提取的原则
+            user_id: user ID
+            principle: 提取的原then
         """
         self.value_store.save_principle(user_id, principle.principle)
 
@@ -302,10 +302,10 @@ class ValueLearner:
         self._extracted_principles[user_id].append(principle)
 
     def get_interaction_history(self, user_id: str) -> List[Interaction]:
-        """获取用户的交互历史
+        """getuser的交互历史
 
         Args:
-            user_id: 用户 ID
+            user_id: user ID
 
         Returns:
             List[Interaction]: 交互历史
@@ -313,13 +313,13 @@ class ValueLearner:
         return [i for i in self._interaction_history if i.user_id == user_id]
 
     def get_learned_principles(self, user_id: str) -> List[ExtractedPrinciple]:
-        """获取学习到的原则
+        """get学习到的原then
 
         Args:
-            user_id: 用户 ID
+            user_id: user ID
 
         Returns:
-            List[ExtractedPrinciple]: 原则列表
+            List[ExtractedPrinciple]: 原thenlist
         """
         return self._extracted_principles.get(user_id, [])
 

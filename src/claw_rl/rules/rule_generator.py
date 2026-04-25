@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Rule Generator - 将 Judge 结果转换为结构化规则
+Rule Generator - 将 Judge 结果convert为结构化规then
 """
 
 import re
@@ -23,7 +23,7 @@ from typing import Dict, Any, Optional
 
 
 class JudgeResult:
-    """Judge 结果数据模型"""
+    """Judge 结果data模型"""
 
     def __init__(
         self,
@@ -41,9 +41,9 @@ class JudgeResult:
 
 
 class RuleGenerator:
-    """规则生成器 - 将 Judge 结果转换为可复用的规则"""
+    """规then生成器 - 将 Judge 结果convert为可复用的规then"""
 
-    # 规则类型映射
+    # 规thenclass型映射
     RULE_TYPE_MAP = {
         'print': 'code_quality',
         'logging': 'code_quality',
@@ -59,11 +59,11 @@ class RuleGenerator:
         'convention': 'code_style',
     }
 
-    # 严重程度关键词映射
+    # 严重程degree关key词映射
     SEVERITY_KEYWORDS = {
         'critical': ['critical', '严重', '危险', 'vulnerability', '安全漏洞'],
-        'major': ['error', '错误', 'exception', 'bug', '问题'],
-        'minor': ['warning', '警告', '建议', 'consider', 'should'],
+        'major': ['error', 'error', 'exception', 'bug', '问题'],
+        'minor': ['warning', 'warning', '建议', 'consider', 'should'],
         'info': ['info', '提示', 'information', 'note'],
     }
 
@@ -71,13 +71,13 @@ class RuleGenerator:
 
     @classmethod
     def generate_rule(cls, judge_result: JudgeResult) -> Dict[str, Any]:
-        """将 Judge 结果转换为规则
+        """将 Judge 结果convert为规then
 
         Args:
             judge_result: Judge 评估结果
 
         Returns:
-            Dict: 结构化规则
+            Dict: 结构化规then
         """
         # 提取代码模式
         pattern = cls._extract_pattern(judge_result)
@@ -85,16 +85,16 @@ class RuleGenerator:
         # 生成改进建议
         suggestion = cls._extract_suggestion(judge_result)
 
-        # 计算严重程度
+        # calculate严重程degree
         severity = cls._calculate_severity(judge_result)
 
-        # 确定规则类型
+        # 确定规thenclass型
         rule_type = cls._determine_rule_type(judge_result)
 
-        # 生成规则ID
+        # 生成规thenID
         rule_id = cls._generate_rule_id()
 
-        # 构建规则
+        # build规then
         rule = {
             "id": rule_id,
             "type": rule_type,
@@ -137,21 +137,21 @@ class RuleGenerator:
                     # 提取有问题的代码模式
                     return cls._simplify_pattern(problematic_line)
 
-        # 默认返回代码开头的模式
+        # defaultreturn代码开头的模式
         first_line = result.code.split('\n')[0].strip() if result.code else ".*"
         return cls._simplify_pattern(first_line)
 
     @classmethod
     def _simplify_pattern(cls, code_line: str) -> str:
-        """简化代码行为正则表达式模式
+        """简化代码行为正then表达式模式
 
         Args:
             code_line: 代码行
 
         Returns:
-            str: 正则表达式模式
+            str: 正then表达式模式
         """
-        # 移除具体变量名，保留结构
+        # remove具体变量名，保留结构
         pattern = re.sub(r'\b\w+\b', 'WORD', code_line)
         # 转义特殊字符
         pattern = re.escape(pattern)
@@ -183,17 +183,17 @@ class RuleGenerator:
 
     @classmethod
     def _calculate_severity(cls, result: JudgeResult) -> str:
-        """计算严重程度
+        """calculate严重程degree
 
         Args:
             result: Judge 结果
 
         Returns:
-            str: 严重程度 (critical/major/minor/info)
+            str: 严重程degree (critical/major/minor/info)
         """
         feedback_lower = result.feedback.lower()
 
-        # 检查feedback中的关键词
+        # checkfeedback中的关key词
         for severity, keywords in cls.SEVERITY_KEYWORDS.items():
             if any(kw in feedback_lower for kw in keywords):
                 return severity
@@ -207,30 +207,30 @@ class RuleGenerator:
 
     @classmethod
     def _determine_rule_type(cls, result: JudgeResult) -> str:
-        """确定规则类型
+        """确定规thenclass型
 
         Args:
             result: Judge 结果
 
         Returns:
-            str: 规则类型
+            str: 规thenclass型
         """
         feedback_lower = result.feedback.lower()
 
-        # 检查关键词映射
+        # check关key词映射
         for keyword, rule_type in cls.RULE_TYPE_MAP.items():
             if keyword in feedback_lower:
                 return rule_type
 
-        # 默认类型
+        # defaultclass型
         return 'general'
 
     @classmethod
     def _generate_rule_id(cls) -> str:
-        """生成规则ID
+        """生成规thenID
 
         Returns:
-            str: 规则ID
+            str: 规thenID
         """
         cls._rule_counter += 1
         return f"rule_{cls._rule_counter:04d}"

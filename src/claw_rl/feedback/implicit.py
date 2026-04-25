@@ -306,7 +306,7 @@ class ImplicitFeedbackInference:
                 content_lower = action.content.lower()
                 is_correction = any(
                     word in content_lower 
-                    for word in ["不对", "错了", "应该", "不要", "不是", "重试", "再试"]
+                    for word in ["incorrect", "wrong", "should", "don't", "not", "retry", "try again"]
                 )
                 
                 if not is_correction and i > 0:

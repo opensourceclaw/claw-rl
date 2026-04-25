@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Rule Converter - 规则格式转换器
+Rule Converter - 规thenformatconvert器
 """
 
 from datetime import datetime, timezone
@@ -21,7 +21,7 @@ from typing import Any, Dict, Optional
 
 
 class RuleConverter:
-    """规则格式转换器 - 支持版本迁移"""
+    """规thenformatconvert器 - 支持版本迁移"""
 
     # 版本标识
     VERSION_PATTERNS = {
@@ -32,10 +32,10 @@ class RuleConverter:
     }
 
     def detect_version(self, rule: Dict[str, Any]) -> str:
-        """自动检测规则版本
+        """自动检测规then版本
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
 
         Returns:
             str: 版本号 (1.0, 2.0, 2.1, 2.2) 或 "unknown"
@@ -68,13 +68,13 @@ class RuleConverter:
         return "unknown"
 
     def convert_v1_to_v2(self, rule_v1: Dict[str, Any]) -> Dict[str, Any]:
-        """将 v1.0 格式迁移到 v2.2
+        """将 v1.0 format迁移到 v2.2
 
         Args:
-            rule_v1: v1.0 格式的规则
+            rule_v1: v1.0 format的规then
 
         Returns:
-            Dict: v2.2 格式的规则
+            Dict: v2.2 format的规then
         """
         rule_v2: Dict[str, Any] = {}
 
@@ -112,13 +112,13 @@ class RuleConverter:
         return rule_v2
 
     def convert_v2_to_v2_2(self, rule_v2: Dict[str, Any]) -> Dict[str, Any]:
-        """将 v2.0/v2.1 格式升级到 v2.2
+        """将 v2.0/v2.1 format升级到 v2.2
 
         Args:
-            rule_v2: v2.0 或 v2.1 格式的规则
+            rule_v2: v2.0 或 v2.1 format的规then
 
         Returns:
-            Dict: v2.2 格式的规则
+            Dict: v2.2 format的规then
         """
         rule_v2_2 = {**rule_v2}
 
@@ -154,15 +154,15 @@ class RuleConverter:
         return rule_v2_2
 
     def convert(self, rule: Dict[str, Any], from_version: Optional[str] = None, to_version: str = "2.2") -> Dict[str, Any]:
-        """通用转换方法
+        """通用convertmethod
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
             from_version: 源版本 (None 表示自动检测)
-            to_version: 目标版本
+            to_version: objective版本
 
         Returns:
-            Dict: 转换后的规则
+            Dict: convert后的规then
         """
         if from_version is None:
             from_version = self.detect_version(rule)
@@ -179,25 +179,25 @@ class RuleConverter:
         raise ValueError(f"Conversion from {from_version} to {to_version} is not supported")
 
     def convert_batch(self, rules: list[Dict[str, Any]], to_version: str = "2.2") -> list[Dict[str, Any]]:
-        """批量转换规则
+        """批量convert规then
 
         Args:
-            rules: 规则列表
-            to_version: 目标版本
+            rules: 规thenlist
+            to_version: objective版本
 
         Returns:
-            List[Dict]: 转换后的规则列表
+            List[Dict]: convert后的规thenlist
         """
         return [self.convert(rule, to_version=to_version) for rule in rules]
 
     def _convert_type(self, v1_type: str) -> str:
-        """转换类型标识
+        """convertclass型标识
 
         Args:
-            v1_type: v1 类型
+            v1_type: v1 class型
 
         Returns:
-            str: v2 类型
+            str: v2 class型
         """
         type_mapping = {
             'behavior': 'behavioral',
@@ -209,7 +209,7 @@ class RuleConverter:
         return type_mapping.get(v1_type.lower(), 'general')
 
     def _generate_id(self) -> str:
-        """生成规则 ID"""
+        """生成规then ID"""
         import uuid
         return f"migrated_{uuid.uuid4().hex[:8]}"
 

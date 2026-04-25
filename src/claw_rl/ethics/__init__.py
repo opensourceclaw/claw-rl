@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Ethics Module - 伦理规则库
+Ethics Module - Ethical Rules Library
 """
 
 from .rule_base import (

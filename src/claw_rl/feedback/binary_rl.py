@@ -23,41 +23,41 @@ class BinaryRLJudge:
     Binary RL reward judge with pattern matching.
     
     Analyzes user feedback to determine reward signals:
-    - +1: Positive feedback (谢谢，很好，etc.)
+    - +1: Positive feedback (thanks，great，etc.)
     - 0: Neutral feedback
-    - -1: Negative feedback (不对，错了，应该，etc.)
+    - -1: Negative feedback (incorrect，wrong，should，etc.)
     
     Example:
         >>> judge = BinaryRLJudge()
-        >>> reward, confidence = judge.judge("谢谢，很好！", "created file")
+        >>> reward, confidence = judge.judge("thanks，great！", "created file")
         >>> print(reward)
         1
     """
     
-    # Positive feedback patterns (谢谢，很好，etc.)
+    # Positive feedback patterns (thanks，great，etc.)
     POSITIVE_PATTERNS: List[str] = [
         # Gratitude
-        r'谢谢',
-        r'感谢',
+        r'thanks',
+        r'thank you',
         r'多谢',
-        r'太感谢了',
+        r'太thank you了',
         
         # Approval
-        r'很好',
-        r'太好了',
-        r'不错',
-        r'好的',
-        r'正确',
+        r'great',
+        r'awesome',
+        r'good',
+        r'okay',
+        r'correct',
         r'对了',
-        r'完美',
-        r'满意',
-        r'喜欢',
+        r'perfect',
+        r'satisfied',
+        r'like',
         r'赞同',
         r'支持',
         
         # Continuation (implies satisfaction)
-        r'继续',
-        r'再来',
+        r'continue',
+        r'again',
         r'还有吗',
         
         # Emoji (positive)
@@ -68,35 +68,35 @@ class BinaryRLJudge:
         r'😄',
     ]
     
-    # Negative feedback patterns (不对，错了，应该，etc.)
+    # Negative feedback patterns (incorrect，wrong，should，etc.)
     NEGATIVE_PATTERNS: List[str] = [
         # Incorrect
-        r'不对',
-        r'错了',
-        r'错误',
-        r'不正确',
+        r'incorrect',
+        r'wrong',
+        r'error',
+        r'notcorrect',
         r'错的',
         r'有问题',
         
         # Correction
-        r'应该',
-        r'应该是',
+        r'should',
+        r'should是',
         r'要',
-        r'需要',
+        r'need',
         r'得',
         
         # Dissatisfaction
-        r'不满意',
-        r'不喜欢',
+        r'notsatisfied',
+        r'notlike',
         r'反对',
-        r'失望',
-        r'不好',
+        r'disappointed',
+        r'not好',
         
         # Rejection
-        r'不要',
-        r'别',
-        r'不是',
-        r'不对',
+        r"don't",
+        r"don't",
+        r'not',
+        r'incorrect',
         
         # Questioning
         r'为什么',
@@ -125,10 +125,10 @@ class BinaryRLJudge:
         
         Examples:
             >>> judge = BinaryRLJudge()
-            >>> judge.judge("谢谢，很好！")
+            >>> judge.judge("thanks，great！")
             (1, 0.9)
             
-            >>> judge.judge("不对，应该放到这里")
+            >>> judge.judge("incorrect，shouldput here")
             (-1, 0.95)
             
             >>> judge.judge("嗯")
@@ -142,7 +142,7 @@ class BinaryRLJudge:
             if regex.search(feedback):
                 pattern_name = self.NEGATIVE_PATTERNS[i]
                 # Higher confidence for explicit correction patterns
-                confidence = 0.95 if '应该' in pattern_name or '错了' in pattern_name else 0.9
+                confidence = 0.95 if 'should' in pattern_name or 'wrong' in pattern_name else 0.9
                 return (-1, confidence)
         
         # Check positive patterns
@@ -150,7 +150,7 @@ class BinaryRLJudge:
             if regex.search(feedback):
                 pattern_name = self.POSITIVE_PATTERNS[i]
                 # Higher confidence for explicit patterns
-                confidence = 0.95 if '谢谢' in pattern_name or '很好' in pattern_name else 0.9
+                confidence = 0.95 if 'thanks' in pattern_name or 'great' in pattern_name else 0.9
                 return (+1, confidence)
         
         # Neutral (no pattern matched)
@@ -169,11 +169,11 @@ class BinaryRLJudge:
         
         Example:
             >>> judge = BinaryRLJudge()
-            >>> result = judge.judge_with_reason("谢谢！")
+            >>> result = judge.judge_with_reason("thanks！")
             >>> print(result.reward)
             1
             >>> print(result.pattern_matched)
-            '谢谢'
+            'thanks'
         """
         if not feedback or not feedback.strip():
             return RewardResult(reward=0, confidence=0.0, pattern_matched=None)
@@ -185,7 +185,7 @@ class BinaryRLJudge:
             if regex.search(feedback_lower):
                 return RewardResult(
                     reward=-1,
-                    confidence=0.95 if '应该' in self.NEGATIVE_PATTERNS[i] or '错了' in self.NEGATIVE_PATTERNS[i] else 0.9,
+                    confidence=0.95 if 'should' in self.NEGATIVE_PATTERNS[i] or 'wrong' in self.NEGATIVE_PATTERNS[i] else 0.9,
                     pattern_matched=self.NEGATIVE_PATTERNS[i]
                 )
         
@@ -194,7 +194,7 @@ class BinaryRLJudge:
             if regex.search(feedback_lower):
                 return RewardResult(
                     reward=+1,
-                    confidence=0.95 if '谢谢' in self.POSITIVE_PATTERNS[i] or '很好' in self.POSITIVE_PATTERNS[i] else 0.9,
+                    confidence=0.95 if 'thanks' in self.POSITIVE_PATTERNS[i] or 'great' in self.POSITIVE_PATTERNS[i] else 0.9,
                     pattern_matched=self.POSITIVE_PATTERNS[i]
                 )
         

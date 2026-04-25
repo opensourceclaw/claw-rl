@@ -26,10 +26,10 @@ class OPDHintExtractor:
     Extract OPD hints from user corrections using string methods.
     
     Supports multiple pattern types:
-    - should: "应该 X" → "操作前 X"
-    - should_not: "不要 X" → "避免 X"
-    - sequence: "先 X 再 Y" → "顺序：先 X 再 Y"
-    - conditional: "如果 X，则 Y" → "条件：X → Y"
+    - should: "should X" → "before operation X"
+    - should_not: "don't X" → "avoid X"
+    - sequence: "first X 再 Y" → "order：first X 再 Y"
+    - conditional: "if X，then Y" → "condition：X → Y"
     """
     
     def extract(self, feedback: str) -> Optional[OPDHint]:
@@ -47,32 +47,32 @@ class OPDHintExtractor:
         
         feedback = feedback.strip()
         
-        # Pattern 1: "应该 X" → "操作前 X"
-        if feedback.startswith("应该"):
-            action = feedback[2:].strip()  # Remove "应该" (2 characters)
+        # Pattern 1: "should X" → "before operation X"
+        if feedback.startswith("should"):
+            action = feedback[2:].strip()  # Remove "should" (2 characters)
             if action:
                 return OPDHint(
                     hint_type='should',
-                    content=f"操作前{action}",
+                    content=f"before operation{action}",
                     priority=3,
                     confidence=0.9
                 )
         
-        # Pattern 2: "不要 X" → "避免 X"
-        if feedback.startswith("不要"):
-            action = feedback[2:].strip()  # Remove "不要" (2 characters)
+        # Pattern 2: "don't X" → "avoid X"
+        if feedback.startswith("don't"):
+            action = feedback[2:].strip()  # Remove "don't" (2 characters)
             if action:
                 return OPDHint(
                     hint_type='should_not',
-                    content=f"避免{action}",
+                    content=f"avoid{action}",
                     priority=4,
                     confidence=0.9
                 )
         
-        # Pattern 3: "先 X 再 Y" → "顺序：先 X 再 Y"
-        if "先" in feedback and "再" in feedback:
+        # Pattern 3: "first X 再 Y" → "order：first X 再 Y"
+        if "first" in feedback and "再" in feedback:
             # Find positions
-            first_idx = feedback.find("先")
+            first_idx = feedback.find("first")
             again_idx = feedback.find("再", first_idx + 1)
             if first_idx >= 0 and again_idx > first_idx:
                 step1 = feedback[first_idx+1:again_idx].strip()
@@ -80,22 +80,22 @@ class OPDHintExtractor:
                 if step1 and step2:
                     return OPDHint(
                         hint_type='sequence',
-                        content=f"顺序：先{step1}再{step2}",
+                        content=f"order：first{step1}再{step2}",
                         priority=5,
                         confidence=0.95
                     )
         
-        # Pattern 4: "如果 X，则 Y" → "条件：X → Y"
-        if "如果" in feedback and ("则" in feedback or "就" in feedback):
-            if_pos = feedback.find("如果")
+        # Pattern 4: "if X，then Y" → "condition：X → Y"
+        if "if" in feedback and ("then" in feedback or "then" in feedback):
+            if_pos = feedback.find("if")
             then_pos = -1
             then_word = ""
-            if "则" in feedback:
-                then_pos = feedback.find("则", if_pos + 2)
-                then_word = "则"
-            elif "就" in feedback:
-                then_pos = feedback.find("就", if_pos + 2)
-                then_word = "就"
+            if "then" in feedback:
+                then_pos = feedback.find("then", if_pos + 2)
+                then_word = "then"
+            elif "then" in feedback:
+                then_pos = feedback.find("then", if_pos + 2)
+                then_word = "then"
             
             if if_pos >= 0 and then_pos > if_pos:
                 condition = feedback[if_pos+2:then_pos].strip()
@@ -103,7 +103,7 @@ class OPDHintExtractor:
                 if condition and action:
                     return OPDHint(
                         hint_type='conditional',
-                        content=f"条件：{condition} → {action}",
+                        content=f"condition：{condition} → {action}",
                         priority=4,
                         confidence=0.85
                     )
@@ -134,9 +134,9 @@ class OPDHintExtractor:
         return {
             'pattern_types': 4,
             'patterns': [
-                '应该 X',
-                '不要 X', 
-                '先 X 再 Y',
-                '如果 X，则 Y',
+                'should X',
+                'dont X', 
+                'first X 再 Y',
+                'if X，then Y',
             ]
         }

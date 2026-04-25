@@ -124,11 +124,11 @@ class MemoryConsciousnessSync:
     ```
     ┌──────────────┐              ┌──────────────┐
     │  claw-mem    │◄────────────►│  claw-rl     │
-    │  (Memory)    │   双向同步    │  (Learning)  │
+    │  (Memory)    │   bidirectional sync    │  (Learning)  │
     │              │              │              │
-    │  - Store     │  1. 写入规则  │  - Extract   │
-    │  - Retrieve  │  2. 读取模式  │  - Learn     │
-    │  - Index     │  3. 更新信号  │  - Optimize  │
+    │  - Store     │  1. write rules  │  - Extract   │
+    │  - Retrieve  │  2. read mode  │  - Learn     │
+    │  - Index     │  3. update signal  │  - Optimize  │
     └──────────────┘              └──────────────┘
              │                           │
              └──────────┬────────────────┘

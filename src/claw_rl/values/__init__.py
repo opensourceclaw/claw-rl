@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Values Module - 价值观学习
+Values Module - Value Learning
 """
 
 from .value_learner import ValueLearner, Interaction, ExtractedPrinciple, LearningSource

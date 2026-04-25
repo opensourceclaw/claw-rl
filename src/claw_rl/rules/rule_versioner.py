@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Rule Versioner - 规则版本化管理
+Rule Versioner - 规then版本化管理
 """
 
 from datetime import datetime, timezone
@@ -21,30 +21,30 @@ from typing import Dict, Any, List, Optional
 
 
 class RuleVersioner:
-    """规则版本管理器 - 创建/查询/回滚规则版本"""
+    """规then版本管理器 - create/查询/回滚规then版本"""
 
     def __init__(self):
-        # 存储规则版本历史: {rule_id: [versions]}
+        # 存储规then版本历史: {rule_id: [versions]}
         self._versions: Dict[str, List[Dict[str, Any]]] = {}
 
     def create_version(self, rule: Dict[str, Any]) -> Dict[str, Any]:
-        """创建新版本
+        """create新版本
 
         Args:
-            rule: 规则字典
+            rule: 规thendict
 
         Returns:
-            Dict: 带有版本信息的规则
+            Dict: 带有版本info的规then
         """
         rule_id = rule.get('id')
         if not rule_id:
             raise ValueError("Rule must have an ID")
 
-        # 获取当前版本号
+        # getwhen前版本号
         current_version = self._get_current_version(rule_id)
         new_version = f"{float(current_version) + 0.1:.1f}"
 
-        # 创建版本记录
+        # create版本记录
         version_record = {
             **rule,
             'version': new_version,
@@ -52,39 +52,39 @@ class RuleVersioner:
             'is_current': True
         }
 
-        # 更新历史
+        # update历史
         if rule_id not in self._versions:
             self._versions[rule_id] = []
 
-        # 将之前的版本标记为非当前
+        # 将之前的版本标记为非when前
         for v in self._versions[rule_id]:
             v['is_current'] = False
 
-        # 添加新版本
+        # add新版本
         self._versions[rule_id].append(version_record)
 
         return version_record
 
     def get_history(self, rule_id: str) -> List[Dict[str, Any]]:
-        """获取规则历史版本
+        """get规then历史版本
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
 
         Returns:
-            List[Dict]: 版本历史列表
+            List[Dict]: 版本历史list
         """
         return self._versions.get(rule_id, [])
 
     def get_version(self, rule_id: str, version: str) -> Optional[Dict[str, Any]]:
-        """获取指定版本
+        """get指定版本
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
             version: 版本号
 
         Returns:
-            Optional[Dict]: 规则版本，如果不存在返回None
+            Optional[Dict]: 规then版本，ifnot存在returnNone
         """
         versions = self._versions.get(rule_id, [])
         for v in versions:
@@ -96,17 +96,17 @@ class RuleVersioner:
         """回滚到指定版本
 
         Args:
-            rule_id: 规则ID
-            version: 目标版本号
+            rule_id: 规thenID
+            version: objective版本号
 
         Returns:
-            Optional[Dict]: 回滚后的规则，如果不存在返回None
+            Optional[Dict]: 回滚后的规then，ifnot存在returnNone
         """
         target_version = self.get_version(rule_id, version)
         if not target_version:
             return None
 
-        # 创建新版本（不回滚原版本，保留历史）
+        # create新版本（not回滚原版本，保留历史）
         new_rule = {
             **target_version,
             'version': self._get_next_version(rule_id),
@@ -115,7 +115,7 @@ class RuleVersioner:
             'is_current': True
         }
 
-        # 更新历史
+        # update历史
         for v in self._versions[rule_id]:
             v['is_current'] = False
 
@@ -124,13 +124,13 @@ class RuleVersioner:
         return new_rule
 
     def get_current_version(self, rule_id: str) -> Optional[Dict[str, Any]]:
-        """获取当前版本
+        """getwhen前版本
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
 
         Returns:
-            Optional[Dict]: 当前版本的规则
+            Optional[Dict]: when前版本的规then
         """
         versions = self._versions.get(rule_id, [])
         for v in versions:
@@ -139,7 +139,7 @@ class RuleVersioner:
         return None
 
     def list_all_versions(self) -> Dict[str, List[str]]:
-        """列出所有规则的版本
+        """列出所有规then的版本
 
         Returns:
             Dict: {rule_id: [versions]}
@@ -150,13 +150,13 @@ class RuleVersioner:
         }
 
     def _get_current_version(self, rule_id: str) -> float:
-        """获取当前版本号
+        """getwhen前版本号
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
 
         Returns:
-            float: 当前版本号
+            float: when前版本号
         """
         versions = self._versions.get(rule_id, [])
         if not versions:
@@ -175,10 +175,10 @@ class RuleVersioner:
         return max_version
 
     def _get_next_version(self, rule_id: str) -> str:
-        """获取下一个版本号
+        """get下一个版本号
 
         Args:
-            rule_id: 规则ID
+            rule_id: 规thenID
 
         Returns:
             str: 下一个版本号
