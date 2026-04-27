@@ -16,7 +16,7 @@ This package provides self-learning capabilities for AI agents:
 Version: 2.0.0-rc.2
 """
 
-__version__ = "2.1.0"
+__version__ = "2.3.0"
 __author__ = "OpenClaw Team"
 
 # Pattern Recognition (Sprint 1)
@@ -182,6 +182,24 @@ from .observability import (
     RuleChangeType,
 )
 
+# Visualization (v2.4.0)
+from .visualization import (
+    RuleVisualizer,
+    RuleMetrics,
+    RuleEvolution,
+    RuleQuality,
+    get_visualizer,
+)
+
+# Distributed Learning (v2.4.0)
+from .distributed import (
+    LearningSync,
+    LearningAgent,
+    SharedRule,
+    SyncStatus,
+    get_learning_sync,
+)
+
 __all__ = [
     # Version
     '__version__',
@@ -317,4 +335,18 @@ __all__ = [
     'RuleChangeEvent',
     'RuleSnapshot',
     'RuleChangeType',
+
+    # Visualization (v2.4.0)
+    'RuleVisualizer',
+    'RuleMetrics',
+    'RuleEvolution',
+    'RuleQuality',
+    'get_visualizer',
+
+    # Distributed Learning (v2.4.0)
+    'LearningSync',
+    'LearningAgent',
+    'SharedRule',
+    'SyncStatus',
+    'get_learning_sync',
 ]
