@@ -15,7 +15,7 @@
 """
 Portability Module - 规then可移植性
 
-提供规then的export、import和formatconvert功能。
+提供规then的export,import和formatconvert功能.
 """
 
 from .exporter import RuleExporter

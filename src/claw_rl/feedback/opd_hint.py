@@ -28,8 +28,8 @@ class OPDHintExtractor:
     Supports multiple pattern types:
     - should: "should X" → "before operation X"
     - should_not: "don't X" → "avoid X"
-    - sequence: "first X 再 Y" → "order：first X 再 Y"
-    - conditional: "if X，then Y" → "condition：X → Y"
+    - sequence: "first X 再 Y" → "order:first X 再 Y"
+    - conditional: "if X,then Y" → "condition:X → Y"
     """
     
     def extract(self, feedback: str) -> Optional[OPDHint]:
@@ -69,7 +69,7 @@ class OPDHintExtractor:
                     confidence=0.9
                 )
         
-        # Pattern 3: "first X 再 Y" → "order：first X 再 Y"
+        # Pattern 3: "first X 再 Y" → "order:first X 再 Y"
         if "first" in feedback and "再" in feedback:
             # Find positions
             first_idx = feedback.find("first")
@@ -80,12 +80,12 @@ class OPDHintExtractor:
                 if step1 and step2:
                     return OPDHint(
                         hint_type='sequence',
-                        content=f"order：first{step1}再{step2}",
+                        content=f"order:first{step1}再{step2}",
                         priority=5,
                         confidence=0.95
                     )
         
-        # Pattern 4: "if X，then Y" → "condition：X → Y"
+        # Pattern 4: "if X,then Y" → "condition:X → Y"
         if "if" in feedback and ("then" in feedback or "then" in feedback):
             if_pos = feedback.find("if")
             then_pos = -1
@@ -103,7 +103,7 @@ class OPDHintExtractor:
                 if condition and action:
                     return OPDHint(
                         hint_type='conditional',
-                        content=f"condition：{condition} → {action}",
+                        content=f"condition:{condition} → {action}",
                         priority=4,
                         confidence=0.85
                     )
@@ -137,6 +137,6 @@ class OPDHintExtractor:
                 'should X',
                 'dont X', 
                 'first X 再 Y',
-                'if X，then Y',
+                'if X,then Y',
             ]
         }

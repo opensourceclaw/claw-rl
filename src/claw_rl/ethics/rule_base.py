@@ -189,7 +189,7 @@ class EthicsRuleBase:
                     if rule.severity == ViolationSeverity.LOW:
                         warnings.append(rule.message or rule.description)
             except re.error:
-                # if正then表达式invalid，使用简单的子串match
+                # if正then表达式invalid,使用简单的子串match
                 if rule.pattern.lower() in action.lower():
                     violations.append({
                         "rule_id": rule.id,

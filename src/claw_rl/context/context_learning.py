@@ -272,7 +272,7 @@ class ContextLearner:
             
             # If high satisfaction, reinforce pattern
             if decision.satisfaction >= 0.8:
-                return f"when{context.emotion}，you prefer{decision.chosen_option}（satisfieddegree{decision.satisfaction:.0%}）"
+                return f"when{context.emotion},you prefer{decision.chosen_option}(satisfieddegree{decision.satisfaction:.0%})"
         
         return None
     

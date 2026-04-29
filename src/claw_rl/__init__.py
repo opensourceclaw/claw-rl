@@ -16,7 +16,7 @@ This package provides self-learning capabilities for AI agents:
 Version: 2.0.0-rc.2
 """
 
-__version__ = "2.3.0"
+__version__ = "2.4.0"
 __author__ = "OpenClaw Team"
 
 # Pattern Recognition (Sprint 1)

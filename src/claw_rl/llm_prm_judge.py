@@ -37,7 +37,7 @@ class LLMPRMJudge:
         
         reward, reason = judge.judge(
             action="Created file /workspace/test.md",
-            response="thanks，great！"
+            response="thanks,great!"
         )
         # Returns: (+1, "User expressed gratitude and praise")
     """
@@ -62,9 +62,9 @@ Respond with ONLY the score and a brief reason in this format:
 SCORE | REASON
 
 Examples:
-Action: "Created file test.md" | Response: "thanks，great！" → +1 | User expressed gratitude and praise
-Action: "Edited config.yaml" | Response: "incorrect，shouldput here" → -1 | User corrected the action
-Action: "Generated code" | Response: "then？" → +1 | User wants to continue (satisfied)
+Action: "Created file test.md" | Response: "thanks,great!" → +1 | User expressed gratitude and praise
+Action: "Edited config.yaml" | Response: "incorrect,shouldput here" → -1 | User corrected the action
+Action: "Generated code" | Response: "then?" → +1 | User wants to continue (satisfied)
 Action: "Fixed bug" | Response: "still not working" → -1 | User indicates problem persists
 Action: "Added feature" | Response: "okay" → +1 | User acknowledged and accepted
 Action: "Created report" | Response: "redo" → -1 | User requested redo (dissatisfied)

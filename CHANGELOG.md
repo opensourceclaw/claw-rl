@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🎯 Major Release: "从能学习到持续智能学习"
 
-v2.1.0 核心目标是让 claw-rl 从被动学习系统升级为主动智能学习系统。
+v2.1.0 核心目标是让 claw-rl 从被动学习系统升级为主动智能学习系统.
 
 ### Added
 

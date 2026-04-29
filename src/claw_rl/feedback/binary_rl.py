@@ -23,18 +23,18 @@ class BinaryRLJudge:
     Binary RL reward judge with pattern matching.
     
     Analyzes user feedback to determine reward signals:
-    - +1: Positive feedback (thanks，great，etc.)
+    - +1: Positive feedback (thanks,great,etc.)
     - 0: Neutral feedback
-    - -1: Negative feedback (incorrect，wrong，should，etc.)
+    - -1: Negative feedback (incorrect,wrong,should,etc.)
     
     Example:
         >>> judge = BinaryRLJudge()
-        >>> reward, confidence = judge.judge("thanks，great！", "created file")
+        >>> reward, confidence = judge.judge("thanks,great!", "created file")
         >>> print(reward)
         1
     """
     
-    # Positive feedback patterns (thanks，great，etc.)
+    # Positive feedback patterns (thanks,great,etc.)
     POSITIVE_PATTERNS: List[str] = [
         # Gratitude
         r'thanks',
@@ -68,7 +68,7 @@ class BinaryRLJudge:
         r'😄',
     ]
     
-    # Negative feedback patterns (incorrect，wrong，should，etc.)
+    # Negative feedback patterns (incorrect,wrong,should,etc.)
     NEGATIVE_PATTERNS: List[str] = [
         # Incorrect
         r'incorrect',
@@ -125,10 +125,10 @@ class BinaryRLJudge:
         
         Examples:
             >>> judge = BinaryRLJudge()
-            >>> judge.judge("thanks，great！")
+            >>> judge.judge("thanks,great!")
             (1, 0.9)
             
-            >>> judge.judge("incorrect，shouldput here")
+            >>> judge.judge("incorrect,shouldput here")
             (-1, 0.95)
             
             >>> judge.judge("嗯")
@@ -169,7 +169,7 @@ class BinaryRLJudge:
         
         Example:
             >>> judge = BinaryRLJudge()
-            >>> result = judge.judge_with_reason("thanks！")
+            >>> result = judge.judge_with_reason("thanks!")
             >>> print(result.reward)
             1
             >>> print(result.pattern_matched)

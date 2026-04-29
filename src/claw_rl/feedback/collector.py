@@ -98,7 +98,7 @@ class FeedbackCollector:
         'positive'
         >>> 
         >>> # Collect text feedback
-        >>> fb = collector.collect_text("thanks，great！", source="webchat")
+        >>> fb = collector.collect_text("thanks,great!", source="webchat")
         >>> print(fb.signal)
         'positive'
         >>> 
@@ -470,7 +470,7 @@ class FeedbackCollector:
             if action:
                 return ("should_not", f"avoid{action}")
         
-        # Pattern 3: "first X 再 Y" → "order：first X 再 Y"
+        # Pattern 3: "first X 再 Y" → "order:first X 再 Y"
         if "first" in text and "再" in text:
             first_idx = text.find("first")
             again_idx = text.find("再", first_idx + 1)
@@ -478,9 +478,9 @@ class FeedbackCollector:
                 step1 = text[first_idx+1:again_idx].strip()
                 step2 = text[again_idx+1:].strip()
                 if step1 and step2:
-                    return ("sequence", f"order：first{step1}再{step2}")
+                    return ("sequence", f"order:first{step1}再{step2}")
         
-        # Pattern 4: "if X，then Y" → "condition：X → Y"
+        # Pattern 4: "if X,then Y" → "condition:X → Y"
         if "if" in text and ("then" in text or "then" in text):
             if_pos = text.find("if")
             then_pos = -1
@@ -496,7 +496,7 @@ class FeedbackCollector:
                 condition = text[if_pos+2:then_pos].strip()
                 action = text[then_pos+1:].strip()
                 if condition and action:
-                    return ("conditional", f"condition：{condition} → {action}")
+                    return ("conditional", f"condition:{condition} → {action}")
         
         return (None, None)
     

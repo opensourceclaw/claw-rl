@@ -2,7 +2,7 @@
 
 ## 测试结果
 
-✅ 所有测试通过：
+✅ 所有测试通过:
 - TypeScript 编译成功
 - Bridge 模块正常
 - JSON-RPC 通信测试通过 (6/6)
@@ -19,12 +19,12 @@ cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.backup.$(date +%Y%m%d_%H%
 
 ### Step 2: 禁用 contextEngine slot
 
-编辑 `~/.openclaw/openclaw.json`，确保：
+编辑 `~/.openclaw/openclaw.json`,确保:
 
 ```json
 {
   "plugins": {
-    "slots": {},  // 清空 slots，不替换 legacy context engine
+    "slots": {},  // 清空 slots,不替换 legacy context engine
     "entries": {
       "claw-rl": {
         "enabled": true,
@@ -37,7 +37,7 @@ cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.backup.$(date +%Y%m%d_%H%
 
 ### Step 3: 观察 OpenClaw 日志
 
-打开一个终端，持续观察日志：
+打开一个终端,持续观察日志:
 
 ```bash
 openclaw logs --follow | grep -E "claw-rl|Context engine|registerContextEngine"
@@ -55,19 +55,19 @@ openclaw gateway restart
 openclaw plugins list | grep -A 3 "claw-rl"
 ```
 
-期望看到：
+期望看到:
 - Status: `loaded` (不是 `disabled`)
 - 没有错误日志
 
 ### Step 6: 测试 Plugin 功能
 
-在新的 OpenClaw 会话中，尝试调用 Tools：
+在新的 OpenClaw 会话中,尝试调用 Tools:
 
 ```
 learning_status
 ```
 
-期望返回：
+期望返回:
 ```json
 {
   "initialized": true,
@@ -79,9 +79,9 @@ learning_status
 }
 ```
 
-### Step 7: 启用 contextEngine slot（可选）
+### Step 7: 启用 contextEngine slot(可选)
 
-如果 Step 6 成功，可以尝试启用 contextEngine：
+如果 Step 6 成功,可以尝试启用 contextEngine:
 
 ```json
 {
@@ -99,31 +99,31 @@ learning_status
 }
 ```
 
-然后重启 Gateway 并观察日志。
+然后重启 Gateway 并观察日志.
 
 ## 回滚方案
 
-如果出现问题：
+如果出现问题:
 
-1. 恢复备份配置：
+1. 恢复备份配置:
    ```bash
    cp ~/.openclaw/openclaw.json.backup.XXXXXX ~/.openclaw/openclaw.json
    ```
 
-2. 重启 Gateway：
+2. 重启 Gateway:
    ```bash
    openclaw gateway restart
    ```
 
-3. 禁用 Plugin：
+3. 禁用 Plugin:
    ```bash
    openclaw plugins disable claw-rl
    ```
 
 ## 已知问题
 
-1. **contextEngine slot 问题**：如果看到 `Context engine "claw-rl" is not registered`，说明 Context Engine 注册有问题，需要检查 API 签名。
+1. **contextEngine slot 问题**:如果看到 `Context engine "claw-rl" is not registered`,说明 Context Engine 注册有问题,需要检查 API 签名.
 
-2. **Hook 事件名称**：使用正确的事件名称（`session_start` 而不是 `before_session_start`）。
+2. **Hook 事件名称**:使用正确的事件名称(`session_start` 而不是 `before_session_start`).
 
-3. **Bridge 启动失败**：检查 PYTHONPATH 和 Python 路径配置。
+3. **Bridge 启动失败**:检查 PYTHONPATH 和 Python 路径配置.

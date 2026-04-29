@@ -48,23 +48,23 @@ class TestCase:
 # Test dataset for accuracy benchmarking
 ACCURACY_TEST_CASES = [
     # Positive cases (should return +1)
-    TestCase("Created file", "谢谢！", 1, "Simple thanks"),
-    TestCase("Created file", "很好，继续", 1, "Positive with continue"),
-    TestCase("Created file", "完美！", 1, "Strong positive"),
-    TestCase("Created file", "好的，谢谢", 1, "Acknowledgment with thanks"),
+    TestCase("Created file", "谢谢!", 1, "Simple thanks"),
+    TestCase("Created file", "很好,继续", 1, "Positive with continue"),
+    TestCase("Created file", "完美!", 1, "Strong positive"),
+    TestCase("Created file", "好的,谢谢", 1, "Acknowledgment with thanks"),
     TestCase("Created file", "不错", 1, "Mild positive"),
     TestCase("Fixed bug", "问题解决了", 1, "Problem solved"),
     TestCase("Added feature", "这正是我想要的", 1, "Exact match"),
-    TestCase("Created file", "太棒了！", 1, "Enthusiastic positive"),
+    TestCase("Created file", "太棒了!", 1, "Enthusiastic positive"),
     TestCase("Refactored code", "代码更清晰了", 1, "Quality improvement noted"),
     TestCase("Updated docs", "文档很清楚", 1, "Clear documentation"),
     
     # Negative cases (should return -1)
-    TestCase("Created file", "不对，应该是另一个目录", -1, "Correction"),
-    TestCase("Created file", "错了，重来", -1, "Explicit error"),
+    TestCase("Created file", "不对,应该是另一个目录", -1, "Correction"),
+    TestCase("Created file", "错了,重来", -1, "Explicit error"),
     TestCase("Created file", "应该放在别处", -1, "Should be elsewhere"),
     TestCase("Created file", "这不是我想要的", -1, "Not what I wanted"),
-    TestCase("Created file", "不行，重做", -1, "Rejection"),
+    TestCase("Created file", "不行,重做", -1, "Rejection"),
     TestCase("Fixed bug", "还有问题", -1, "Still broken"),
     TestCase("Added feature", "功能不对", -1, "Wrong feature"),
     TestCase("Created file", "格式错了", -1, "Format error"),
@@ -73,26 +73,26 @@ ACCURACY_TEST_CASES = [
     
     # Neutral cases (should return 0)
     TestCase("Created file", "嗯", 0, "Minimal acknowledgment"),
-    TestCase("Created file", "这是什么？", 0, "Question without correction"),
+    TestCase("Created file", "这是什么?", 0, "Question without correction"),
     TestCase("Created file", "让我看看", 0, "Neutral pending"),
-    TestCase("Fixed bug", "还有其他问题吗？", 0, "Follow-up question"),
+    TestCase("Fixed bug", "还有其他问题吗?", 0, "Follow-up question"),
     TestCase("Added feature", "测试一下", 0, "Will test"),
     TestCase("Refactored code", "看看效果", 0, "Pending evaluation"),
     TestCase("Updated docs", "收到", 0, "Received acknowledgment"),
     
     # Edge cases
     TestCase("Created file", "应该是 A 不是 B", -1, "Correction with alternatives"),
-    TestCase("Created file", "谢谢，但有个小问题", 1, "Thanks with minor issue (thanks wins)"),
-    TestCase("Created file", "好的，但是...", -1, "Acknowledgment with but"),
-    TestCase("Created file", "不错，如果能更好就好了", 1, "Positive with suggestion (不错 wins)"),
-    TestCase("Created file", "谢谢你的帮助，这很有用", 1, "Detailed thanks"),
+    TestCase("Created file", "谢谢,但有个小问题", 1, "Thanks with minor issue (thanks wins)"),
+    TestCase("Created file", "好的,但是...", -1, "Acknowledgment with but"),
+    TestCase("Created file", "不错,如果能更好就好了", 1, "Positive with suggestion (不错 wins)"),
+    TestCase("Created file", "谢谢你的帮助,这很有用", 1, "Detailed thanks"),
     
     # Mixed signals (challenging)
-    TestCase("Created file", "谢谢，但不对", -1, "Correction after thanks (不对 wins)"),
-    TestCase("Created file", "很好，但应该改一下", -1, "Positive but correction (应该 wins)"),
-    TestCase("Created file", "好的，然后再创建一个", 1, "Continue after acknowledgment (好的 wins)"),
-    TestCase("Created file", "行，继续", 1, "Proceed (继续 wins)"),
-    TestCase("Created file", "可以，就这样", 0, "Acceptable (no pattern match)"),
+    TestCase("Created file", "谢谢,但不对", -1, "Correction after thanks (不对 wins)"),
+    TestCase("Created file", "很好,但应该改一下", -1, "Positive but correction (应该 wins)"),
+    TestCase("Created file", "好的,然后再创建一个", 1, "Continue after acknowledgment (好的 wins)"),
+    TestCase("Created file", "行,继续", 1, "Proceed (继续 wins)"),
+    TestCase("Created file", "可以,就这样", 0, "Acceptable (no pattern match)"),
 ]
 
 
@@ -228,7 +228,7 @@ class TestBenchmarkLatency:
         judge.config['cache_enabled'] = True
         
         action = "Created file"
-        response = "谢谢，很好！"
+        response = "谢谢,很好!"
         
         # First call (cache miss)
         start = time.perf_counter()
@@ -293,7 +293,7 @@ class TestBenchmarkFallback:
         judge.config['fallback_to_rules'] = True
         
         # LLM clients should not be available (no API keys set)
-        result = judge.judge("Action", "谢谢！")
+        result = judge.judge("Action", "谢谢!")
         
         # Should fall back to rules
         assert result is not None

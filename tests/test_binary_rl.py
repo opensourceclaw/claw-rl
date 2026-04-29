@@ -79,7 +79,7 @@ class TestBinaryRLJudge:
     # Detailed result tests
     def test_judge_with_reason_positive(self, judge):
         """Test judge_with_reason for positive feedback."""
-        result = judge.judge_with_reason("谢谢，很好！")
+        result = judge.judge_with_reason("谢谢,很好!")
         assert isinstance(result, RewardResult)
         assert result.reward == 1
         assert result.pattern_matched is not None
@@ -112,13 +112,13 @@ class TestBinaryRLJudge:
     # Edge cases
     def test_mixed_feedback_positive_dominant(self, judge):
         """Test mixed feedback where positive dominates."""
-        reward, confidence = judge.judge("谢谢，但是有点问题")
+        reward, confidence = judge.judge("谢谢,但是有点问题")
         # Should match "谢谢" first
         assert reward == 1
     
     def test_mixed_feedback_negative_dominant(self, judge):
         """Test mixed feedback where negative dominates."""
-        reward, confidence = judge.judge("很好，但是应该那样")
+        reward, confidence = judge.judge("很好,但是应该那样")
         # Should match "应该" 
         assert reward == -1
     
@@ -130,7 +130,7 @@ class TestBinaryRLJudge:
     
     def test_partial_match(self, judge):
         """Test partial pattern matching."""
-        result = judge.judge_with_reason("太感谢了！")
+        result = judge.judge_with_reason("太感谢了!")
         assert result.reward == 1
         assert result.pattern_matched and '感谢' in result.pattern_matched
     

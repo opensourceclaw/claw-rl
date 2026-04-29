@@ -84,7 +84,7 @@ class RuleVersioner:
             version: 版本号
 
         Returns:
-            Optional[Dict]: 规then版本，ifnot存在returnNone
+            Optional[Dict]: 规then版本,ifnot存在returnNone
         """
         versions = self._versions.get(rule_id, [])
         for v in versions:
@@ -100,13 +100,13 @@ class RuleVersioner:
             version: objective版本号
 
         Returns:
-            Optional[Dict]: 回滚后的规then，ifnot存在returnNone
+            Optional[Dict]: 回滚后的规then,ifnot存在returnNone
         """
         target_version = self.get_version(rule_id, version)
         if not target_version:
             return None
 
-        # create新版本（not回滚原版本，保留历史）
+        # create新版本(not回滚原版本,保留历史)
         new_rule = {
             **target_version,
             'version': self._get_next_version(rule_id),

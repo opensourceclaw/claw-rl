@@ -71,11 +71,11 @@ class ValueReasoner:
         """initialize推理器
 
         Args:
-            llm_provider: LLM 提供者，if为 None then使用模拟推理
+            llm_provider: LLM 提供者,if为 None then使用模拟推理
         """
         self.llm_provider = llm_provider
 
-        # 预定义的伦理原then（用于无 LLM 的回退）
+        # 预定义的伦理原then(用于无 LLM 的回退)
         self._default_principles = [
             "not伤害他人",
             "尊重user自主权",
@@ -93,7 +93,7 @@ class ValueReasoner:
         Returns:
             ReasoningResult: 推理结果
         """
-        # if有 LLM，使用 LLM 推理
+        # if有 LLM,使用 LLM 推理
         if self.llm_provider:
             return self._llm_reason(context, ReasoningType.AMBIGUOUS_CASE)
 
@@ -130,7 +130,7 @@ class ValueReasoner:
             )
 
         # 简单的冲突solution决策略
-        # 优first级：红线 > 原then > 偏好
+        # 优first级:红线 > 原then > 偏好
         resolution = self._resolve_by_priority(values_a, values_b, conflicts)
 
         return ReasoningResult(
@@ -228,7 +228,7 @@ class ValueReasoner:
         return self._parse_llm_response(response, reasoning_type)
 
     def _rule_based_reason(self, context: ReasoningContext) -> ReasoningResult:
-        """基于规then的推理（无 LLM 的回退）"""
+        """基于规then的推理(无 LLM 的回退)"""
         action = context.action.lower()
 
         # 简单规then
@@ -263,7 +263,7 @@ class ValueReasoner:
 
     def _resolve_by_priority(self, values_a: Dict[str, Any], values_b: Dict[str, Any], conflicts: List[Dict]) -> Dict[str, Any]:
         """按优first级solution决冲突"""
-        # 优first级：red_lines > principles > preferences
+        # 优first级:red_lines > principles > preferences
 
         # check红线冲突
         red_lines_a = values_a.get("red_lines", [])
@@ -272,7 +272,7 @@ class ValueReasoner:
         if red_lines_a and red_lines_b:
             return {
                 "decision": "human",
-                "explanation": "两个价value观都有红线，need人工确认"
+                "explanation": "两个价value观都有红线,need人工确认"
             }
 
         # check原then冲突
@@ -282,12 +282,12 @@ class ValueReasoner:
         if principles_a and principles_b:
             return {
                 "decision": "warn",
-                "explanation": "原then存在冲突，建议谨慎process"
+                "explanation": "原then存在冲突,建议谨慎process"
             }
 
         return {
             "decision": "allow",
-            "explanation": "仅偏好冲突，可协商solution决"
+            "explanation": "仅偏好冲突,可协商solution决"
         }
 
     def _generate_explanation_text(self, decision: str, reason: str) -> str:
@@ -299,7 +299,7 @@ class ValueReasoner:
             "human": "need人工确认"
         }
 
-        return f"决策: {decision_text.get(decision, decision)}。reason: {reason}"
+        return f"决策: {decision_text.get(decision, decision)}.reason: {reason}"
 
     def _build_prompt(self, context: ReasoningContext, reasoning_type: ReasoningType) -> str:
         """build LLM 提示"""
@@ -310,11 +310,11 @@ userID: {context.user_id}
 上下文: {context.context}
 
 请判断: 允许(allow)/拒绝(deny)/warning(warn)/人工确认(human)
-并给出solution释。"""
+并给出solution释."""
 
     def _parse_llm_response(self, response: str, reasoning_type: ReasoningType) -> ReasoningResult:
         """parse LLM response"""
-        # 简单parse（实际should更复杂）
+        # 简单parse(实际should更复杂)
         decision = "allow"
         if "拒绝" in response or "deny" in response.lower():
             decision = "deny"

@@ -29,7 +29,7 @@ class ParetoOptimizer:
         """initializeoptimize器
 
         Args:
-            objectives: objectivelist，if为 None then使用预定义objective
+            objectives: objectivelist,if为 None then使用预定义objective
         """
         if objectives is None:
             self.objectives = list(get_predefined_objectives().values())
@@ -46,7 +46,7 @@ class ParetoOptimizer:
         """execute Pareto optimize
 
         Args:
-            candidates: 候选solutionlist（dict形式）
+            candidates: 候选solutionlist(dict形式)
             normalize: 是否normalizeobjectivevalue
 
         Returns:

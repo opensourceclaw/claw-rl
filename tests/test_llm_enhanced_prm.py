@@ -83,7 +83,7 @@ class TestLLMEnhancedPRMJudge:
         """Test judging positive gratitude"""
         judge = LLMEnhancedPRMJudge()
         
-        result = judge.judge("Created file", "谢谢！")
+        result = judge.judge("Created file", "谢谢!")
         
         assert result.reward == 1
         assert result.confidence >= 0.9
@@ -93,7 +93,7 @@ class TestLLMEnhancedPRMJudge:
         """Test judging positive approval"""
         judge = LLMEnhancedPRMJudge()
         
-        result = judge.judge("Edited file", "很好！")
+        result = judge.judge("Edited file", "很好!")
         
         assert result.reward == 1
         assert result.confidence >= 0.9
@@ -103,7 +103,7 @@ class TestLLMEnhancedPRMJudge:
         """Test judging negative correction"""
         judge = LLMEnhancedPRMJudge()
         
-        result = judge.judge("Created file", "不对，应该放这里")
+        result = judge.judge("Created file", "不对,应该放这里")
         
         assert result.reward == -1
         assert result.confidence >= 0.9
@@ -262,7 +262,7 @@ class TestLLMEnhancedPRMJudge:
         judge = LLMEnhancedPRMJudge()
         
         # Very clear positive signal
-        result = judge.judge("action", "谢谢，非常好！")
+        result = judge.judge("action", "谢谢,非常好!")
         
         # Should use rule-based (source='rule') due to high confidence
         assert result.source == 'rule'
@@ -374,7 +374,7 @@ class TestEdgeCases:
         """Test very long response"""
         judge = LLMEnhancedPRMJudge()
         
-        long_response = "这是一段很长的回复，" * 100 + "谢谢"
+        long_response = "这是一段很长的回复," * 100 + "谢谢"
         result = judge.judge("action", long_response)
         
         # Should still detect "谢谢"
@@ -384,7 +384,7 @@ class TestEdgeCases:
         """Test response with special characters"""
         judge = LLMEnhancedPRMJudge()
         
-        result = judge.judge("action", "谢谢！👍✅")
+        result = judge.judge("action", "谢谢!👍✅")
         
         assert result.reward == 1
     
@@ -393,6 +393,6 @@ class TestEdgeCases:
         judge = LLMEnhancedPRMJudge()
         
         # "不对" appears first, should be negative
-        result = judge.judge("action", "不对，应该这样，谢谢")
+        result = judge.judge("action", "不对,应该这样,谢谢")
         
         assert result.reward == -1

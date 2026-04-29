@@ -35,35 +35,35 @@ class TestScenarioRules:
 
     def test_detect_investment_scenario(self, rules):
         """Test investment scenario detection"""
-        text = "我想投资股票，应该怎么做？"
+        text = "我想投资股票,应该怎么做?"
         detected = rules.detect_scenario(text)
 
         assert ScenarioType.INVESTMENT in detected
 
     def test_detect_medical_scenario(self, rules):
         """Test medical scenario detection"""
-        text = "我感冒了，应该吃什么药？"
+        text = "我感冒了,应该吃什么药?"
         detected = rules.detect_scenario(text)
 
         assert ScenarioType.MEDICAL in detected
 
     def test_detect_legal_scenario(self, rules):
         """Test legal scenario detection"""
-        text = "我想起诉某人，应该怎么做？"
+        text = "我想起诉某人,应该怎么做?"
         detected = rules.detect_scenario(text)
 
         assert ScenarioType.LEGAL in detected
 
     def test_detect_financial_scenario(self, rules):
         """Test financial scenario detection"""
-        text = "如何合理避税？"
+        text = "如何合理避税?"
         detected = rules.detect_scenario(text)
 
         assert ScenarioType.FINANCIAL in detected
 
     def test_check_investment_rule_pass(self, rules):
         """Test investment rule check passes"""
-        text = "投资有风险，请谨慎，不保证收益，可能亏损"
+        text = "投资有风险,请谨慎,不保证收益,可能亏损"
         result = rules.check_scenario(text, ScenarioType.INVESTMENT)
 
         assert result["passed"] is True
@@ -108,7 +108,7 @@ class TestScenarioRulesIntegration:
     def test_multiple_scenario_detection(self):
         """Test detecting multiple scenarios"""
         rules = ScenarioRules()
-        text = "我想要投资股票，顺便看看法律问题"
+        text = "我想要投资股票,顺便看看法律问题"
 
         detected = rules.detect_scenario(text)
 

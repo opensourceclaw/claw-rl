@@ -157,7 +157,7 @@ class RuleValidator:
             matches = sum(1 for sample in samples if regex.search(sample))
             return matches / len(samples)
         except re.error:
-            # ifpatternnotvalid的正then表达式，直接字符串match
+            # ifpatternnotvalid的正then表达式,直接字符串match
             matches = sum(1 for sample in samples if pattern in sample)
             return matches / len(samples)
 
@@ -191,7 +191,7 @@ class RuleValidator:
             re.compile(pattern)
             return True
         except re.error:
-            # ifnot正then表达式，至少should是非空字符串
+            # ifnot正then表达式,至少should是非空字符串
             return len(pattern) > 0
 
     @classmethod

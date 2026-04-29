@@ -1,7 +1,7 @@
 """
 Rule Visualization Module for claw-rl v2.4.0
 
-提供规则学习过程可视化和质量评估。
+提供规则学习过程可视化和质量评估.
 """
 
 from typing import List, Dict, Any, Optional
@@ -45,7 +45,7 @@ class RuleVisualizer:
     """
     规则可视化器
 
-    展示规则学习过程和质量评估。
+    展示规则学习过程和质量评估.
     """
 
     def __init__(self):

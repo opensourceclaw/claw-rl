@@ -21,21 +21,21 @@ claw-rl v0.9.0 introduces contextual learning capabilities, enabling the system 
 
 - Records decision context (emotion, time, situation, urgency)
 - Auto-detects time of day and day of week
-- Learns patterns: "当{emotion}时，您倾向于选择{option}"
+- Learns patterns: "当{emotion}时,您倾向于选择{option}"
 - Pattern search by emotion/decision_type
 - Decision history with context
 - Learning statistics
 
 **Example:**
 ```
-记录决策：
-  情绪：焦虑
-  情境：家庭
-  选择：组合方案
-  满意度：85%
+记录决策:
+  情绪:焦虑
+  情境:家庭
+  选择:组合方案
+  满意度:85%
 
-学习到的模式：
-  "当焦虑时，您倾向于选择组合方案（满意度 85%）"
+学习到的模式:
+  "当焦虑时,您倾向于选择组合方案(满意度 85%)"
 ```
 
 ---

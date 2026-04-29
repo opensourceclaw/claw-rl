@@ -69,7 +69,7 @@ class TestOPDHintExtractor:
     # Sequence pattern tests
     def test_sequence_pattern(self, extractor):
         """Test '先 X 再 Y' pattern."""
-        hint = extractor.extract("先确认目录，再创建文件")
+        hint = extractor.extract("先确认目录,再创建文件")
         assert hint is not None
         assert hint.hint_type == 'sequence'
         assert '确认目录' in hint.content
@@ -83,8 +83,8 @@ class TestOPDHintExtractor:
     
     # Conditional pattern tests
     def test_conditional_pattern(self, extractor):
-        """Test '如果 X，则 Y' pattern."""
-        hint = extractor.extract("如果是配置文件，则放到 config 目录")
+        """Test '如果 X,则 Y' pattern."""
+        hint = extractor.extract("如果是配置文件,则放到 config 目录")
         assert hint is not None
         assert hint.hint_type == 'conditional'
         assert '配置文件' in hint.content
@@ -158,7 +158,7 @@ class TestOPDHintExtractor:
     
     def test_mixed_patterns_priority(self, extractor):
         """Test that sequence pattern has higher priority."""
-        hint = extractor.extract("先确认目录，再创建文件")
+        hint = extractor.extract("先确认目录,再创建文件")
         assert hint is not None
         assert hint.priority == 5  # Sequence has highest priority
     
@@ -170,8 +170,8 @@ class TestOPDHintExtractor:
         ("不要这样做", 'should_not'),
         ("先 A 再 B", 'sequence'),
         ("先确认再执行", 'sequence'),
-        ("如果 X，则 Y", 'conditional'),
-        ("如果是这样，就那样", 'conditional'),
+        ("如果 X,则 Y", 'conditional'),
+        ("如果是这样,就那样", 'conditional'),
         ("谢谢", None),
         ("很好", None),
         ("", None),

@@ -81,7 +81,7 @@ class ValueLearner:
         """initialize学习器
 
         Args:
-            value_store: user价value观存储，if为 None thencreate新的
+            value_store: user价value观存储,if为 None thencreate新的
         """
         self.value_store = value_store or UserValueStore()
 
@@ -174,7 +174,7 @@ class ValueLearner:
                     evidence=[interaction.user_feedback, interaction.agent_response]
                 )
 
-        # if没有match模式，直接使用反馈作为原then
+        # if没有match模式,直接使用反馈作为原then
         return ExtractedPrinciple(
             principle=interaction.user_feedback,
             source=LearningSource.EXPLICIT_CORRECTION,

@@ -26,7 +26,7 @@ def test_learning_loop_process_feedback_positive():
     
     # Test positive feedback
     result = loop.process_feedback(
-        feedback="很好！",
+        feedback="很好!",
         action="created file"
     )
     
@@ -43,7 +43,7 @@ def test_learning_loop_process_feedback_negative():
     
     # Test negative feedback
     result = loop.process_feedback(
-        feedback="不对，应该放到这里",
+        feedback="不对,应该放到这里",
         action="created file"
     )
     

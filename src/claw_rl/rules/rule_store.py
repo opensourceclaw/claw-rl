@@ -29,7 +29,7 @@ class RuleStore:
         """initialize规then存储
 
         Args:
-            storage_path: 存储path，default ~/.claw_rl/rules.json
+            storage_path: 存储path,default ~/.claw_rl/rules.json
         """
         if storage_path is None:
             home = Path.home()
@@ -88,7 +88,7 @@ class RuleStore:
             rule_id: 规thenID
 
         Returns:
-            Optional[Dict]: 规then，ifnot存在returnNone
+            Optional[Dict]: 规then,ifnot存在returnNone
         """
         return self._rules.get(rule_id)
 

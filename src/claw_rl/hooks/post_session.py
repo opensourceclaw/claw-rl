@@ -63,8 +63,8 @@ class PostSessionHook:
             session_id="session_001",
             user_id="peter",
             turns=[
-                Turn(turn_id=1, action="Created file", next_state="thanks，great！"),
-                Turn(turn_id=2, action="Edited file", next_state="incorrect，shouldput here")
+                Turn(turn_id=1, action="Created file", next_state="thanks,great!"),
+                Turn(turn_id=2, action="Edited file", next_state="incorrect,shouldput here")
             ]
         ))
         print(result.summary)
@@ -186,9 +186,9 @@ class PostSessionHook:
             if match:
                 return f"avoid{match.group(1).strip()}"
         
-        # Pattern: "first X 再 Y" -> "order：first X 再 Y"
+        # Pattern: "first X 再 Y" -> "order:first X 再 Y"
         if 'first' in correction and '再' in correction:
-            return f"order：{correction}"
+            return f"order:{correction}"
         
         # Pattern: "用 X method" -> "优first使用 X"
         if '用' in correction and 'method' in correction:

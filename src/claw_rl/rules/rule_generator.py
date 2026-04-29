@@ -126,7 +126,7 @@ class RuleGenerator:
         if not result.code:
             return ".*"
 
-        # 简单的模式提取：查找问题代码片段
+        # 简单的模式提取:查找问题代码片段
         if result.issues:
             # 从第一个issue中提取模式
             issue = result.issues[0]
@@ -151,7 +151,7 @@ class RuleGenerator:
         Returns:
             str: 正then表达式模式
         """
-        # remove具体变量名，保留结构
+        # remove具体变量名,保留结构
         pattern = re.sub(r'\b\w+\b', 'WORD', code_line)
         # 转义特殊字符
         pattern = re.escape(pattern)

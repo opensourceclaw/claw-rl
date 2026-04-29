@@ -58,8 +58,8 @@ class EfficiencyObjective(Objective):
         super().__init__("efficiency", weight, minimize=False)
 
     def evaluate(self, solution: Dict[str, Any]) -> float:
-        # 效率可以是execute间、memory usage etc
-        # normalize：lower is better，所以取反
+        # 效率可以是execute间,memory usage etc
+        # normalize:lower is better,所以取反
         efficiency = solution.get("efficiency", 0.0)
         return efficiency if not self.minimize else 1.0 - efficiency
 

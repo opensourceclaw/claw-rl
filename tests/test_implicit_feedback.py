@@ -213,7 +213,7 @@ class TestImplicitFeedbackInference:
             action_type="user_message",
             timestamp="2026-04-03T07:00:10",
             session_id="session-1",
-            content="好的，下一个问题",
+            content="好的,下一个问题",
         ))
         
         signals = inference.infer_signals(session_id="session-1")

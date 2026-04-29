@@ -181,7 +181,7 @@ class ParetoFront:
         return selected
 
     def get_pareto_front(self) -> List[Solution]:
-        """get第一前沿（Pareto 最优solution）"""
+        """get第一前沿(Pareto 最优solution)"""
         return self.fronts.get(0, [])
 
 

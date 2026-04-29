@@ -162,7 +162,7 @@ class RuleImporter:
             raise ValueError(f"Unsupported file format: {suffix}")
 
     def import_multiple_from_file(self, path: Path) -> List[Dict[str, Any]]:
-        """从fileimport多个规then（JSON 数groupformat）
+        """从fileimport多个规then(JSON 数groupformat)
 
         Args:
             path: 规thenfilepath

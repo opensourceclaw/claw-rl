@@ -58,14 +58,14 @@ class TestLLMPRMJudge:
         """Test fallback to rule-based judge for positive"""
         judge = LLMPRMJudge()
         
-        result = judge.judge("action", "谢谢，很好", use_llm=False)
+        result = judge.judge("action", "谢谢,很好", use_llm=False)
         assert result[0] == 1  # reward
     
     def test_judge_fallback_to_rules_negative(self):
         """Test fallback to rule-based judge for negative"""
         judge = LLMPRMJudge()
         
-        result = judge.judge("action", "不对，应该这样", use_llm=False)
+        result = judge.judge("action", "不对,应该这样", use_llm=False)
         assert result[0] == -1  # reward
     
     def test_judge_fallback_to_rules_neutral(self):
@@ -79,7 +79,7 @@ class TestLLMPRMJudge:
         """Test judging positive gratitude"""
         judge = LLMPRMJudge()
         
-        reward, reason = judge.judge("Created file", "谢谢！", use_llm=False)
+        reward, reason = judge.judge("Created file", "谢谢!", use_llm=False)
         
         assert reward == 1
         assert "gratitude" in reason.lower()
@@ -88,7 +88,7 @@ class TestLLMPRMJudge:
         """Test judging positive approval"""
         judge = LLMPRMJudge()
         
-        reward, reason = judge.judge("Edited file", "很好！", use_llm=False)
+        reward, reason = judge.judge("Edited file", "很好!", use_llm=False)
         
         assert reward == 1
         assert "approval" in reason.lower()
@@ -97,7 +97,7 @@ class TestLLMPRMJudge:
         """Test judging negative correction"""
         judge = LLMPRMJudge()
         
-        reward, reason = judge.judge("Created file", "不对，应该放这里", use_llm=False)
+        reward, reason = judge.judge("Created file", "不对,应该放这里", use_llm=False)
         
         assert reward == -1
         assert "error" in reason.lower() or "correction" in reason.lower()

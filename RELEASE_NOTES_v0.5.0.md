@@ -99,7 +99,7 @@ from claw_rl import BinaryRLJudge, OPDHintExtractor, LearningLoop
 
 # Binary RL
 judge = BinaryRLJudge()
-reward, confidence = judge.judge("谢谢，很好！")
+reward, confidence = judge.judge("谢谢,很好!")
 
 # OPD Hint
 extractor = OPDHintExtractor()
@@ -114,7 +114,7 @@ result = loop.process_feedback("谢谢", "action", "context")
 **Shell Commands (backward compatible):**
 
 ```bash
-./scripts/prm_judge.sh "谢谢，很好！"
+./scripts/prm_judge.sh "谢谢,很好!"
 ./scripts/hint_extractor.sh "应该先检查文件"
 ./scripts/training_loop.sh run "谢谢" "action"
 ./scripts/training_loop.sh stats

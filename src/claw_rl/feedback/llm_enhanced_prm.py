@@ -193,7 +193,7 @@ class LLMEnhancedPRMJudge:
         
         result = judge.judge(
             action="Created file /workspace/test.md",
-            response="thanks，great！"
+            response="thanks,great!"
         )
         # result.reward = 1, result.confidence = 0.95
     """

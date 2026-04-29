@@ -8,7 +8,7 @@
 
 ## 目标
 
-实现完整的 Feedback Loop 系统，让 AI 能够从用户反馈中学习并优化策略。
+实现完整的 Feedback Loop 系统,让 AI 能够从用户反馈中学习并优化策略.
 
 ---
 
@@ -124,7 +124,7 @@
 
 ---
 
-## 🎉 Sprint 2 完成！
+## 🎉 Sprint 2 完成!
 
 **总结:**
 - Week 5: 显式反馈收集 ✅
@@ -179,7 +179,7 @@ src/claw_rl/
 ## Hybrid SDLC 流程
 
 每个 Week:
-1. **Story Clarity** - 分析任务，明确验收标准
+1. **Story Clarity** - 分析任务,明确验收标准
 2. **C-P-A 循环** - Check-Point-Analyze
 3. **Dual AI Auditing** - JARVIS 审查
 4. **停止等待** - 收到反馈后再继续

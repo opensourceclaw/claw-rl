@@ -1,7 +1,7 @@
 """
 Distributed Learning Module for claw-rl v2.4.0
 
-提供多 Agent 学习同步和规则共享机制。
+提供多 Agent 学习同步和规则共享机制.
 """
 
 from typing import List, Dict, Any, Optional
@@ -45,7 +45,7 @@ class LearningSync:
     """
     分布式学习同步器
 
-    支持多 Agent 之间的规则共享和学习同步。
+    支持多 Agent 之间的规则共享和学习同步.
     """
 
     def __init__(self, agent_id: str, agent_name: str):

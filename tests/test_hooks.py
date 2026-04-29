@@ -151,7 +151,7 @@ class TestPostSessionHook:
             hook = PostSessionHook(data_dir=Path(tmpdir))
             
             # Test positive keywords
-            assert hook._judge_reward("action", "谢谢，很好") == +1
+            assert hook._judge_reward("action", "谢谢,很好") == +1
             assert hook._judge_reward("action", "好的") == +1
             assert hook._judge_reward("action", "不错的建议") == +1
     
@@ -161,7 +161,7 @@ class TestPostSessionHook:
             hook = PostSessionHook(data_dir=Path(tmpdir))
             
             # Test negative keywords
-            assert hook._judge_reward("action", "不对，应该这样") == -1
+            assert hook._judge_reward("action", "不对,应该这样") == -1
             assert hook._judge_reward("action", "错了") == -1
             assert hook._judge_reward("action", "不要这样做") == -1
     
@@ -197,7 +197,7 @@ class TestPostSessionHook:
                 user_id="peter",
                 turns=[
                     Turn(turn_id=1, action="创建文件", next_state="谢谢"),
-                    Turn(turn_id=2, action="编辑文件", next_state="不对，应该放这里")
+                    Turn(turn_id=2, action="编辑文件", next_state="不对,应该放这里")
                 ]
             ))
             
@@ -231,7 +231,7 @@ class TestPostSessionHook:
                 session_id="test_001",
                 user_id="peter",
                 turns=[
-                    Turn(turn_id=1, action="创建文件", next_state="不对，应该先检查")
+                    Turn(turn_id=1, action="创建文件", next_state="不对,应该先检查")
                 ]
             ))
             

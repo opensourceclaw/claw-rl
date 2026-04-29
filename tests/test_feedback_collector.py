@@ -62,7 +62,7 @@ class TestFeedbackDataclass:
             timestamp="2026-04-03T00:00:00",
             signal="negative",
             confidence=0.9,
-            content="不对，应该放到这里",
+            content="不对,应该放到这里",
         )
         
         json_str = fb.to_json()
@@ -165,9 +165,9 @@ class TestFeedbackCollector:
         
         # Test various positive patterns
         test_cases = [
-            ("谢谢，很好！", "positive"),
-            ("太好了！", "positive"),
-            ("正确！", "positive"),
+            ("谢谢,很好!", "positive"),
+            ("太好了!", "positive"),
+            ("正确!", "positive"),
             ("👍", "positive"),
         ]
         
@@ -181,7 +181,7 @@ class TestFeedbackCollector:
         
         # Test various negative patterns
         test_cases = [
-            ("不对，应该这样", "negative"),
+            ("不对,应该这样", "negative"),
             ("错了", "negative"),
             ("不要这样做", "negative"),
             ("👎", "negative"),
@@ -225,7 +225,7 @@ class TestFeedbackCollector:
         """Test collecting acceptance feedback."""
         collector = FeedbackCollector()
         
-        fb = collector.collect_acceptance(comment="完美！")
+        fb = collector.collect_acceptance(comment="完美!")
         
         assert fb.feedback_type == "acceptance"
         assert fb.signal == "positive"
@@ -263,10 +263,10 @@ class TestOPDHintExtraction:
         assert "顺序" in fb.hint_content
     
     def test_conditional_pattern(self):
-        """Test '如果 X，则 Y' pattern."""
+        """Test '如果 X,则 Y' pattern."""
         collector = FeedbackCollector()
         
-        fb = collector.collect_correction("如果有错误，则重试")
+        fb = collector.collect_correction("如果有错误,则重试")
         
         assert fb.hint_type == "conditional"
         assert "条件" in fb.hint_content
