@@ -278,12 +278,29 @@ class ClawRLBridge {
 // ============================================================================
 
 /**
+ * Safely extract text content from a message content field.
+ * OpenClaw content can be a plain string or array of content blocks.
+ */
+function getTextContent(content: any): string {
+  if (typeof content === 'string') return content;
+  if (Array.isArray(content)) {
+    return content
+      .filter((block: any) => block?.type === 'text' && typeof block.text === 'string')
+      .map((block: any) => block.text)
+      .join(' ');
+  }
+  return '';
+}
+
+/**
  * Extract feedback from event
  */
 function extractFeedbackFromEvent(event: any): { feedback: string; context: any } | null {
-  // Extract from message content
+  // Extract from message content — safely handle string or array content
   if (event?.message?.content) {
-    const content = event.message.content.toLowerCase();
+    const textContent = getTextContent(event.message.content);
+    if (!textContent) return null;
+    const content = textContent.toLowerCase();
     
     // Explicit feedback
     if (content.includes('👍') || content.includes('good') || content.includes('thanks')) {
