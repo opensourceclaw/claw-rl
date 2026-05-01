@@ -188,38 +188,54 @@ class LearningLoop:
     def get_recent_learnings(
         self,
         limit: int = 10,
-        reward_filter: Optional[int] = None
+        reward_filter: Optional[int] = None,
+        context_filter: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         """
-        Get recent learning records.
-        
+        Get recent learning records, optionally filtered by context keywords.
+
         Args:
             limit: Maximum number of records to return
             reward_filter: Optional filter by reward value (-1, 0, +1)
-        
+            context_filter: Optional keyword filter for feedback/action/hint content
+
         Returns:
-            List of recent learning results
-        
+            List of recent learning results matching filters
+
         Example:
-            >>> from pathlib import Path
             >>> loop = LearningLoop(Path("./data"))
-            >>> recent = loop.get_recent_learnings(limit=5)
+            >>> recent = loop.get_recent_learnings(limit=5, context_filter="Friday")
             >>> len(recent)
-            5
+            3
         """
-        # Get all reward files, sorted by name (timestamp)
         reward_files = sorted(
             self.rewards_dir.glob("reward_*.json"),
             reverse=True
         )
-        
+
+        # Parse context keywords if provided
+        keywords: list[str] = []
+        if context_filter:
+            keywords = [kw.strip().lower() for kw in context_filter.split() if len(kw.strip()) > 1]
+
         learnings = []
-        for file in reward_files[:limit]:
+        for file in reward_files:
+            if len(learnings) >= limit:
+                break
             with open(file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-                if reward_filter is None or data['reward'] == reward_filter:
-                    learnings.append(data)
-        
+                if reward_filter is not None and data['reward'] != reward_filter:
+                    continue
+                if keywords:
+                    searchable = (
+                        data.get('feedback', '') + ' ' +
+                        data.get('action', '') + ' ' +
+                        ' '.join(h.get('content', '') for h in data.get('hints', []))
+                    ).lower()
+                    if not any(kw in searchable for kw in keywords):
+                        continue
+                learnings.append(data)
+
         return learnings
     
     def get_statistics(self) -> Dict[str, Any]:

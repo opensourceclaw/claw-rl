@@ -139,21 +139,36 @@ class ClawRLBridge:
         }
 
     def _handle_get_rules(self, params: Dict) -> Dict:
-        """Handle get learned rules (uses get_recent_learnings)"""
+        """Handle get learned rules with context-aware filtering"""
         top_k = params.get("topK", params.get("top_k", 10))
         context = params.get("context", "")
 
         try:
-            recent = self.learning_loop.get_recent_learnings(limit=top_k)
-            # Convert to hints format
-            hints = []
+            recent = self.learning_loop.get_recent_learnings(
+                limit=top_k,
+                context_filter=context if context else None
+            )
+            # Convert learnings + hints to rules
+            rules = []
             for r in recent:
+                # Add hints as rules (from OPD extraction)
                 for h in r.get("hints", []):
-                    hints.append({
+                    rules.append({
                         "pattern": h.get("hint_type", ""),
                         "response": h.get("content", ""),
+                        "source": "hint",
+                        "reward": r.get("reward", 0),
+                        "feedback": r.get("feedback", "")[:100],
                     })
-            return {"rules": hints}
+                # Add the learning itself as a rule
+                rules.append({
+                    "pattern": "learned",
+                    "response": r.get("feedback", "")[:200],
+                    "source": "feedback",
+                    "reward": r.get("reward", 0),
+                    "action": r.get("action", "")[:100],
+                })
+            return {"rules": rules}
         except Exception:
             return {"rules": []}
 

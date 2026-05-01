@@ -71,3 +71,26 @@ def test_learning_loop_data_persistence():
     # Check at least one reward file exists
     reward_files = list(rewards_dir.glob("reward_*.json"))
     assert len(reward_files) >= 1
+
+def test_context_filter_rules():
+    """Test context_filter in get_recent_learnings"""
+    import tempfile, shutil
+    tmp = tempfile.mkdtemp()
+    try:
+        loop = LearningLoop(Path(tmp))
+        # Add varied learnings
+        loop.process_feedback("帮我查Friday的风格", "searched")
+        loop.process_feedback("Jarvis效率需要提高", "measured")
+        loop.process_feedback("英文翻译不对", "translated")
+
+        all_rules = loop.get_recent_learnings(limit=10)
+        friday_rules = loop.get_recent_learnings(limit=10, context_filter="Friday")
+        jarvis_rules = loop.get_recent_learnings(limit=10, context_filter="Jarvis")
+        empty_rules = loop.get_recent_learnings(limit=10, context_filter="xyzzy")
+
+        assert len(all_rules) == 3
+        assert len(friday_rules) == 1
+        assert len(jarvis_rules) == 1
+        assert len(empty_rules) == 0
+    finally:
+        shutil.rmtree(tmp)
