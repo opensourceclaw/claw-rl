@@ -225,6 +225,36 @@ class OPDHintExtractor:
                     confidence=0.8
                 )
 
+        # Pattern C10: "还是存在 X" / "还存在 X" → unresolved issue hint
+        for still_kw in ["还是存在", "还存在"]:
+            pos = feedback.find(still_kw)
+            if pos >= 0:
+                issue = feedback[pos + len(still_kw):].strip("。，、!！. ")
+                return OPDHint(
+                    hint_type='should',
+                    content=f"未解决问题: {issue or feedback}",
+                    priority=4,
+                    confidence=0.85
+                )
+
+        # Pattern C11: "只到了 X" → incomplete progress hint
+        if "只到" in feedback:
+            return OPDHint(
+                hint_type='should',
+                content=f"进度不完整: {feedback}",
+                priority=3,
+                confidence=0.8
+            )
+
+        # Pattern C12: "重新 X" → redo hint
+        if "重新" in feedback:
+            return OPDHint(
+                hint_type='should',
+                content=f"需要重新执行: {feedback}",
+                priority=4,
+                confidence=0.9
+            )
+
         # No pattern matched
         return None
     

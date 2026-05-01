@@ -70,6 +70,10 @@ class BinaryRLJudge:
         r'赞同',
         r'支持',
 
+        # Request-action (中性的"请", positive context)
+        r'请帮我',
+        r'请再',
+
         # Continuation (implies satisfaction)
         r'继续',
         r'再来',
@@ -96,6 +100,10 @@ class BinaryRLJudge:
         r'不行',
         r'有问题',
         r'有误',
+        r'还存在',
+        r'还是存在',
+        r'仍然存在',
+        r'只到了',
         r'格式错了',
 
         # Incorrect (English)
@@ -107,6 +115,7 @@ class BinaryRLJudge:
         # Redo / retry
         r'重来',
         r'重做',
+        r'重新',
 
         # Correction
         r'should',
@@ -114,6 +123,7 @@ class BinaryRLJudge:
         r'应该',
         r'need',
         r'改',
+        r'还是\s',
 
         # Dissatisfaction
         r'not\s*satisfied',
