@@ -226,18 +226,24 @@ Now evaluate:"""
         return (score, reason)
     
     def _get_rule_reason(self, reward: int, response: str) -> str:
-        """Get reason from rule-based judge"""
+        """Get human-readable reason from rule-based judge"""
+        response_lower = response.lower()
+        
         if reward == 1:
-            if 'thanks' in response or 'thank you' in response:
+            # Check for gratitude (English + Chinese)
+            if any(kw in response_lower for kw in ['thanks', 'thank you', '谢谢', '感谢', 'thx', 'tx']):
                 return "User expressed gratitude"
-            elif 'okay' in response or 'great' in response:
+            # Check for approval (English + Chinese)
+            elif any(kw in response_lower for kw in ['okay', 'great', 'good', '很好', '不错', '棒', '赞', '好', 'ok', 'perfect', 'awesome', 'excellent']):
                 return "User expressed approval"
             else:
                 return "User seems satisfied"
         elif reward == -1:
-            if 'incorrect' in response or 'wrong' in response:
+            # Check for error (English + Chinese)
+            if any(kw in response_lower for kw in ['incorrect', 'wrong', 'error', '不对', '错误', '错', '有问题']):
                 return "User indicated error"
-            elif 'should' in response:
+            # Check for correction (English + Chinese)
+            elif any(kw in response_lower for kw in ['should', '应该', '要', '需要', 'would be better', '最好']):
                 return "User provided correction"
             else:
                 return "User seems dissatisfied"

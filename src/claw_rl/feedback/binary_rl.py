@@ -40,6 +40,10 @@ class BinaryRLJudge:
         r'thanks',
         r'thank you',
         r'谢谢',
+        r'感谢',
+        r'感恩',
+        r'谢了',
+        r'谢谢您',
         r'多谢',
         r'太thank you了',
 
@@ -56,6 +60,13 @@ class BinaryRLJudge:
         r'解决',
         r'清楚',
         r'正是',
+        r'满意',
+        r'满足',
+        r'认可',
+        r'赞',
+        r'点赞',
+        r'准确',
+        r'正确',
 
         # Approval (English)
         r'great',
@@ -105,6 +116,17 @@ class BinaryRLJudge:
         r'仍然存在',
         r'只到了',
         r'格式错了',
+        # Critical negative patterns (must check before positive)
+        r'不满意',
+        r'不好',
+        r'错误',
+        r'不行',
+        r'不接受',
+        r'不认可',
+        r'不要',
+        r'拒绝',
+        r'否定',
+        r'算了',
 
         # Incorrect (English)
         r'incorrect',
