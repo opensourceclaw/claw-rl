@@ -106,7 +106,7 @@ if feedback.is_positive:
     learning.record_success(action="created_file", context={})
 
 # Extract improvement hints
-hint = extractor.extract("应该用英文而不是中文写注释", original_action="write_comment")
+hint = extractor.extract("Use English instead of Chinese for comments", original_action="write_comment")
 if hint:
     learning.apply_hint(hint)
 
@@ -369,7 +369,7 @@ extractor = OPDHintExtractor()
 
 # Extract hints from correction
 hint = extractor.extract(
-    "应该用英文而不是中文写注释",
+    "Use English instead of Chinese for comments",
     original_action="write_comment"
 )
 
