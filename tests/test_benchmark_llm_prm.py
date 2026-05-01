@@ -32,6 +32,7 @@ import time
 from dataclasses import dataclass
 from typing import List, Dict, Any
 import statistics
+from unittest.mock import patch
 
 from claw_rl.feedback import BinaryRLJudge, LLMEnhancedPRMJudge, JudgeResult
 
@@ -291,10 +292,11 @@ class TestBenchmarkFallback:
         judge = LLMEnhancedPRMJudge()
         judge.config['use_llm'] = True
         judge.config['fallback_to_rules'] = True
-        
-        # LLM clients should not be available (no API keys set)
-        result = judge.judge("Action", "谢谢!")
-        
+
+        # Mock LLM backend selection to simulate unavailability
+        with patch.object(judge, '_select_backend', return_value=None):
+            result = judge.judge("Action", "谢谢!")
+
         # Should fall back to rules
         assert result is not None
         assert result.source in ('rule', 'fallback', 'cache')

@@ -150,8 +150,8 @@ class ClawRLBridge:
             for r in recent:
                 for h in r.get("hints", []):
                     hints.append({
-                        "pattern": h.get("original", ""),
-                        "response": h.get("hint", ""),
+                        "pattern": h.get("hint_type", ""),
+                        "response": h.get("content", ""),
                     })
             return {"rules": hints}
         except Exception:

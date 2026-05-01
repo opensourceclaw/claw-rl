@@ -39,10 +39,25 @@ class BinaryRLJudge:
         # Gratitude
         r'thanks',
         r'thank you',
+        r'谢谢',
         r'多谢',
         r'太thank you了',
-        
-        # Approval
+
+        # Approval (Chinese)
+        r'很好',
+        r'很棒',
+        r'不错',
+        r'太好了',
+        r'太棒了',
+        r'完美',
+        r'好的',
+        r'好',
+        r'行',
+        r'解决',
+        r'清楚',
+        r'正是',
+
+        # Approval (English)
         r'great',
         r'awesome',
         r'good',
@@ -54,12 +69,15 @@ class BinaryRLJudge:
         r'like',
         r'赞同',
         r'支持',
-        
+
         # Continuation (implies satisfaction)
+        r'继续',
+        r'再来',
         r'continue',
         r'again',
         r'还有吗',
-        
+        r'清晰',
+
         # Emoji (positive)
         r'👍',
         r'👌',
@@ -70,37 +88,48 @@ class BinaryRLJudge:
     
     # Negative feedback patterns (incorrect,wrong,should,etc.)
     NEGATIVE_PATTERNS: List[str] = [
-        # Incorrect
+        # Incorrect (Chinese first for priority)
+        r'不对',
+        r'错了',
+        r'错的',
+        r'不是',
+        r'不行',
+        r'有问题',
+        r'有误',
+        r'格式错了',
+
+        # Incorrect (English)
         r'incorrect',
         r'wrong',
         r'error',
-        r'notcorrect',
-        r'错的',
-        r'有问题',
-        
+        r'not\s*correct',
+
+        # Redo / retry
+        r'重来',
+        r'重做',
+
         # Correction
         r'should',
         r'should是',
-        r'要',
+        r'应该',
         r'need',
-        r'得',
-        
+        r'改',
+
         # Dissatisfaction
-        r'notsatisfied',
-        r'notlike',
+        r'not\s*satisfied',
+        r'not\s*like',
         r'反对',
         r'disappointed',
-        r'not好',
-        
+        r'不是想要的',
+        r'不是我想要的',
+        r'改坏了',
+
         # Rejection
         r"don't",
-        r"don't",
-        r'not',
-        r'incorrect',
-        
+        r'not\s+好',
+
         # Questioning
         r'为什么',
-        r'怎么',
         r'难道',
     ]
     
