@@ -8,7 +8,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://www.python.org/)
-[![Version](https://img.shields.io/badge/Version-2.6.0-blue.svg)](https://github.com/opensourceclaw/claw-rl)
+[![Version](https://img.shields.io/badge/Version-2.8.0-blue.svg)](https://github.com/opensourceclaw/claw-rl)
 
 </div>
 
@@ -517,6 +517,9 @@ memories = bridge.search("comment language preference")
 ---
 
 ## 📝 Changelog
+### v2.8.0 (2026-05-01)
+- Version alignment with Project Neo v2.8.0
+- Compatible with claw-mem v2.8.0
 
 ### v2.6.0 (2026-05-01)
 
