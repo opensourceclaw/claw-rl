@@ -1,0 +1,10 @@
+{
+  "feedback": "Jarvis回信了; 需要",
+  "action": "✅ **neoclaw v2.7.0 发布完成！**\n\n---\n\n## 今日完成汇总\n\n| 项目 | 版本 | GitHub Release |\n|------|------|----------------|\n| claw-mem | v2.7.0 | ✅ |\n| claw-rl | v2.7.0 | ✅ |\n| neoclaw | v2.7.0 | ✅ |\n| deepclaw | v0.5.0 | ✅ (已重命名) |\n\n### 其他完成项\n\n- ✅ DeepClaw 重命名 (ResearchClaw → DeepClaw)\n- ✅ README/SKILL.md 文档升级\n- ✅ 取消 neoclaw PyPI workflow\n\n---\n\n还有其他需要处理的吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T20:58:34.298495"
+}

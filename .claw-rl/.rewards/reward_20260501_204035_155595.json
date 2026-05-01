@@ -1,0 +1,10 @@
+{
+  "feedback": "需要; 需要",
+  "action": "## 任务 4: claw-rl v2.7.0 发布\n\n### GitHub Release\n🔗 https://github.com/opensourceclaw/claw-rl/releases/tag/v2.7.0\n\n### 新增功能\n\n#### 1. context_filter 参数\n\n```python\nfrom claw_rl import LearningLoop\n\nloop = LearningLoop(data_dir=Path('~/.openclaw/workspace/.learnings'))\n\n# 无过滤 - 返回所有规则\nall_rules = loop.get_recent_learnings(limit=10)\n\n# 有过滤 - 仅返回包含关键词的规则\nfiltered_rules = loop.get_recent_learnings(\n    li",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T20:40:35.155575"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要",
+  "action": "✅ **全部完成！**\n\n---\n\n## 发布汇总\n\n| 项目 | 版本 | GitHub Release |\n|------|------|----------------|\n| **claw-mem** | v2.7.0 | https://github.com/opensourceclaw/claw-mem/releases/tag/v2.7.0 |\n| **claw-rl** | v2.7.0 | https://github.com/opensourceclaw/claw-rl/releases/tag/v2.7.0 |\n| **deepclaw** | v0.5.0 | https://github.com/opensourceclaw/deepclaw (已更名) |\n\n---\n\n## 今日完成事项\n\n1. ✅ DeepClaw 重命名 (ResearchClaw → Dee",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T20:25:03.071464"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要",
+  "action": "✅ **Gateway 已重启**\n\n| 项目 | 状态 |\n|------|------|\n| neoclaw v2.7.0 | ✅ 已激活 |\n| Gateway | ✅ 运行中 (PID: 36120) |",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T21:08:56.919043"
+}

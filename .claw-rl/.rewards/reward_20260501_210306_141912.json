@@ -1,0 +1,10 @@
+{
+  "feedback": "看看下一步的计划; 请部署neoclaw v2.7.0到本地",
+  "action": "✅ **neoclaw v2.7.0 已部署到本地**\n\n| 项目 | 版本 |\n|------|------|\n| neoclaw | 2.5.0 → **2.7.0** ✅ |\n\n需要重启 Gateway 生效吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T21:03:06.141888"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "请将v2.8.0的版本部署到本地，看看实际效果; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T21:36:26.082011"
+}

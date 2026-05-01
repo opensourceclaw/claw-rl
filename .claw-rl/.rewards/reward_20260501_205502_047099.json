@@ -1,0 +1,10 @@
+{
+  "feedback": "是的; 取消neoclaw在github上的PyPI workflow",
+  "action": "✅ **已取消 neoclaw 的 PyPI workflow**\n\n| 操作 | 状态 |\n|------|------|\n| 删除 `.github/workflows/publish.yml` | ✅ |\n| 推送到 GitHub | ✅ |\n\n现在 neoclaw 不会自动发布到 PyPI。",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T20:55:02.047082"
+}

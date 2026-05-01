@@ -1,0 +1,10 @@
+{
+  "feedback": "请查看https://github.com/opensourceclaw/claw-mem/blob/main/README.md 中Configure OpenClaw的内容是否完整，保障claw-mem能够正常被openclaw加载生效; 先不用通过clawhub安装为插件，本地可以直接配置",
+  "action": "✅ **已切换回 skills 配置模式**\n\n---\n\n### 配置说明\n\n| 模式 | 配置方式 | 适用场景 |\n|------|----------|----------|\n| **skills** (当前) | `config.json` 中直接配置 | 本地开发/测试 |\n| plugins | 通过 ClawHub 安装 | 正式发布 |\n\n---\n\n### 当前配置\n\n- **claw-mem**: skills 模式启用，配置了 v2.8.0 新参数\n- **claw-rl**: skills 模式启用\n- **plugins.slots**: 已移除\n\n需要我验证 claw-mem 是否正常工作吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:25:32.364743"
+}

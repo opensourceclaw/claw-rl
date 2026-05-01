@@ -1,0 +1,10 @@
+{
+  "feedback": "都更新成功吗; claw-rl v2.8.0发布成功了吗",
+  "action": "## claw-rl 状态\n\n| 项目 | 状态 |\n|------|------|\n| 本地 pip | v2.7.0 |\n| GitHub | v2.7.0 (已发布) |\n| 插件 | enabled ✅ |\n\n---\n\n### 说明\n\nclaw-rl 在 P2 阶段**没有变化**（P2 优化是针对 claw-mem 的启动速度和上下文注入）。\n\nclaw-rl 当前版本是 **v2.7.0**，已经在 GitHub 发布。\n\n需要我为 claw-rl 发布 v2.8.0 吗？还是保持 v2.7.0？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:38:20.210319"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "执行验收测试; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T20:23:35.253379"
+}

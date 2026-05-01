@@ -1,0 +1,10 @@
+{
+  "feedback": "执行2-3; 需要",
+  "action": "## 任务 2: DeepClaw 文档升级\n\n### README.md 新结构\n\n| 章节 | 内容 |\n|------|------|\n| Product Positioning | 产品定位和核心功能 |\n| Installation | 3种安装方式 (ClawHub/源码/pip) |\n| Quick Start | CLI / Python API / REST API |\n| Configuration | CLI参数 + LLM Provider配置 |\n| OpenClaw Skill | Skill集成方式 |\n| Technical Architecture | 架构图 |\n| Advanced Features | 多引擎搜索、源验证、站点解析 |\n| Changelog | 版本历史 |\n| Comparison | 与 Perplexity 等竞品对比 |\n\n",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T20:26:27.573527"
+}

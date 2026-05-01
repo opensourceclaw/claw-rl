@@ -1,0 +1,10 @@
+{
+  "feedback": "Jarvis回信了; 执行验收测试",
+  "action": "## 验收测试结果\n\n### ✅ claw-mem v2.7.0 验收通过\n\n| 测试项 | 结果 |\n|--------|------|\n| BM25 参数初始化 | ✅ k1=1.5, b=0.75 |\n| recency_boost | ✅ 1.5 |\n| frequency_boost | ✅ 1.2 |\n\n### ✅ claw-rl v2.7.0 验收通过\n\n| 测试项 | 结果 |\n|--------|------|\n| 单元测试 (context_filter) | ✅ 1 passed |\n| 参数传递 | ✅ 代码已添加 context_filter 支持 |\n\n---\n\n### ⚠️ 注意事项\n\nclaw-mem 和 claw-rl 需要**重新安装**才能使用新版本：\n\n```bash\npip3 install -e /Users/liantian/workspace",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T20:23:08.416337"
+}

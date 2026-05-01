@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要",
+  "action": "✅ **Gateway 已重启**\n\n| 项目 | 状态 |\n|------|------|\n| claw-mem v2.8.0 | ✅ 已激活 |\n| neoclaw v2.8.0 | ✅ 已激活 |\n| Gateway | ✅ 运行中 |",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T21:49:41.086177"
+}
