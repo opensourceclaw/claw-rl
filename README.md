@@ -52,15 +52,17 @@ claw-rl is a **self-improvement system** for AI Agents with the following core f
 python3 --version
 ```
 
-### Method 1: Via ClawHub (Recommended)
+### Method 1: Via ClawHub (Recommended - Plugin)
 
 ```bash
 # Install ClawHub if not already installed
 npm install -g clawhub
 
-# Install claw-rl skill
+# Install claw-rl as OpenClaw plugin
 npx clawhub@latest install opensourceclaw-claw-rl
 ```
+
+> **Note**: claw-rl is installed as an **OpenClaw Plugin** (not Skill), enabling continuous learning capabilities.
 
 ### Method 2: From Source
 
@@ -82,7 +84,7 @@ pip3 install -e ".[all]"
 # Install ClawHub if not already installed
 npm install -g clawhub
 
-# Install claw-rl skill
+# Install claw-rl plugin
 npx clawhub@latest install opensourceclaw-claw-rl
 ```
 
