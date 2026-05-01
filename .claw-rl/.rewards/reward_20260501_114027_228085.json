@@ -1,0 +1,10 @@
+{
+  "feedback": "好的; 现在状态如何",
+  "action": "## 📊 当前状态\n\n| 项目 | 状态 | 说明 |\n|------|------|------|\n| **Gateway** | ✅ 运行中 | PID 35436 |\n| **claw-mem** | ✅ v2.6.0 | Bridge 运行正常 |\n| **claw-rl** | ✅ 运行中 | Bridge 运行正常 |\n| **autoRecall** | ✅ true | 配置已启用 |\n| **autoCapture** | ✅ true | 配置已启用 |\n\n### 测试结果\n\n| 功能 | 状态 |\n|------|------|\n| memory_store | ✅ 正常 |\n| memory_search | ✅ 正常 (3条记忆) |\n| collect_feedback | ✅ 正常 |\n| learning_status | ✅ 正常 (初始化) |\n\n##",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "好的",
+  "hints": [],
+  "timestamp": "2026-05-01T11:40:27.228038"
+}
