@@ -174,26 +174,31 @@ class StrategyPerformance:
 class MetaLearner:
     """
     Meta-Learner for strategy selection.
-    
-    Learns which strategy works best in which context.
-    Uses a simple but effective approach:
-    - Track performance per context
-    - Select strategy with best historical performance for context
-    
-    Future enhancement: Could use LinUCB or Neural Network.
+
+    Learns which strategy works best in which context using two-tier matching:
+    1. Coarse key: Fast O(1) lookup via discretized context key
+    2. Similarity: Cosine similarity on 11-dim feature vectors for finer matching
+
+    The similarity-based approach kicks in when there are enough (>5) context
+    entries to make meaningful comparisons. Otherwise falls back to coarse key.
     """
-    
-    def __init__(self, learning_rate: float = 0.1):
+
+    def __init__(self, learning_rate: float = 0.1, similarity_threshold: float = 0.6):
         """
         Initialize Meta-Learner.
-        
+
         Args:
             learning_rate: Learning rate for updates
+            similarity_threshold: Minimum cosine similarity for context matching (0.0-1.0)
         """
         self.learning_rate = learning_rate
+        self.similarity_threshold = similarity_threshold
         self.strategy_performance: Dict[str, StrategyPerformance] = {}
         self.context_strategy_map: Dict[str, str] = {}  # context_key -> best_strategy
         self.history: List[Tuple[str, str, float]] = []  # (context, strategy, reward)
+        # Cache: context vector -> (context_key, vector) for similarity search
+        self._context_vectors: List[Tuple[str, List[float]]] = []
+        self._max_context_cache = 500
     
     def register_strategy(self, strategy_id: str):
         """Register a strategy"""
@@ -212,6 +217,93 @@ class MetaLearner:
         
         return f"{context.operation_type}|{data_size_bucket}|{success_bucket}"
     
+    @staticmethod
+    def _cosine_similarity(a: List[float], b: List[float]) -> float:
+        """Compute cosine similarity between two feature vectors."""
+        if not a or not b or len(a) != len(b):
+            return 0.0
+        dot = sum(ai * bi for ai, bi in zip(a, b))
+        norm_a = math.sqrt(sum(ai * ai for ai in a))
+        norm_b = math.sqrt(sum(bi * bi for bi in b))
+        if norm_a == 0 or norm_b == 0:
+            return 0.0
+        return dot / (norm_a * norm_b)
+
+    def find_similar_contexts(
+        self, context: ContextFeatures, top_k: int = 3
+    ) -> List[Tuple[str, float]]:
+        """
+        Find top-K historically similar contexts using cosine similarity.
+
+        Args:
+            context: Current context features
+            top_k: Number of similar contexts to return
+
+        Returns:
+            List of (context_key, similarity_score) sorted by similarity descending
+        """
+        query_vec = context.to_vector()
+        scores: List[Tuple[str, float]] = []
+
+        for cached_key, cached_vec in self._context_vectors:
+            sim = self._cosine_similarity(query_vec, cached_vec)
+            if sim >= self.similarity_threshold:
+                scores.append((cached_key, sim))
+
+        scores.sort(key=lambda x: x[1], reverse=True)
+        return scores[:top_k]
+
+    def _cache_context_vector(self, context_key: str, context: ContextFeatures):
+        """Cache a context vector for future similarity search."""
+        vec = context.to_vector()
+        self._context_vectors.append((context_key, vec))
+        if len(self._context_vectors) > self._max_context_cache:
+            self._context_vectors = self._context_vectors[-self._max_context_cache:]
+
+    def predict_with_similarity(
+        self, context: ContextFeatures, top_k: int = 3
+    ) -> Optional[str]:
+        """
+        Predict best strategy using cosine similarity on feature vectors.
+
+        Finds historically similar contexts and uses their strategy performance
+        as weighted votes. Falls back to coarse key prediction if insufficient data.
+
+        Args:
+            context: Current context features
+            top_k: Number of similar contexts to consider
+
+        Returns:
+            Best strategy ID, or None if no strategies
+        """
+        if not self.strategy_performance:
+            return None
+
+        similar = self.find_similar_contexts(context, top_k=top_k)
+
+        if not similar:
+            # Fall back to coarse key prediction
+            return self.predict_best_strategy(context)
+
+        # Weighted voting: each similar context votes for its best strategy
+        strategy_scores: Dict[str, float] = {}
+        total_weight = 0.0
+
+        for ctx_key, similarity in similar:
+            if ctx_key not in self.context_strategy_map:
+                continue
+            best_sid = self.context_strategy_map[ctx_key]
+            weight = similarity * similarity  # Square to emphasize strong matches
+            strategy_scores[best_sid] = strategy_scores.get(best_sid, 0.0) + weight
+            total_weight += weight
+
+        if strategy_scores and total_weight > 0:
+            # Return strategy with highest weighted score
+            return max(strategy_scores, key=strategy_scores.get)
+
+        # Fall back to coarse key
+        return self.predict_best_strategy(context)
+
     def predict_best_strategy(self, context: ContextFeatures) -> Optional[str]:
         """
         Predict best strategy for given context.
@@ -281,7 +373,10 @@ class MetaLearner:
         
         # Update context-strategy mapping
         self._update_mapping(context_key)
-    
+
+        # Cache context vector for future similarity search
+        self._cache_context_vector(context_key, context)
+
     def _update_mapping(self, context_key: str):
         """Update best strategy for a context"""
         # Find strategy with best average performance for this context
@@ -304,6 +399,8 @@ class MetaLearner:
             'strategies': len(self.strategy_performance),
             'context_mappings': len(self.context_strategy_map),
             'history_size': len(self.history),
+            'context_vectors_cached': len(self._context_vectors),
+            'similarity_enabled': len(self._context_vectors) > 5,
             'strategy_performance': {
                 sid: perf.to_dict()
                 for sid, perf in self.strategy_performance.items()
@@ -459,13 +556,17 @@ class AdaptiveMAB:
         return best
     
     def _select_contextual(self, context: Optional[ContextFeatures]) -> str:
-        """Contextual selection - use Meta-Learner"""
+        """Contextual selection - use similarity-based Meta-Learner prediction"""
         if context:
-            predicted = self.meta_learner.predict_best_strategy(context)
+            # Prefer similarity-based prediction when enough history exists
+            if len(self.meta_learner._context_vectors) > 5:
+                predicted = self.meta_learner.predict_with_similarity(context)
+            else:
+                predicted = self.meta_learner.predict_best_strategy(context)
             if predicted:
                 self._metrics['exploitations'] += 1
                 return predicted
-        
+
         # Fallback to best overall
         return self._select_static()
     
@@ -487,7 +588,10 @@ class AdaptiveMAB:
     def _select_hybrid(self, context: Optional[ContextFeatures]) -> str:
         """
         Hybrid selection - combine contextual + reactive + exploration.
-        
+
+        Uses similarity-based prediction when enough context history exists,
+        falling back to coarse key prediction for cold start.
+
         This is the recommended mode for production use.
         """
         # Epsilon-greedy with contextual bias
@@ -495,15 +599,19 @@ class AdaptiveMAB:
             # Explore
             self._metrics['explorations'] += 1
             return self.rng.choice(list(self.strategies.keys()))
-        
+
         # Exploit with contextual awareness
         self._metrics['exploitations'] += 1
-        
+
         if context:
-            predicted = self.meta_learner.predict_best_strategy(context)
+            # Use similarity-based prediction when enough history
+            if len(self.meta_learner._context_vectors) > 5:
+                predicted = self.meta_learner.predict_with_similarity(context)
+            else:
+                predicted = self.meta_learner.predict_best_strategy(context)
             if predicted:
                 return predicted
-        
+
         return self._select_static()
     
     def update(
