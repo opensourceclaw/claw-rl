@@ -1,0 +1,10 @@
+{
+  "feedback": "目前本地部署的claw-mem, claw-rl, neoclaw的版本号是什么; 需要",
+  "action": "✅ 全部升级完成！\n\n| 项目 | 本地版本 |\n|------|----------|\n| claw-mem | **2.9.1** |\n| claw-rl | 2.9.1 |\n| neoclaw | 2.8.0 |",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T15:42:43.899638"
+}

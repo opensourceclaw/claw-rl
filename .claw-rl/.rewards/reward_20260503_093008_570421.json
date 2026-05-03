@@ -1,0 +1,17 @@
+{
+  "feedback": "claw-mem当前版本号是多少; claw-mem 的下一个版本号为v2.9.1，先不要基于到v3.0.0,目前还有很多细节问题没有处理完",
+  "action": "明白。**claw-mem 版本规划**：\n\n| 版本 | 状态 |\n|------|------|\n| v2.9.0 | 当前 |\n| v2.9.1 | 下一个（处理细节问题） |\n| v3.0.0 | 稍后（反思机制 + 时间感知） |\n\n需要我更新 `claw-mem/docs/roadmaps/ITERATION_PLAN_v3.0.0.md` 中的版本号吗？",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "不要",
+  "hints": [
+    {
+      "hint_type": "should_not",
+      "content": "避免 基于到v3.0.0,目前还有很多细节问题没有处理完",
+      "priority": 3,
+      "confidence": 0.8
+    }
+  ],
+  "timestamp": "2026-05-03T09:30:08.570266"
+}

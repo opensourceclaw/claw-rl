@@ -1,0 +1,10 @@
+{
+  "feedback": "只保留hook方式; 请展现一下目前neoclaw v2.8.0的运行架构，看看实际效果如何",
+  "action": "## neoclaw v2.8.0 运行架构\n\n---\n\n### 1. 版本信息\n\n| 组件 | 版本 |\n|------|------|\n| pip 包 | v2.8.0 ✅ |\n| neoclaw lib | v2.8.0 ✅ |\n\n---\n\n### 2. Hook 架构\n\n```\n~/.openclaw/hooks/neoclaw/\n├── HOOK.md          # Hook 元数据和配置\n├── handler.ts       # TypeScript Hook 入口\n├── lib/             # 依赖库\n└── tests/           # 测试\n```\n\n---\n\n### 3. 事件处理\n\n| 事件 | 功能 | 预期延迟 |\n|------|------|----------|\n| `message:received` | 意图捕获 (I",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T23:01:30.291164"
+}

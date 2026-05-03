@@ -1,0 +1,10 @@
+{
+  "feedback": "需要; 删除v0.5.0-python-migration 分支",
+  "action": "✅ **已删除** `v0.5.0-python-migration` 分支",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T19:44:05.742391"
+}

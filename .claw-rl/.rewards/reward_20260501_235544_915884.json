@@ -1,0 +1,10 @@
+{
+  "feedback": "请展现neoclaw v2.8.0的运行时架构; claw-rl v2.8.0在架构上已经调整为了plugin架构，为什么在运行时还是以skill方式运行",
+  "action": "## ✅ claw-rl 已经是 Plugin 架构运行！\n\n---\n\n### 验证结果\n\n| 证据 | 内容 |\n|------|------|\n| **日志显示** | `[plugins] [claw-rl] Loaded 10 rules` |\n| **插件状态** | `enabled` via `global:claw-rl/index.ts` |\n| **config.json** | `plugins.allow` 包含 `claw-rl` |\n\n---\n\n### 当前实际运行方式\n\n```\nGateway 日志:\n[plugins] [claw-rl bridge] Started successfully\n[plugins] [claw-rl] Loaded 10 rules for session\n```\n\n- **claw-rl**: **Plugin 模式** ✅",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "为什么",
+  "hints": [],
+  "timestamp": "2026-05-01T23:55:44.915857"
+}

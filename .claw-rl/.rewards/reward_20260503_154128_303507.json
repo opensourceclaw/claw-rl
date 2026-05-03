@@ -1,0 +1,10 @@
+{
+  "feedback": "好的，太棒了，Friday，谢谢你的细致工作！; 目前本地部署的claw-mem, claw-rl, neoclaw的版本号是什么",
+  "action": "本地部署版本：\n\n| 项目 | 本地版本 | GitHub 最新 |\n|------|----------|-------------|\n| claw-mem | 2.9.0 ❌ | **2.9.1** |\n| claw-rl | 2.9.1 ✅ | 2.9.1 |\n| neoclaw | 2.8.0 ✅ | 2.8.0 |\n\nclaw-mem 需要更新。需要我升级吗？",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "谢谢",
+  "hints": [],
+  "timestamp": "2026-05-03T15:41:28.303353"
+}

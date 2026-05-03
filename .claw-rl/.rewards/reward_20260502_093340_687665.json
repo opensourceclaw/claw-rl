@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要",
+  "action": "---\n\n## ✅ 验收确认已发送\n\n**文件**：`/Users/liantian/.openclaw/workspace/comm/inbox-jarvis/2026-05-02-claw-rl-v2.9.1-acceptance.md`\n\nJarvis 会收到验收结果。",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T09:33:40.687642"
+}

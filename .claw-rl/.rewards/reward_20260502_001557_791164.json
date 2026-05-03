@@ -1,0 +1,10 @@
+{
+  "feedback": "请到neoclaw项目下docs查看所有md文件，看看哪些问题提到了元认知; neoclaw-architecture-whitepaper-v4.md 在哪个目录",
+  "action": "文件位置：\n\n```\n/Users/liantian/workspace/osprojects/neoclaw/docs/v2.0.0/architecture/neoclaw-architecture-whitepaper-v4.md\n```\n\n---\n\n### 目录结构\n\n```\ndocs/\n└── v2.0.0/\n    └── architecture/\n        └── neoclaw-architecture-whitepaper-v4.md\n```\n\n需要我提取其中关于 metacognition 的内容吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T00:15:57.791143"
+}

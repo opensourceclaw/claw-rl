@@ -1,0 +1,10 @@
+{
+  "feedback": "请更新是三个项目v2.8.0的readme文件，并推送到github对应的仓库; 现在本地是否部署的claw-mem, claw-rl, neocalw 都是v2.8.0",
+  "action": "✅ **本地全部部署 v2.8.0！**\n\n---\n\n### 版本确认\n\n| 项目 | pip 包 | 插件 index.ts |\n|------|--------|---------------|\n| **claw-mem** | v2.8.0 ✅ | v2.8.0 ✅ |\n| **claw-rl** | v2.8.0 ✅ | v2.8.0 ✅ |\n| **neoclaw** | v2.8.0 ✅ | - |\n\n---\n\n### Project Neo v2.8.0 全部完成\n\n| 项目 | pip | GitHub | README | 本地部署 |\n|------|-----|--------|--------|----------|\n| claw-mem | v2.8.0 | ✅ | ✅ | ✅ |\n| claw-rl | v2.8.0 | ✅ | ✅ | ✅ |\n| neocla",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:47:48.807005"
+}

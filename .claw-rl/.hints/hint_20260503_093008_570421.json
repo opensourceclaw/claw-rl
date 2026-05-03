@@ -1,0 +1,10 @@
+{
+  "hints": [
+    {
+      "hint_type": "should_not",
+      "content": "避免 基于到v3.0.0,目前还有很多细节问题没有处理完",
+      "priority": 3,
+      "confidence": 0.8
+    }
+  ]
+}

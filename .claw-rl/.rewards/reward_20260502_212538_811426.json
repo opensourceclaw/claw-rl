@@ -1,0 +1,10 @@
+{
+  "feedback": "这里是作为Skill，还是查看NeoClaw的机制采用Hook插件; 需要",
+  "action": "✅ **任务规划已更新**\n\n## 主要变更\n\n1. **架构决策**：明确基于 OpenClaw Hook 插件机制\n2. **目录结构**：\n   ```\n   ~/.openclaw/hooks/devclaw/\n   ├── HOOK.md         # 元数据\n   ├── handler.ts      # 事件处理器\n   └── lib/            # Python 桥接层\n   ```\n\n3. **事件映射**：\n\n| 事件 | DevClaw 处理 |\n|------|-------------|\n| `message:received` | Spec 解析 |\n| `message:preprocessed` | 约束检查 |\n| `tool:use:pre` | 权限审批 |\n| `tool:use:post` | 验证闭环 |\n| `agent:",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T21:25:38.811408"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "(session bootstrap); 给Jarvis验收确认",
+  "action": "✅ **验收确认已发送！**\n\n- 已写入：`~/.openclaw/workspace/comm/inbox-jarvis/2026-05-02-claw-rl-v2.9.1-acceptance.md`\n- 已触发 Jarvis 唤醒",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T09:44:03.011760"
+}

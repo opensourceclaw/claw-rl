@@ -1,0 +1,10 @@
+{
+  "feedback": "我在本地使用源码方式安装，安装后提示信息如下Installing collected packages: claw-rl\n\n Attempting uninstall: claw-rl\n\n Found existing installation: claw-rl 2.3.0\n\n Uninstalling claw-rl-2.3.0:\n\n Successfully uninstalled claw-rl-2.3.0\n\nSuccessfully installed claw-rl-2.3.0\n\n，请确认为什么不是v2.9.1; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "不是",
+  "hints": [],
+  "timestamp": "2026-05-03T19:25:18.914440"
+}

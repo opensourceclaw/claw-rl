@@ -1,0 +1,10 @@
+{
+  "feedback": "neoclaw目前是skill方式运行，还是hook方式运行; 只保留hook方式",
+  "action": "✅ **已切换为纯 Hook 方式运行**\n\n---\n\n### 配置变更\n\n| 之前 | 现在 |\n|------|------|\n| Skill + Hook 双模式 | 仅 Hook 模式 |\n\n---\n\n### 当前配置\n\n```json\n{\n  \"plugins\": {\n    \"allow\": [\"claw-mem\", \"memory-core\", \"acpx\", \"claw-rl\"],\n    \"slots\": {\n      \"memory\": \"claw-mem\"\n    }\n  },\n  \"skills\": {\n    \"claw-rl\": { ... }\n  }\n}\n```\n\n- **neoclaw**: 仅通过 `~/.openclaw/hooks/neoclaw/` Hooks 运行\n- **project-neo skill**: 已移除",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T22:54:17.680391"
+}

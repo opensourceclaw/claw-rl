@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 让我们回到claw-rl项目",
+  "action": "**claw-rl 状态** ✅\n\n| 项目 | 状态 |\n|------|------|\n| 本地版本 | 2.9.1 |\n| GitHub Release | v2.9.1 (Latest) |\n| Tag | v2.9.1 |\n\n已经是最新版本，无需更新。\n\n需要检查其他项目吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T19:22:42.817966"
+}

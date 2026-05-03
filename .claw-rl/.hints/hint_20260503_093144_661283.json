@@ -1,0 +1,10 @@
+{
+  "hints": [
+    {
+      "hint_type": "should",
+      "content": "修正建议: 应该刚刚迭代完成这两个功能的开发",
+      "priority": 3,
+      "confidence": 0.85
+    }
+  ]
+}

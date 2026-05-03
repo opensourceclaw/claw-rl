@@ -1,0 +1,10 @@
+{
+  "feedback": "我在理解一下DevClaw是基于OpenClaw和OpenCode的基础设施来构建，尽可能利用这两个项目的基础技术能力，来构建一个全新的融合架构，在v0.1.0中我们构建的CLI是一个独立的入口，还是基于OpenClaw的一个Hook机制; 这里是作为Skill，还是查看NeoClaw的机制采用Hook插件",
+  "action": "现在清楚了！参考 NeoClaw 的实现：\n\n## Hook vs Skill 对比\n\n| 机制 | 位置 | 触发方式 | 用途 |\n|------|------|----------|------|\n| **Hook** | `~/.openclaw/hooks/` | 事件自动触发 | 框架级能力（意图捕获、安全、审计） |\n| **Skill** | 显式调用 | 用户命令 | 独立功能模块 |\n\n---\n\n## NeoClaw 的实现方式\n\n```\n~/.openclaw/hooks/neoclaw/\n├── HOOK.md         # 元数据（事件定义、配置）\n├── handler.ts      # 事件处理器\n└── lib/            # Python 桥接层\n```\n\n**事件触发**：\n- `message:received` → 意图捕获\n- ",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T21:23:42.991926"
+}

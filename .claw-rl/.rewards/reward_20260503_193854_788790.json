@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 我咋另外一台设备傻姑娘看到的version还是2.3.0 , 因为从github下载下来的文件是pyproject.toml 里写的veriosn=\"2.3.0\"",
+  "action": "**找到问题了！**\n\nGitHub 仓库的 **默认分支** 设置错误：\n\n| 设置 | 分支 |\n|------|------|\n| 当前默认分支 | `v0.5.0-python-migration` |\n| 实际最新代码 | `master` |\n\n用户从 GitHub 下载/克隆时会获取默认分支（v0.5.0-python-migration），里面的版本是 2.3.0。\n\n**解决方案**：将 `master` 设为默认分支，或将最新代码合并到默认分支。\n\n需要我帮你把 `master` 设为默认分支吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T19:38:54.788518"
+}

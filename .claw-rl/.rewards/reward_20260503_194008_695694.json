@@ -1,0 +1,10 @@
+{
+  "feedback": "我咋另外一台设备傻姑娘看到的version还是2.3.0 , 因为从github下载下来的文件是pyproject.toml 里写的veriosn=\"2.3.0\"; 需要",
+  "action": "✅ **已修复！**\n\n| 设置 | 之前 | 现在 |\n|------|------|------|\n| 默认分支 | v0.5.0-python-migration | **master** |\n\n用户现在从 GitHub 下载/克隆会获取 `master` 分支，版本是 **v2.9.1**。\n\n```bash\n# 用户现在执行这些命令会得到正确版本\ngit clone https://github.com/opensourceclaw/claw-rl.git\ncd claw-rl\npip3 install -e .  # 会安装 v2.9.1\n```",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T19:40:08.695664"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "让我们回到claw-rl项目; 我在本地使用源码方式安装，安装后提示信息如下Installing collected packages: claw-rl\n\n Attempting uninstall: claw-rl\n\n Found existing installation: claw-rl 2.3.0\n\n Uninstalling claw-rl-2.3.0:\n\n Successfully uninstalled claw-rl-2.3.0\n\nSuccessfully installed claw-rl-2.3.0\n\n，请确认为什么不是v2.9.1",
+  "action": "问题分析：\n\n用户安装后显示 **2.3.0** 而不是 **2.9.1**，可能原因：\n\n| 原因 | 说明 |\n|------|------|\n| 1. 源码未更新 | 本地代码不是最新，需要 `git pull` |\n| 2. pip 缓存 | 可能安装了旧版本的缓存包 |\n| 3. 安装方式 | 需要使用 `-e` 参数 |\n\n**解决步骤**：\n\n```bash\n# 1. 更新源码\ngit clone https://github.com/opensourceclaw/claw-rl.git\ncd claw-rl\ngit pull origin master\n\n# 2. 确认版本\ncat pyproject.toml | grep version\n# 应该是: version = \"2.9.1\"\n\n# 3. 重新安装（使用 -e）\npip3 install -e .\n```\n\n你",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "不是",
+  "hints": [],
+  "timestamp": "2026-05-03T19:24:34.238541"
+}

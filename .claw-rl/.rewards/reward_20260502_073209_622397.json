@@ -1,0 +1,10 @@
+{
+  "feedback": "1.LLM-Enhanced PRM Judge（准确率 > 90%）2. daptive MAB 策略 3. 修复问题/性能优化 聚焦以上三个重点; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T07:32:09.622373"
+}

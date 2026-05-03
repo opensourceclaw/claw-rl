@@ -1,0 +1,10 @@
+{
+  "feedback": "请到neoclaw项目下docs/目录下，把所有md文件中涉及到ResearchClaw的改成DeepClaw; 请到neoclaw项目下docs查看所有md文件，看看哪些问题提到了元认知",
+  "action": "## 包含\"元认知\"的文档汇总\n\n---\n\n### 📄 9个文件提及\"元认知\"\n\n| 文件 | 上下文 |\n|------|--------|\n| **THREE_STAGE_PLAN.md** | 深度元认知、Q4 元认知能力 |\n| **MISSION.md** | 自我反思 → 元认知能力 |\n| **STRATEGIC_ARCHITECTURE_REVIEW.md** | Layer 3: Consciousness & Learning (情感智能,元认知) |\n| **TIMELINE_REEVALUATION.md** | 2029 元认知能力 |\n| **ROEvOLUTION_ROADMAP_ACCELERATED.md** | 构建元认知学习系统 |\n| **JARVIS_FRIGHT_COLLABORATION_PLAN.md** | 元认知透明、v4.0.0 价值",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "改",
+  "hints": [],
+  "timestamp": "2026-05-02T00:13:56.273344"
+}

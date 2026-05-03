@@ -1,0 +1,10 @@
+{
+  "feedback": "进入M4; 请把Friday和Jarvis直接的通信方式总结到一个md文件中，我准备给到另外一台设备的两个agent直接通信做参考。",
+  "action": "已创建通信协议文档：\n\n**文件位置**: `~/.openclaw/workspace/comm/FRIDAY_JARVIS_PROTOCOL.md`\n\n**内容概要**:\n\n| 章节 | 说明 |\n|------|------|\n| 目录结构 | inbox-jarvis/, inbox-friday/, processed/ |\n| 通信流程 | 任务分配 → 处理 → 响应 → 归档 |\n| 文件格式 | 任务模板 + 响应模板 |\n| 代码示例 | Python 读写实现 |\n| 最佳实践 | 命名规范、状态标记、错误处理 |\n\n需要调整或补充什么吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T16:34:57.136381"
+}

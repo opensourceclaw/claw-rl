@@ -1,0 +1,10 @@
+{
+  "feedback": "先不急于发布，等devclaw v0.5.0全部功能迭代完成; claw-mem当前版本号是多少",
+  "action": "当前版本是 **v2.9.0**（见 `pyproject.toml`）。\n\n之前记录有误，需不需要同步更新 MEMORY.md？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T09:25:52.783742"
+}

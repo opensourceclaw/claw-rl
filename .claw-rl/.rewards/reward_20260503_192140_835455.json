@@ -1,0 +1,10 @@
+{
+  "feedback": "发布到github ，请同时将DevClaw到所有文档，代码全部改为100%英文; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "改",
+  "hints": [],
+  "timestamp": "2026-05-03T19:21:40.835432"
+}

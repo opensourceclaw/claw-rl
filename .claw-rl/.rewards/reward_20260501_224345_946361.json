@@ -1,0 +1,10 @@
+{
+  "feedback": "claw-rl v2.8.0发布成功了吗; 发布claw-rl v2.8.0",
+  "action": "✅ **claw-rl v2.8.0 发布完成！**\n\n---\n\n| 项目 | 状态 |\n|------|------|\n| 本地 pip | v2.8.0 ✅ |\n| GitHub Tag | v2.8.0 ✅ |\n| GitHub Release | https://github.com/opensourceclaw/claw-rl/releases/tag/v2.8.0 ✅ |\n\n---\n\n### Project Neo v2.8.0 版本对齐\n\n| 项目 | 版本 |\n|------|------|\n| claw-mem | v2.8.0 ✅ |\n| claw-rl | v2.8.0 ✅ |\n| neoclaw | v2.8.0 ✅ |",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:43:45.946343"
+}

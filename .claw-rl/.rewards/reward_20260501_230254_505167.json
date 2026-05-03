@@ -1,0 +1,10 @@
+{
+  "feedback": "请展现一下目前neoclaw v2.8.0的运行架构，看看实际效果如何; 需要",
+  "action": "## neoclaw v2.8.0 运行效果验证\n\n---\n\n### 1. 核心模块加载 ✅\n\n| 模块 | 路径 | 可用类 |\n|------|------|--------|\n| **safety** | `src/neoclaw/safety/` | AICircuitBreaker, AdaptiveThreshold... |\n| **audit** | `src/neoclaw/audit/` | ADRRuleGenerator, AuditReport... |\n| **self_learning** | `src/neoclaw/self_learning/` | SelfLearningCore, ContinuousImprover... |\n\n---\n\n### 2. 版本确认 ✅\n\n- **neoclaw 版本**: v2.8.0\n- **安装位置**: edit",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T23:02:54.505148"
+}

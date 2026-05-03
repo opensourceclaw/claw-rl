@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 让我们看看新的版本部署后有什么新的改变",
+  "action": "claw-mem **v2.9.1** 新增功能：\n\n## 1. 反思机制 (Reflection)\n\n```python\nfrom claw_mem import MemoryManager\n\nm = MemoryManager()\n\n# 执行反思\nresult = m.reflect(user_id=\"user123\")\n# 返回: observations, beliefs, new_beliefs, updated_beliefs\n\n# 获取信念\nbeliefs = m.get_beliefs(include_history=True)\n```\n\n## 2. 时间感知搜索 (Time-Aware)\n\n```python\n# 时间权重计算\nresults = m.search(\"query\", time_aware=True)\n\n# 支持三种衰减策略\n# - exponential:",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "改",
+  "hints": [],
+  "timestamp": "2026-05-03T15:45:53.428011"
+}

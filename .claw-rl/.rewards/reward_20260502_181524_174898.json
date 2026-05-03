@@ -1,0 +1,10 @@
+{
+  "feedback": "/Users/liantian/Library/Mobile Documents/iCloud~md~obsidian/Documents/Dev/Projects/0-neo-horizontal-vertical-strategy.md 请在阅读一下这份文档，对目前的项目的整个规划有个全面的架构思路对齐。; 需要更新，注意DevClaw状态依然是规划中。",
+  "action": "✅ **文档已更新**\n\n修改内容：\n\n| 项目 | 原版本 | 新版本 |\n|------|--------|--------|\n| NeoClaw | v2.3.0 | v2.8.0 |\n| claw-mem | v2.2.0 | v2.9.0 |\n| claw-rl | v2.2.0 | v2.9.1 |\n| ResearchClaw | - | DeepClaw |\n| DevClaw | 规划中 | 🔜 规划中（保持不变） |\n\n文档路径：`0-neo-horizontal-vertical-strategy.md`",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T18:15:24.174873"
+}

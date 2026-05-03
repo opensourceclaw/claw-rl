@@ -1,0 +1,10 @@
+{
+  "feedback": "让我们看看两个新版本部署后带来了什么新功能和新体验; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T11:33:49.211174"
+}

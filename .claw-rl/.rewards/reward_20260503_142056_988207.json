@@ -1,0 +1,10 @@
+{
+  "feedback": "先检查代码的质量，再更新版本号为v2.9.1; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T14:20:56.988177"
+}

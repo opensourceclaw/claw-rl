@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要",
+  "action": "## ✅ 测试结果\n\n### claw-mem v2.9.0\n\n| 功能 | 状态 | 验证 |\n|------|------|------|\n| 同义词扩展 | ✅ | \"AI\" → 46 个词 |\n| 查询缓存 | ✅ | 缓存命中正常 |\n| 监控统计 | ✅ | 平均 30ms, P95 50ms |\n| 批量搜索 | ✅ | 2 次查询完成 |\n\n### claw-rl v2.9.1\n\n| 功能 | 状态 | 验证 |\n|------|------|------|\n| Binary RL Judge | ✅ | Judge 工作正常 |\n| 学习统计 | ✅ | Learnings 加载正常 |\n\n---\n\n**注意**: 系统提示安装 jieba 以获得更好的中文分词效果：\n```bash\npip install jieba\n```\n\n新版本功能正常，已可以使用！",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T17:50:29.010696"
+}

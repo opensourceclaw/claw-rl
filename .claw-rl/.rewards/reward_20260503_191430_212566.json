@@ -1,0 +1,10 @@
+{
+  "feedback": "迭代到v0.5.0再发布; 修改好了吗",
+  "action": "已修改完成 ✅\n\n| 项目 | 状态 |\n|------|------|\n| 版本号 | **v0.5.0** |\n| CHANGELOG.md | 已创建 v0.1.0 → v0.5.0 |\n\n需要发布到 GitHub 吗？",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "改",
+  "hints": [],
+  "timestamp": "2026-05-03T19:14:30.209206"
+}

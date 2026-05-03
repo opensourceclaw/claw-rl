@@ -1,0 +1,10 @@
+{
+  "feedback": "Jarvis回复了; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T09:31:21.589382"
+}

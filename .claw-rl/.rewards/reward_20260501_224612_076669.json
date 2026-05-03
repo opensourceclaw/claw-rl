@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 请更新是三个项目v2.8.0的readme文件，并推送到github对应的仓库",
+  "action": "✅ **三个项目 README 已更新并推送！**\n\n---\n\n### 更新内容\n\n| 项目 | 更新内容 |\n|------|----------|\n| **claw-mem** | 版本号 → v2.8.0 + Changelog |\n| **claw-rl** | 版本号 → v2.8.0 + Changelog |\n| **neoclaw** | 版本号 → v2.8.0 |\n\n---\n\n### GitHub 状态\n\n| 项目 | README 更新 |\n|------|-------------|\n| claw-mem | ✅ 已推送 |\n| claw-rl | ✅ 已推送 |\n| neoclaw | ✅ 已推送 |\n\n---\n\n### Project Neo v2.8.0 完成汇总\n\n| 项目 | 版本 | GitHub Release | README |\n|------|-",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:46:12.076650"
+}

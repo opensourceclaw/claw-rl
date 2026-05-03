@@ -1,0 +1,10 @@
+{
+  "feedback": "目前系统claw-mem部署的版本是多少; /Users/liantian/Library/Mobile Documents/iCloud~md~obsidian/Documents/Dev/Projects/0-neo-horizontal-vertical-strategy.md 请在阅读一下这份文档，对目前的项目的整个规划有个全面的架构思路对齐。",
+  "action": "## 文档 vs 现状对齐\n\n### 文档规划 vs 实际现状\n\n| 层级 | 组件 | 文档版本 | 实际版本 | 状态 |\n|------|------|----------|----------|------|\n| **L2 核心** | claw-mem | v2.2.0 | v2.9.0 | ✅ 超前 |\n| **L2 核心** | claw-rl | v2.2.0 | v2.9.1 | ✅ 超前 |\n| **L3 底座** | NeoClaw | v2.3.0 | v2.8.0 | ✅ 超前 |\n| **L4 垂直** | DeepClaw | v0.5.0 | v0.5.0 | ⚠️ 文档过时 |\n| **L4 垂直** | DevClaw | 规划中 | v1.0.0 | ✅ 已启动 |\n| **L4 垂直** | WorkClaw | 规划中 | - | ⏳ 未启动 |\n",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T18:13:27.846208"
+}

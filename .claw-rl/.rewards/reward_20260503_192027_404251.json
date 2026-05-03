@@ -1,0 +1,10 @@
+{
+  "feedback": "修改好了吗; 发布到github ，请同时将DevClaw到所有文档，代码全部改为100%英文",
+  "action": "**DevClaw v0.5.0 发布完成！**\n\n| 步骤 | 状态 |\n|------|------|\n| 代码 100% 英文 | ✅ README, CHANGELOG, 模块注释 |\n| Git 提交 | ✅ 14 files, 1653+ lines |\n| GitHub 推送 | ✅ |\n| Tag 创建 | ✅ v0.5.0 |\n| GitHub Release | ✅ |\n\nRelease: https://github.com/opensourceclaw/devclaw/releases/tag/v0.5.0",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "改",
+  "hints": [],
+  "timestamp": "2026-05-03T19:20:27.403963"
+}

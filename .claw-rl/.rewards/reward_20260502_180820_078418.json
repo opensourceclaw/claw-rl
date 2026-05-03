@@ -1,0 +1,10 @@
+{
+  "feedback": "提交并推送到github; 目前系统claw-mem部署的版本是多少",
+  "action": "当前部署版本：**claw-mem v2.9.0**\n\n之前安装的是从 GitHub 安装的 v2.9.0，不是本地源码版本。\n\n需要重新从源码安装最新版本（包含 jieba 安装说明的更新）吗？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T18:08:20.078401"
+}

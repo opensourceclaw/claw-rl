@@ -1,0 +1,10 @@
+{
+  "feedback": "检索准确率 目前以都达到100%了; 请到neoclaw项目下docs/目录下，把所有md文件中涉及到ResearchClaw的改成DeepClaw",
+  "action": "✅ **已全部替换完成！**\n\n---\n\n### 修改文件\n\n| 文件 | 状态 |\n|------|------|\n| `docs/vision-mission/ECOSYSTEM_STRATEGY.md` | ✅ ResearchClaw → DeepClaw |\n| `docs/architecture/2026-04-27-neo-horizontal-vertical-strategy.md` | ✅ ResearchClaw → DeepClaw |\n\n---\n\n### 验证结果\n\n```\nDeepClaw | Deep research automation | Active v0.1.0 ✅\nDevClaw  → DeepClaw\nResearchClaw → DeepClaw (无匹配)\n```\n\n所有 neoclaw/docs 目录下的 `.md` 文件中已无 `Res",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "改",
+  "hints": [],
+  "timestamp": "2026-05-02T00:12:42.334447"
+}

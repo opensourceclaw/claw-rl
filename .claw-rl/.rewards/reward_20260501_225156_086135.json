@@ -1,0 +1,10 @@
+{
+  "feedback": "现在本地是否部署的claw-mem, claw-rl, neocalw 都是v2.8.0; 请将更新的README文件推送到github对应的仓库，然后重启Gateway，让插件生效",
+  "action": "✅ **Gateway 已重启，v2.8.0 插件生效！**\n\n---\n\n### 启动日志\n\n```\n[plugins] [claw-mem bridge] [claw-mem bridge] Starting v2.8.0...\n[plugins] [claw-mem bridge] Started successfully\n[plugins] [claw-rl bridge] Started successfully\n```\n\n---\n\n### 最终状态\n\n| 项目 | GitHub | 本地 pip | 插件 | Gateway |\n|------|--------|----------|------|---------|\n| **claw-mem** | ✅ | v2.8.0 | v2.8.0 | ✅ 运行中 |\n| **claw-rl** | ✅ | v2.8.0 | v2.8.",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:51:56.086040"
+}

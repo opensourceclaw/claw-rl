@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要更新",
+  "action": "版本号更新完成：\n\n| 文件 | 更新 |\n|------|------|\n| `pyproject.toml` | v2.9.0 → **v2.9.1** ✅ |\n| `reflection/orchestrator.py` | v3.0.0 → v2.9.1 ✅ |\n| `reflection/synthesizer.py` | v3.0.0 → v2.9.1 ✅ |\n| `reflection/belief_tracker.py` | v3.0.0 → v2.9.1 ✅ |\n| `temporal/time_aware.py` | v3.0.0 → v2.9.1 ✅ |\n| `memory_manager.py` | 7 处更新 ✅ |\n| `reflection/__init__.py` | ✅ |\n| `temporal/__init__.py` | ✅ |\n\n需要现在运行测试或",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T15:21:07.809773"
+}

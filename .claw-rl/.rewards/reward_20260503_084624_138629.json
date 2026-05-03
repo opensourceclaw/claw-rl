@@ -1,0 +1,10 @@
+{
+  "feedback": "(session bootstrap); Jarvis回信了",
+  "action": "收到！Jarvis 已完成 **DevClaw v0.5.0 M3 - Web 工作台**：\n\n| 项目 | 状态 |\n|------|------|\n| FastAPI 服务器 | ✅ |\n| 任务看板 UI | ✅ |\n| WebSocket 实时推送 | ✅ |\n| 25 个测试 | ✅ 全部通过 |\n\n需要我现在验收吗？还是先检查代码？",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T08:46:24.138606"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "目前有用户反馈关于claw-rl的安装问题，用户按照https://github.com/opensourceclaw/claw-rl 上描述的从源码安装的方式，安装后日志输出的版本为v2.3.0,请检查这是什么原因导致的。; 需要",
+  "action": "已推送 ✅\n\nREADME 版本已更新为 **v2.9.1**，用户重新安装即可显示正确版本。",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T15:36:07.944013"
+}

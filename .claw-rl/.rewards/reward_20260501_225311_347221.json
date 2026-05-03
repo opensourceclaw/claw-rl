@@ -1,0 +1,10 @@
+{
+  "feedback": "请将更新的README文件推送到github对应的仓库，然后重启Gateway，让插件生效; neoclaw目前是skill方式运行，还是hook方式运行",
+  "action": "## neoclaw 运行方式\n\n**当前是 Skill + Hook 两种方式同时运行：**\n\n| 方式 | 配置位置 | 状态 |\n|------|----------|------|\n| **Skill** | `config.json` 中 `project-neo` | ✅ enabled |\n| **Hook** | `~/.openclaw/hooks/neoclaw/` | ✅ 4个文件 |\n\n---\n\n### 详情\n\n```\nconfig.json:\n  \"project-neo\": {\n    \"enabled\": true,\n    \"config\": { ... }\n  }\n\n~/.openclaw/hooks/neoclaw/:\n  - handler.ts    (Hook 入口)\n  - HOOK.md       (Hook 配置)\n  - lib/    ",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "行",
+  "hints": [],
+  "timestamp": "2026-05-01T22:53:11.347190"
+}

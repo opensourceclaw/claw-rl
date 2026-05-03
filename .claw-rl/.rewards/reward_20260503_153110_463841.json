@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 好，开始发布claw-mem v2.9.1",
+  "action": "**claw-mem v2.9.1 发布完成！**\n\n| 步骤 | 状态 |\n|------|------|\n| Git 提交 | ✅ 11 files, 1033+ lines |\n| GitHub 推送 | ✅ |\n| Tag 创建 | ✅ v2.9.1 |\n| GitHub Release | ✅ |\n\nRelease: https://github.com/opensourceclaw/claw-mem/releases/tag/v2.9.1",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "好",
+  "hints": [],
+  "timestamp": "2026-05-03T15:31:10.463594"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "发布claw-rl v2.8.0; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-01T22:44:15.878168"
+}

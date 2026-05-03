@@ -1,0 +1,10 @@
+{
+  "feedback": "让我们开始claw-rl v2.9.0; 1.LLM-Enhanced PRM Judge（准确率 > 90%）2. daptive MAB 策略 3. 修复问题/性能优化 聚焦以上三个重点",
+  "action": "---\n\n## ✅ claw-rl v2.9.0 发布完成！\n\n### 发布总结\n\n| 项目 | 状态 |\n|------|------|\n| **版本** | v2.9.0 |\n| **GitHub** | ✅ 已推送 (commit: c639499) |\n| **Tag** | ✅ v2.9.0 |\n| **Release** | ✅ 已创建 |\n\n### 测试结果\n\n| 测试文件 | 结果 |\n|----------|------|\n| test_binary_rl.py | ✅ 36 passed |\n| test_llm_prm_judge.py | ✅ 20 passed |\n| test_adaptive_mab.py | ✅ 35 passed |\n| **总计** | **91 passed** |\n\n### 主要改动\n\n1. **中文反馈模式支持** - 添加 20+",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T07:31:38.904192"
+}

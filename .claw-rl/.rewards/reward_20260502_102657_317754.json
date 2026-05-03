@@ -1,0 +1,10 @@
+{
+  "feedback": "先不用; 你现在的记忆系统已经替换成claw-mem了，没有使用openclaw 自带的memory-core了对吧",
+  "action": "是的，确认已替换：\n\n| 插件 | 状态 |\n|------|------|\n| **claw-mem** | ✅ `enabled: true` + `slots.memory: claw-mem` |\n| **memory-core** | ❌ `enabled: false` |\n| memory-lancedb | ❌ `enabled: false` |\n\n**claw-mem 配置：**\n- `autoRecall: true` - 自动召回记忆\n- `autoCapture: true` - 自动捕获记忆\n\n**claw-rl 配置：**\n- `autoInject: true` - 自动注入学习规则\n- `autoLearn: true` - 自动学习\n\n记忆系统已完全切换到 claw-mem ✅",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T10:26:57.317738"
+}

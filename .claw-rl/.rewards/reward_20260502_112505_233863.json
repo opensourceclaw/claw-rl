@@ -1,0 +1,10 @@
+{
+  "feedback": "需要; 发布任务是Friday，还是Jarvis来完成",
+  "action": "✅ **claw-mem v2.9.0 发布完成！**\n\n| 步骤 | 状态 |\n|------|------|\n| 版本号更新 | ✅ v2.9.0 |\n| Git commit | ✅ 40afc4c7 |\n| GitHub push | ✅ |\n| Tag | ✅ v2.9.0 |\n| Release | ✅ 已发布 |\n\n**Release 地址**: https://github.com/opensourceclaw/claw-mem/releases/tag/v2.9.0\n\n**新功能：**\n- P1-1: 同义词扩展\n- P1-2: 缓存优化 (LRU, 300s TTL)\n- P2-1: 批量搜索 API\n- P2-2: 监控统计 (延迟 P50/P95/P99, 缓存命中率)",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-02T11:25:05.233841"
+}
