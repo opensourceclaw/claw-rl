@@ -53,27 +53,24 @@ sys.stdout = JsonStdout()
 import warnings
 warnings.filterwarnings('ignore')
 
+from claw_rl.adapters import BridgeAdapterRegistry
+
 
 class ClawRLBridge:
     """JSON-RPC Bridge for claw-rl"""
 
     def __init__(self):
         self.request_id = 0
-        self.learning_loop = None
+        self._adapter = None
         self._initialize()
 
     def _initialize(self):
-        """Initialize LearningLoop"""
+        """Initialize adapter and core components."""
         try:
-            from pathlib import Path
-            from claw_rl.core.learning_loop import LearningLoop
-
             workspace = os.environ.get('OPENCLAW_WORKSPACE', os.getcwd())
-            data_dir = Path(workspace) / '.claw-rl'
-            data_dir.mkdir(parents=True, exist_ok=True)
-
-            self.learning_loop = LearningLoop(data_dir=data_dir)
-            self._respond(None, {"status": "ok", "message": "initialized"})
+            self._adapter = BridgeAdapterRegistry.create_adapter()
+            result = self._adapter.initialize(workspace)
+            self._respond(None, result)
         except Exception as e:
             self._respond(None, {"error": str(e)}, -32000)
 
@@ -98,10 +95,10 @@ class ClawRLBridge:
         """Handle JSON-RPC request"""
         method = request.get("method")
         params = request.get("params", {})
-        id = request.get("id")
+        req_id = request.get("id")
 
         if not method:
-            return self._respond(id, "Method not found", -32601)
+            return self._respond(req_id, "Method not found", -32601)
 
         handlers = {
             "initialize": self._handle_initialize,
@@ -117,91 +114,50 @@ class ClawRLBridge:
 
         handler = handlers.get(method)
         if not handler:
-            return self._respond(id, f"Method '{method}' not found", -32601)
+            return self._respond(req_id, f"Method '{method}' not found", -32601)
 
         try:
             result = handler(params)
-            return self._respond(id, result)
+            return self._respond(req_id, result)
         except Exception as e:
-            return self._respond(id, str(e), -32000)
+            return self._respond(req_id, str(e), -32000)
 
     def _handle_collect_feedback(self, params: Dict) -> Dict:
-        """Handle feedback collection"""
         feedback = params.get("feedback", "")
         action = params.get("action", "")
         context = params.get("context", "")
-
-        result = self.learning_loop.process_feedback(feedback, action, context)
-        return {
-            "status": "feedback_collected",
-            "reward": result.get("reward", 0),
-            "hints": result.get("hints", []),
-        }
+        return self._adapter.collect_feedback(feedback, action, context)
 
     def _handle_get_rules(self, params: Dict) -> Dict:
-        """Handle get learned rules with context-aware filtering"""
         top_k = params.get("topK", params.get("top_k", 10))
         context = params.get("context", "")
-
         try:
-            recent = self.learning_loop.get_recent_learnings(
-                limit=top_k,
-                context_filter=context if context else None
-            )
-            # Convert learnings + hints to rules
-            rules = []
-            for r in recent:
-                # Add hints as rules (from OPD extraction)
-                for h in r.get("hints", []):
-                    rules.append({
-                        "pattern": h.get("hint_type", ""),
-                        "response": h.get("content", ""),
-                        "source": "hint",
-                        "reward": r.get("reward", 0),
-                        "feedback": r.get("feedback", "")[:100],
-                    })
-                # Add the learning itself as a rule
-                rules.append({
-                    "pattern": "learned",
-                    "response": r.get("feedback", "")[:200],
-                    "source": "feedback",
-                    "reward": r.get("reward", 0),
-                    "action": r.get("action", "")[:100],
-                })
-            return {"rules": rules}
+            return self._adapter.get_rules(top_k=top_k, context=context)
         except Exception:
             return {"rules": []}
 
     def _handle_status(self, params: Dict) -> Dict:
-        """Handle status request"""
-        stats = self.learning_loop.get_statistics()
-        return {
-            "status": "ok",
-            "initialized": self.learning_loop is not None,
-            "workspace": os.getcwd(),
-            "statistics": stats,
-        }
+        try:
+            result = self._adapter.status()
+            return result
+        except Exception:
+            return {"status": "error"}
 
     def _handle_ping(self, params: Dict) -> Dict:
-        """Handle ping"""
-        return {"pong": True}
+        return self._adapter.ping() if self._adapter else {"pong": True}
 
     def _handle_initialize(self, params: Dict) -> Dict:
-        """Handle initialize request from TypeScript plugin"""
         workspace = params.get("workspace", os.getcwd())
         return {"status": "ok", "message": "initialized", "workspace": workspace}
 
     def _handle_process_learning(self, params: Dict) -> Dict:
-        """Handle process_learning request (session end)"""
         try:
-            stats = self.learning_loop.get_statistics()
-            return {"status": "ok", "statistics": stats}
+            return self._adapter.process_learning()
         except Exception as e:
             return {"status": "error", "message": str(e)}
 
     def _handle_shutdown(self, params: Dict) -> Dict:
-        """Handle shutdown request"""
-        return {"status": "shutting_down"}
+        return self._adapter.shutdown() if self._adapter else {"status": "shutting_down"}
 
     def run(self):
         """Run the bridge"""
