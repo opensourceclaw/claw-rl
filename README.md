@@ -222,7 +222,7 @@ Edit `~/.openclaw/config.json`:
 ```json
 {
   "plugins": {
-    "allow": ["claw-rl", "claw-mem", "memory-core", "acpx"],
+    "allow": ["claw-rl", "claw-mem"],
     "entries": {
       "claw-rl": {
         "enabled": true,
