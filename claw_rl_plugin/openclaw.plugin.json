@@ -36,5 +36,12 @@
       }
     },
     "additionalProperties": false
+  },
+  "contracts": {
+    "tools": [
+      "learning_status",
+      "collect_feedback",
+      "get_learned_rules"
+    ]
   }
 }

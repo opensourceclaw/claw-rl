@@ -1,0 +1,19 @@
+{
+  "plugins": {
+    "allow": ["claw-rl"],
+    "entries": {
+      "claw-rl": {
+        "enabled": true,
+        "config": {
+          "autoInject": true,
+          "autoLearn": true,
+          "topK": 10,
+          "workspaceDir": "/path/to/claw-rl-workspace"
+        },
+        "hooks": {
+          "allowConversationAccess": true
+        }
+      }
+    }
+  }
+}
