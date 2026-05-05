@@ -224,17 +224,31 @@ Edit `~/.openclaw/config.json`:
   "plugins": {
     "allow": ["claw-rl", "claw-mem"],
     "entries": {
+      "claw-mem": {
+        "enabled": true,
+        "config": {
+          "autoRecall": true,
+          "autoCapture": true
+        },
+        "hooks": {
+          "allowConversationAccess": true
+        }
+      },
       "claw-rl": {
         "enabled": true,
         "config": {
           "workspaceDir": "/path/to/claw-rl-workspace",
           "autoInject": true,
-          "autoLearn": true
+          "autoLearn": true,
+          "topK": 10
         },
         "hooks": {
           "allowConversationAccess": true
         }
       }
+    },
+    "slots": {
+      "memory": "claw-mem"
     }
   }
 }
