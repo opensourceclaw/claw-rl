@@ -69,7 +69,7 @@ interface OpenClawPluginApi {
     debug: (...args: any[]) => void;
   };
   
-  registerTool(tool: any, handler: (params: any) => Promise<any>): void;
+  registerTool(factory: (ctx: any) => any, opts?: { names: string[] }): void;
   on(eventName: string, handler: (event: any, ctx: any) => Promise<any | void>): void;
   registerService(service: { id: string; start: () => Promise<void>; stop: () => Promise<void> }): void;
 }
@@ -378,21 +378,19 @@ const plugin: PluginDefinition = {
     // Register Tools
     // ========================================================================
     
-    api.registerTool(
-      {
-        name: 'learning_status',
-        label: 'Learning Status',
-        description: 'Get the current status of the learning system.',
-        parameters: {
-          type: 'object',
-          properties: {},
-        },
+    api.registerTool((_ctx: any) => ({
+      name: 'learning_status',
+      label: 'Learning Status',
+      description: 'Get the current status of the learning system.',
+      parameters: {
+        type: 'object',
+        properties: {},
       },
-      async (params: any) => {
+      execute: async (_toolCallId: string, params: any) => {
         if (!bridge.isReady()) {
           return { error: 'Bridge not initialized' };
         }
-        
+
         try {
           const result = await bridge.call('status');
           return result;
@@ -400,28 +398,26 @@ const plugin: PluginDefinition = {
           api.logger.error('[claw-rl] Status error:', error);
           return { error: (error as Error).message };
         }
-      }
-    );
-    
-    api.registerTool(
-      {
-        name: 'collect_feedback',
-        label: 'Collect Feedback',
-        description: 'Collect user feedback signal for learning.',
-        parameters: {
-          type: 'object',
-          properties: {
-            feedback: { type: 'string', description: 'Feedback type: positive, negative, or correction' },
-            context: { type: 'object', description: 'Context of the feedback' },
-          },
-          required: ['feedback'],
-        },
       },
-      async (params: any) => {
+    }), { names: ['learning_status'] });
+    
+    api.registerTool((_ctx: any) => ({
+      name: 'collect_feedback',
+      label: 'Collect Feedback',
+      description: 'Collect user feedback signal for learning.',
+      parameters: {
+        type: 'object',
+        properties: {
+          feedback: { type: 'string', description: 'Feedback type: positive, negative, or correction' },
+          context: { type: 'object', description: 'Context of the feedback' },
+        },
+        required: ['feedback'],
+      },
+      execute: async (_toolCallId: string, params: any) => {
         if (!bridge.isReady()) {
           return { error: 'Bridge not initialized' };
         }
-        
+
         try {
           const result = await bridge.call('collect_feedback', params);
           return result;
@@ -429,27 +425,25 @@ const plugin: PluginDefinition = {
           api.logger.error('[claw-rl] Collect feedback error:', error);
           return { error: (error as Error).message };
         }
-      }
-    );
+      },
+    }), { names: ['collect_feedback'] });
     
-    api.registerTool(
-      {
-        name: 'get_learned_rules',
-        label: 'Get Learned Rules',
-        description: 'Get learned rules for injection into context.',
-        parameters: {
-          type: 'object',
-          properties: {
-            top_k: { type: 'number', description: 'Max rules to return', default: config.topK },
-            context: { type: 'string', description: 'Context for rule selection' },
-          },
+    api.registerTool((_ctx: any) => ({
+      name: 'get_learned_rules',
+      label: 'Get Learned Rules',
+      description: 'Get learned rules for injection into context.',
+      parameters: {
+        type: 'object',
+        properties: {
+          top_k: { type: 'number', description: 'Max rules to return', default: config.topK },
+          context: { type: 'string', description: 'Context for rule selection' },
         },
       },
-      async (params: any) => {
+      execute: async (_toolCallId: string, params: any) => {
         if (!bridge.isReady()) {
           return { error: 'Bridge not initialized' };
         }
-        
+
         try {
           const result = await bridge.call('get_rules', params);
           return result;
@@ -457,8 +451,8 @@ const plugin: PluginDefinition = {
           api.logger.error('[claw-rl] Get rules error:', error);
           return { error: (error as Error).message };
         }
-      }
-    );
+      },
+    }), { names: ['get_learned_rules'] });
     
     // ========================================================================
     // Register Hooks

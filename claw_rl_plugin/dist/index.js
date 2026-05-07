@@ -263,7 +263,7 @@ const plugin = {
         // ========================================================================
         // Register Tools
         // ========================================================================
-        api.registerTool({
+        api.registerTool((_ctx) => ({
             name: 'learning_status',
             label: 'Learning Status',
             description: 'Get the current status of the learning system.',
@@ -271,20 +271,21 @@ const plugin = {
                 type: 'object',
                 properties: {},
             },
-        }, async (params) => {
-            if (!bridge.isReady()) {
-                return { error: 'Bridge not initialized' };
-            }
-            try {
-                const result = await bridge.call('status');
-                return result;
-            }
-            catch (error) {
-                api.logger.error('[claw-rl] Status error:', error);
-                return { error: error.message };
-            }
-        });
-        api.registerTool({
+            execute: async (_toolCallId, params) => {
+                if (!bridge.isReady()) {
+                    return { error: 'Bridge not initialized' };
+                }
+                try {
+                    const result = await bridge.call('status');
+                    return result;
+                }
+                catch (error) {
+                    api.logger.error('[claw-rl] Status error:', error);
+                    return { error: error.message };
+                }
+            },
+        }), { names: ['learning_status'] });
+        api.registerTool((_ctx) => ({
             name: 'collect_feedback',
             label: 'Collect Feedback',
             description: 'Collect user feedback signal for learning.',
@@ -296,20 +297,21 @@ const plugin = {
                 },
                 required: ['feedback'],
             },
-        }, async (params) => {
-            if (!bridge.isReady()) {
-                return { error: 'Bridge not initialized' };
-            }
-            try {
-                const result = await bridge.call('collect_feedback', params);
-                return result;
-            }
-            catch (error) {
-                api.logger.error('[claw-rl] Collect feedback error:', error);
-                return { error: error.message };
-            }
-        });
-        api.registerTool({
+            execute: async (_toolCallId, params) => {
+                if (!bridge.isReady()) {
+                    return { error: 'Bridge not initialized' };
+                }
+                try {
+                    const result = await bridge.call('collect_feedback', params);
+                    return result;
+                }
+                catch (error) {
+                    api.logger.error('[claw-rl] Collect feedback error:', error);
+                    return { error: error.message };
+                }
+            },
+        }), { names: ['collect_feedback'] });
+        api.registerTool((_ctx) => ({
             name: 'get_learned_rules',
             label: 'Get Learned Rules',
             description: 'Get learned rules for injection into context.',
@@ -320,19 +322,20 @@ const plugin = {
                     context: { type: 'string', description: 'Context for rule selection' },
                 },
             },
-        }, async (params) => {
-            if (!bridge.isReady()) {
-                return { error: 'Bridge not initialized' };
-            }
-            try {
-                const result = await bridge.call('get_rules', params);
-                return result;
-            }
-            catch (error) {
-                api.logger.error('[claw-rl] Get rules error:', error);
-                return { error: error.message };
-            }
-        });
+            execute: async (_toolCallId, params) => {
+                if (!bridge.isReady()) {
+                    return { error: 'Bridge not initialized' };
+                }
+                try {
+                    const result = await bridge.call('get_rules', params);
+                    return result;
+                }
+                catch (error) {
+                    api.logger.error('[claw-rl] Get rules error:', error);
+                    return { error: error.message };
+                }
+            },
+        }), { names: ['get_learned_rules'] });
         // ========================================================================
         // Register Hooks
         // ========================================================================
