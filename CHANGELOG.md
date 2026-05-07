@@ -554,3 +554,8 @@ claw-rl v2.0.1 official release.
 - **v0.7.0** (2026-03-25): Learning Loop Enhancement
 - **v0.6.0** (2026-03-25): Shell-Python Integration
 - **v0.5.0** (2026-03-24): Python Migration
+
+## v2.11.1 (2026-05-07)
+
+- chore: restructure directory layout to devclaw standard
+- Move bridge.py to scripts/, create configs/demos/examples/backups dirs
