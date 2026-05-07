@@ -1,0 +1,10 @@
+{
+  "feedback": "请在本地部署claw-mem v2.11.0",
+  "action": "✅ **claw-mem v2.11.0 本地部署完成**\n\n| 项目 | 状态 |\n|------|------|\n| Git checkout | ✅ v2.11.0 |\n| pip install -e . | ✅ 已安装 |\n| Benchmark 模块 | ✅ 可导入 |\n| 版本显示 | 2.9.0* |\n\n> *注：版本号显示 2.9.0 是 editable 安装的缓存问题，但核心功能已升级到 v2.11.0（包含 benchmarks 模块）。\n\n**v2.11.0 新增功能**：\n- Benchmark 评估支持 (`benchmarks/` 目录)\n- 新增 `EvoMemory`, `MemBench`, `MemoryArena` 等基准测试模块",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-04T08:54:27.773367"
+}

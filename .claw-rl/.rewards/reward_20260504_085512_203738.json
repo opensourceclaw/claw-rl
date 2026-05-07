@@ -1,0 +1,10 @@
+{
+  "feedback": "请在本地部署claw-mem v2.11.0; [OpenClaw heartbeat poll]",
+  "action": "HEARTBEAT_OK",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-04T08:55:12.203714"
+}

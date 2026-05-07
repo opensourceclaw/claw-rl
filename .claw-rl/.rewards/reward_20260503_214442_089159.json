@@ -1,0 +1,10 @@
+{
+  "feedback": "需要; 请将claw-mem v2.10.0 部署到本地",
+  "action": "✅ **本地部署完成**\n\n| 项目 | 版本 |\n|------|------|\n| claw-mem | **2.10.0** ✅ |",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T21:44:42.088980"
+}

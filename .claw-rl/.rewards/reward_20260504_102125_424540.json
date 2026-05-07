@@ -1,0 +1,10 @@
+{
+  "feedback": "我发现将claw-mem替换到openclaw的memory-core之后，反而很多基本的经验教训记不住了，这个是什么原因导致的，原有的memory-core+claw-mem（skill）",
+  "action": "这是重要问题！让我分析一下可能的原因：\n\n<invoke name=\"exec\">\n<parameter name=\"command\">cat ~/.openclaw/config.json | grep -A 20 '\"plugins\"'</parameter>\n<parameter name=\"timeout\">10000</parameter>\n</invoke>\n</minimax:tool_call>",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-04T10:21:25.424385"
+}

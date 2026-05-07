@@ -1,0 +1,10 @@
+{
+  "feedback": "这个参考可以先记录下来，作为后期的版本迭代参考，感觉更像一个个人项目，理论基础不足。; /Users/liantian/Downloads/1-2学习/人工智能/1-1-技术变化/研究论文/memory/compression/2601.04463v1-Beyond Static Summarization.pdf 请先阅读第一篇",
+  "action": "## 📄 ProMem 论文总结\n\n**论文**: Beyond Static Summarization: Proactive Memory Extraction for LLM Agents  \n**作者**: Chengyuan Yang, Zequn Sun, Wei Wei, Wei Hu (南京大学)  \n**arXiv**: https://arxiv.org/abs/2601.04463\n\n---\n\n### 🎯 核心观点\n\n现有基于摘要的记忆管理方法有两个局限：\n\n1. **Ahead-of-time（超前处理）**: 摘要是\"盲目前馈\"，不知道未来任务，会遗漏重要细节\n2. **One-off（一次性）**: 提取缺乏反馈循环，导致信息丢失累积\n\n---\n\n### 🧠 方法：ProMem（三阶段）\n\n```\n原始对话 → 初始提取 → 记忆补全 → 递归验证 → 最",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-04T09:57:58.140586"
+}

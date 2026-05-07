@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 让我们看看新版本有哪些新特性，请给出演示以证明",
+  "action": "✅ **claw-mem v2.11.0 新特性演示完成**\n\n---\n\n## 📦 v2.11.0 新增内容\n\n### 1. Benchmark 评估模块\n新增 `benchmarks/` 目录，包含：\n\n| 模块 | 功能 |\n|------|------|\n| `runner.py` | 统一基准测试运行器 |\n| `membench.py` | 检索评估 (Recall@K, MRR, Precision) |\n| `memory_arena.py` | 任务场景模拟 (Web导航、偏好约束、渐进搜索) |\n| `evo_memory.py` | 流式学习评估 (ExPrag 基线对比) |\n| `metrics.py` | 评估指标定义 |\n\n### 2. 演示结果\n\n```\nMemory Arena: 4/4 任务完成 (100%)\nMemBench MRR: 100%\nEvo",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-04T08:56:03.251678"
+}

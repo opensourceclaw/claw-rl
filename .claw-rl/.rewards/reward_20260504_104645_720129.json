@@ -1,0 +1,10 @@
+{
+  "feedback": "实验一： 请回顾Project Neo 所有项目的标准发布流程",
+  "action": "## Project Neo 标准发布流程\n\n根据 TOOLS.md 中的规范，Project Neo 项目的标准发布流程如下：\n\n---\n\n### 📋 完整发布流程 (6 步)\n\n| 步骤 | 操作 | 说明 |\n|------|------|------|\n| **1** | 提交代码到 Git | `git add . && git commit -m \"release: vX.Y.Z\"` |\n| **2** | 推送到 GitHub | `git push origin main` |\n| **3** | 合并到 main | 确保代码在 main 分支 |\n| **4** | 创建 tag | `git tag vX.Y.Z` |\n| **5** | 推送 tag | `git push origin vX.Y.Z` |\n| **6** | **创建 GitHub Releas",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-04T10:46:45.720107"
+}

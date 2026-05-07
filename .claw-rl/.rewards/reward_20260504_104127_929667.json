@@ -1,0 +1,17 @@
+{
+  "feedback": "Jarvis回信了; 那应该是已经查看过了，让我们再做一个实验，请回顾目前所有项目的标准发布流程是什么",
+  "action": "## 📦 Project Neo 项目标准发布流程\n\n| 步骤 | 操作 | 命令 |\n|------|------|------|\n| 1️⃣ | 提交代码到 Git | `git add . && git commit -m \"描述\"` |\n| 2️⃣ | 推送到 GitHub | `git push origin <branch>` |\n| 3️⃣ | 合并到 main | `git checkout main && git merge <branch>` |\n| 4️⃣ | 创建 tag | `git tag v{x.y.z}` |\n| 5️⃣ | 推送 tag | `git push origin v{x.y.z}` |\n| 6️⃣ | **创建 GitHub Release** | `gh release create v{x.y.z} --title \"{项目名} v{x.",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "应该",
+  "hints": [
+    {
+      "hint_type": "should",
+      "content": "修正建议: 应该是已经查看过了，让我们再做一个实验，请回顾目前所有项目的标准发布流程是什么",
+      "priority": 3,
+      "confidence": 0.85
+    }
+  ],
+  "timestamp": "2026-05-04T10:41:27.929634"
+}

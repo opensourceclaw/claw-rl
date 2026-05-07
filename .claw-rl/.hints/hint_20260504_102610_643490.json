@@ -1,0 +1,10 @@
+{
+  "hints": [
+    {
+      "hint_type": "should",
+      "content": "修正建议: 应该找到问题的核心原因，否则新的claw-mem的plugin模式就没有意义了; 我感觉现在几个方案好像混合在一起，我的目标是使用claw-mem作为唯一个memory插件，其他的skill都移除memory-core进行禁止",
+      "priority": 3,
+      "confidence": 0.85
+    }
+  ]
+}

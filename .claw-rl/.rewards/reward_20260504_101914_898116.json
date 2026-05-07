@@ -1,0 +1,10 @@
+{
+  "feedback": "实现功能难道不是要交给Jarvis来完成吗; 我发现将claw-mem替换到openclaw的memory-core之后，反而很多基本的经验教训记不住了，这个是什么原因导致的，原有的memory-core+claw-mem（skill）",
+  "action": "## 🔍 问题分析\n\n### 现状对比\n\n| 配置 | 原来 | 现在 |\n|------|------|------|\n| **记忆系统** | memory-core (plugin) + claw-mem (skill) | claw-mem (plugin) |\n| **Skill 版本** | v2.0.0-rc.2 | v2.0.0-rc.2 (旧) |\n| **Plugin 版本** | - | v2.11.0 (新) |\n\n### 可能原因\n\n1. **Skill 版本过旧**: `~/.openclaw/workspace/skills/claw-mem/` 是 v2.0.0-rc2，比 Plugin v2.11.0 落后很多\n\n2. **双系统冲突**: 原来 memory-core + claw-mem skill 可能是互补的，现在只用一个反而丢失了某些功能\n\n3",
+  "context": "",
+  "reward": -1,
+  "confidence": 0.9,
+  "pattern_matched": "不是",
+  "hints": [],
+  "timestamp": "2026-05-04T10:19:14.897880"
+}

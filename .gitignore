@@ -61,3 +61,11 @@ src/*.old/
 # Exception: v2.0.0 migration docs
 docs/
 !docs/v2.0.0/
+workspace-test*/
+*.pyc
+__pycache__/
+.pytest_cache/
+htmlcov/
+dist/
+build/
+*.egg-info/

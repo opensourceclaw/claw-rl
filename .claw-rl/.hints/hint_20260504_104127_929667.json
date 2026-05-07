@@ -1,0 +1,10 @@
+{
+  "hints": [
+    {
+      "hint_type": "should",
+      "content": "修正建议: 应该是已经查看过了，让我们再做一个实验，请回顾目前所有项目的标准发布流程是什么",
+      "priority": 3,
+      "confidence": 0.85
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "我感觉现在几个方案好像混合在一起，我的目标是使用claw-mem作为唯一个memory插件，其他的skill都移除memory-core进行禁止; 是否还需要移除系统中的claw-mem的skill组件",
+  "action": "架构澄清：\n\n| 层级 | 位置 | 作用 |\n|------|------|------|\n| **Plugin** | `plugins.slots.memory = \"claw-mem\"` | 自动记忆捕获 + 检索 |\n| **Skill** | `skills.entries` (当前为空) | 手动命令调用 |\n| **Python 包源码** | `~/.openclaw/workspace/skills/claw-mem/` | Plugin 依赖的代码 |\n\n**结论**：\n- ✅ **不需要移除** `workspace/skills/claw-mem/`\n- 这是 **Python 包源码**，Plugin 模式依赖它\n- 移除后 Plugin 就无法工作了\n\n当前的架构已经是正确的：\n- Plugin 模式自动运行（无需 skill 命令）\n- 不需要手动 `mem",
+  "context": "",
+  "reward": 1,
+  "confidence": 0.9,
+  "pattern_matched": "好",
+  "hints": [],
+  "timestamp": "2026-05-04T10:29:10.547895"
+}

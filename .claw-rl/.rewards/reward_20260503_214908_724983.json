@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; claw-mem的理论基础主要来自哪一篇论文",
+  "action": "**claw-mem 理论基础**\n\n| 版本 | 论文 | 说明 |\n|------|------|------|\n| **v2.10.0** | **arXiv:2604.27707** | \"Contextual Agentic Memory is a Memo, Not True Memory\" (2026) - 权重整合 |\n| v2.9.x | - | 时间感知 + 反思机制 |\n| 基础架构 | Complementary Learning Systems (CLS) | 海马体/新皮层双系统理论 |\n\n**核心论文**：今天实现的 v2.10.0 权重整合机制基于：\n\n> **arXiv:2604.27707** - \"Contextual Agentic Memory is a Memo, Not True Memory\"  \n> 作者: Binyan Xu, Xilin",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T21:49:08.724951"
+}

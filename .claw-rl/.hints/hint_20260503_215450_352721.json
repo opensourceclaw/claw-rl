@@ -1,0 +1,10 @@
+{
+  "hints": [
+    {
+      "hint_type": "should",
+      "content": "需要重新执行: claw-mem的理论基础主要来自哪一篇论文; /Users/liantian/Downloads/1-2学习/人工智能/1-1-技术变化/研究论文/memory/Memory for Autonomous LLM Agents.pdf 请重新阅读这篇论文，谈谈你的新理解",
+      "priority": 4,
+      "confidence": 0.9
+    }
+  ]
+}

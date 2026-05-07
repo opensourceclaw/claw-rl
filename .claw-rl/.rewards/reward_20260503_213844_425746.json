@@ -1,0 +1,10 @@
+{
+  "feedback": "[OpenClaw heartbeat poll]; 需要",
+  "action": "**v2.10.0 发布完成！**\n\n| 项目 | GitHub Release | 测试 |\n|------|----------------|------|\n| claw-mem | ✅ v2.10.0 | 26 passed |\n| claw-rl | ✅ v2.10.0 | 17 passed |\n\n**核心功能**：\n- 经验分类器 (4维评分)\n- 权重整合器 (LoRA + EWC)\n- 提示注入检测 (8种模式)\n- 离线训练管道\n- claw-mem ↔ claw-rl 桥接\n\n**Release 链接**：\n- claw-mem: https://github.com/opensourceclaw/claw-mem/releases/tag/v2.10.0\n- claw-rl: https://github.com/opensourceclaw/claw-rl/rele",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T21:38:44.425517"
+}

@@ -1,0 +1,10 @@
+{
+  "feedback": "MemoryArena 等benchmark 包括哪些内容; 请给出补充这些benchmark 的测试能力的规划",
+  "action": "已创建 **v2.11.0 迭代计划**：\n\n`docs/roadmaps/ITERATION_PLAN_v2.11.0.md`\n\n---\n\n## 补充内容\n\n| Phase | 内容 | 优先级 |\n|-------|------|--------|\n| **P1** | MemoryArena (4类跨域任务) | P1 |\n| **P2** | MemBench (4维能力评估) | P1 |\n| **P3** | Evo-Memory (流式任务) | P2 |\n| **P4** | 统一 Runner + 可视化 | P2 |\n\n---\n\n## 评估能力矩阵\n\n| 能力 | Benchmark | claw-mem 目标 |\n|------|-----------|---------------|\n| 多会话跨域 | MemoryArena | ≥80% 完成率 |\n| 检索准确",
+  "context": "",
+  "reward": 0,
+  "confidence": 0.5,
+  "pattern_matched": null,
+  "hints": [],
+  "timestamp": "2026-05-03T22:01:32.256011"
+}
