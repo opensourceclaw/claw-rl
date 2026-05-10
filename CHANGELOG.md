@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.0] - 2026-05-10
+
+### Added
+
+**Pre-Action Rule Check** — Intercept tool calls before execution
+
+- **`before_tool_use` Hook**: Registered in the plugin, fires before every tool call
+  - Fetches applicable learned rules via bridge `get_rules(context=...)`
+  - Runs `detectRuleViolation()` to check tool + params against rule patterns
+  - Configurable via `preActionCheck` (default: `true`) and `strictMode` (default: `false`)
+- **Pattern Detection**: Recognizes rule violations such as:
+  - `sessions_spawn` / `sessions_spawn_async` for Jarvis/Friday tasks
+  - General tool-rule mismatches based on learned rule content
+- **Warning Mode** (default): Logs violation warnings without blocking execution
+- **Strict Mode**: Returns `{block: true, reason, suggestion}` to prevent execution
+- **Bridge Extension**: `get_rules()` now accepts `context` parameter for contextual rule filtering
+
+### Tests
+
+- 9 tests (all passing) in `tests/test_pre_action_check.py`
+- Bridge get_rules with/without context
+- Pattern matching: sessions_spawn + Jarvis detection
+- Pattern matching: false positive avoidance
+- Strict mode block response structure
+
+---
+
 ## [2.11.1] - 2026-05-05
 
 ### Added
