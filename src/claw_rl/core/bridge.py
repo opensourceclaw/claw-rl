@@ -112,7 +112,7 @@ class ClawRLBridge:
             return {'error': str(e)}
 
     async def get_rules(self, params: Dict[str, Any]) -> Dict[str, Any]:
-        """Get learned rules for injection"""
+        """Get learned rules for injection (v2.12.0: added context filtering)."""
         if not self.initialized:
             return {'error': 'Bridge not initialized'}
 
@@ -120,7 +120,8 @@ class ClawRLBridge:
 
         try:
             limit = params.get('top_k', 10)
-            result = self._adapter.get_rules(top_k=limit)
+            context = params.get('context', '')
+            result = self._adapter.get_rules(top_k=limit, context=context)
 
             latency = (time.time() - start_time) * 1000
             self.request_count += 1
