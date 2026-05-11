@@ -22,7 +22,10 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 import re
 
-from claw_mem.values import UserValueStore
+try:
+    from claw_mem.values import UserValueStore
+except ImportError:
+    UserValueStore = None  # type: ignore
 
 
 class LearningSource(Enum):
@@ -74,16 +77,39 @@ class ExtractedPrinciple:
         }
 
 
+class SimpleValueStore:
+    """Fallback in-memory value store when claw_mem is not available."""
+
+    def __init__(self):
+        self._principles: Dict[str, List[str]] = {}
+        self._red_lines: Dict[str, List[str]] = {}
+
+    def save_principle(self, user_id: str, principle: str) -> None:
+        if user_id not in self._principles:
+            self._principles[user_id] = []
+        self._principles[user_id].append(principle)
+
+    def save_red_line(self, user_id: str, red_line: str) -> None:
+        if user_id not in self._red_lines:
+            self._red_lines[user_id] = []
+        self._red_lines[user_id].append(red_line)
+
+
 class ValueLearner:
     """Value Learning器 - 从交互中隐式学习user价value观"""
 
-    def __init__(self, value_store: Optional[UserValueStore] = None):
+    def __init__(self, value_store=None):
         """initialize学习器
 
         Args:
             value_store: user价value观存储,if为 None thencreate新的
         """
-        self.value_store = value_store or UserValueStore()
+        if value_store is not None:
+            self.value_store = value_store
+        elif UserValueStore is not None:
+            self.value_store = UserValueStore()
+        else:
+            self.value_store = SimpleValueStore()
 
         # 学习历史
         self._interaction_history: List[Interaction] = []
