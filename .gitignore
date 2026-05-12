@@ -69,3 +69,13 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+venv/
+dist/
+htmlcov/
+.audit_log.jsonl
+.coverage
+coverage.json
+.checkpoints/
+.claw-mem/
+.claw-rl/
