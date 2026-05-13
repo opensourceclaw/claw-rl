@@ -227,6 +227,40 @@ function formatRulesForInjection(rules) {
     }
     return lines.join('\n');
 }
+/**
+ * Detect if a tool call violates learned rules (v2.12.0).
+ *
+ * Checks tool name and params against rule patterns.
+ * Recognized patterns:
+ * - sessions_spawn / sessions_spawn_async for Jarvis tasks → use inbox file communication
+ * - Additional pattern types can be added here.
+ */
+function detectRuleViolation(tool, params, rules) {
+    if (!rules || rules.length === 0)
+        return null;
+    // Build a normalized context string for rule matching
+    const contextLower = `${tool} ${JSON.stringify(params || {}).substring(0, 200)}`.toLowerCase();
+    for (const rule of rules) {
+        const ruleContent = (rule.content || '').toLowerCase();
+        // Pattern: Don't use sessions_spawn for Jarvis tasks
+        if ((tool === 'sessions_spawn' || tool === 'sessions_spawn_async') &&
+            (contextLower.includes('jarvis') || contextLower.includes('friday')) &&
+            (ruleContent.includes('jarvis') || ruleContent.includes('inbox') || ruleContent.includes('sessions_spawn'))) {
+            return {
+                reason: `Rule violation: Tool "${tool}" should not be used for Jarvis/Friday tasks`,
+                suggestion: rule.content || 'Use inbox file communication instead',
+            };
+        }
+        // Pattern: General tool-param matching against rule content
+        if (ruleContent.includes(tool.toLowerCase())) {
+            return {
+                reason: `Rule violation: Tool "${tool}" may violate learned rule`,
+                suggestion: rule.content || 'Check learned rules before proceeding',
+            };
+        }
+    }
+    return null;
+}
 // ============================================================================
 // Plugin Definition
 // ============================================================================
@@ -246,6 +280,8 @@ const plugin = {
             autoLearn: { type: 'boolean', default: true },
             topK: { type: 'number', default: 10 },
             debug: { type: 'boolean', default: false },
+            preActionCheck: { type: 'boolean', default: true },
+            strictMode: { type: 'boolean', default: false },
         },
     },
     register(api) {
@@ -257,6 +293,8 @@ const plugin = {
             autoLearn: api.pluginConfig?.autoLearn ?? true,
             topK: api.pluginConfig?.topK ?? 10,
             debug: api.pluginConfig?.debug ?? false,
+            preActionCheck: api.pluginConfig?.preActionCheck ?? true,
+            strictMode: api.pluginConfig?.strictMode ?? false,
         };
         const bridge = new ClawRLBridge(config, api.logger);
         let currentSessionId;
@@ -381,6 +419,35 @@ const plugin = {
                 }
                 catch (error) {
                     api.logger.error('[claw-rl] Process learning error:', error);
+                }
+            });
+        }
+        // v2.12.0: Pre-action rule check before every tool call
+        if (config.preActionCheck) {
+            api.on('before_tool_use', async (event, _ctx) => {
+                try {
+                    const result = await bridge.call('get_rules', {
+                        top_k: config.topK,
+                        context: `${event.tool || ''} ${JSON.stringify(event.params || {}).substring(0, 200)}`,
+                    });
+                    const rules = result?.rules || [];
+                    const violation = detectRuleViolation(event.tool || '', event.params || {}, rules);
+                    if (violation) {
+                        if (config.strictMode) {
+                            return {
+                                block: true,
+                                reason: violation.reason,
+                                suggestion: violation.suggestion,
+                            };
+                        }
+                        else {
+                            console.warn(`[claw-rl] Rule violation (warn): ${violation.reason}`);
+                            console.warn(`[claw-rl] Suggestion: ${violation.suggestion}`);
+                        }
+                    }
+                }
+                catch (error) {
+                    api.logger.debug('[claw-rl] Pre-action check skipped:', error);
                 }
             });
         }
