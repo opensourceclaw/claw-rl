@@ -5,6 +5,8 @@ Coordinates Binary RL and OPD hint extraction to process
 user feedback and trigger learning.
 """
 
+from __future__ import annotations
+
 import json
 from pathlib import Path
 from datetime import datetime
