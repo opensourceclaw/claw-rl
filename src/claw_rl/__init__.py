@@ -40,6 +40,15 @@ from .feedback import (
     LLMEnhancedPRMJudge,
     JudgeResult,
     LLMBackend,
+    # P0-3 Enhanced Binary RL + Improved OPD
+    EnhancedBinaryRLJudge,
+    PatternClassifier,
+    SemanticClassifier,
+    ConfidenceCalibrator,
+    ImprovedOPDExtractor,
+    Hint,
+    Priority,
+    Scope,
 )
 
 # Core
@@ -56,6 +65,18 @@ from .core import (
     SyncResult,
     SyncDirection,
     SyncStatus,
+    # P0-3 Fast Learning Loop + Rule Quality Monitor
+    FastLearningLoop,
+    RuleStore,
+    RuleValidator,
+    ConflictResolver,
+    Rule,
+    ApplyResult,
+    RuleQualityMonitor,
+    RuleEvaluation,
+    MonitorReport,
+    RuleStatus,
+    PruneReason,
 )
 from .core import bridge
 
@@ -223,6 +244,15 @@ __all__ = [
     'LLMEnhancedPRMJudge',
     'JudgeResult',
     'LLMBackend',
+    # P0-3 Enhanced Binary RL + Improved OPD
+    'EnhancedBinaryRLJudge',
+    'PatternClassifier',
+    'SemanticClassifier',
+    'ConfidenceCalibrator',
+    'ImprovedOPDExtractor',
+    'Hint',
+    'Priority',
+    'Scope',
     
     # Core
     'LearningLoop',
@@ -238,6 +268,19 @@ __all__ = [
     'SyncResult',
     'SyncDirection',
     'SyncStatus',
+    # P0-3 Fast Learning Loop
+    'FastLearningLoop',
+    'RuleStore',
+    'RuleValidator',
+    'ConflictResolver',
+    'Rule',
+    'ApplyResult',
+    # P0-3 Rule Quality Monitor
+    'RuleQualityMonitor',
+    'RuleEvaluation',
+    'MonitorReport',
+    'RuleStatus',
+    'PruneReason',
     
     # Learning
     'CalibrationLearner',
