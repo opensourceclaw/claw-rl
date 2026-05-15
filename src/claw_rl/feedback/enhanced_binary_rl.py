@@ -74,7 +74,7 @@ class PatternClassifier:
         ],
         "correction": [
             r"(?i)\b(don't|do not|never|shouldn't|mustn't)\b",
-            r"(?i)\b(should|must|need to|have to|please)\b",
+            r"(?i)\b(should|must|need to|have to)\b",
             r"(不要|不能|不应该|应该|需要|必须|要|得)",
         ],
         "dissatisfaction": [
@@ -139,7 +139,7 @@ class SemanticClassifier:
 
     # Implicit sentiment indicators
     IMPLICIT_POSITIVE = [
-        r"(?i)\b(cool|nice|useful|helpful|interesting|makes sense|got it)\b",
+        r"(?i)\b(cool|useful|helpful|interesting|makes sense|got it)\b",
         r"(有意思|有道理|懂了|明白|了解|收到|get)",
     ]
 

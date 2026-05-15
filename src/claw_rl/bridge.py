@@ -110,6 +110,11 @@ class ClawRLBridge:
             "process_learning": self._handle_process_learning,
             "shutdown": self._handle_shutdown,
             "ping": self._handle_ping,
+            # P0: Enhanced Binary RL + Improved OPD + Fast Learning + Quality Monitor
+            "enhanced_binary_rl": self._handle_enhanced_binary_rl,
+            "enhanced_opd": self._handle_enhanced_opd,
+            "fast_learning": self._handle_fast_learning,
+            "rule_quality_monitor": self._handle_rule_quality_monitor,
         }
 
         handler = handlers.get(method)
@@ -158,6 +163,99 @@ class ClawRLBridge:
 
     def _handle_shutdown(self, params: Dict) -> Dict:
         return self._adapter.shutdown() if self._adapter else {"status": "shutting_down"}
+
+    # ---- P0 handlers: Enhanced RL + OPD + Fast Learning + Quality -----
+
+    def _handle_enhanced_binary_rl(self, params: Dict) -> Dict:
+        """P0: Enhanced binary RL judge — multi-signal classification."""
+        from claw_rl.feedback.enhanced_binary_rl import EnhancedBinaryRLJudge
+
+        feedback = params.get("feedback", "")
+        context = params.get("context")
+
+        judge = EnhancedBinaryRLJudge()
+        result = judge.judge(feedback, context)
+
+        return {
+            "is_positive": result.is_positive,
+            "confidence": result.confidence,
+            "reward": result.reward,
+            "signals": result.signals,
+            "pattern_matched": result.pattern_matched,
+            "semantic_label": result.semantic_label,
+            "reason": result.reason,
+        }
+
+    def _handle_enhanced_opd(self, params: Dict) -> Dict:
+        """P0: Improved OPD extraction — structured hints with quality scoring."""
+        from claw_rl.feedback.enhanced_opd import ImprovedOPDExtractor
+
+        correction = params.get("correction", "")
+        context = params.get("context")
+
+        extractor = ImprovedOPDExtractor()
+        hint = extractor.extract(correction, context)
+
+        if hint:
+            return {
+                "found": True,
+                "hint": hint.to_dict(),
+            }
+        return {"found": False, "hint": None}
+
+    def _handle_fast_learning(self, params: Dict) -> Dict:
+        """P0: Fast learning loop — immediate rule application."""
+        from claw_rl.feedback.enhanced_opd import Hint, Priority, Scope
+        from claw_rl.core.fast_learning_loop import FastLearningLoop
+
+        action = params.get("action", "unknown")
+        directive = params.get("directive", "")
+        priority_str = params.get("priority", "medium")
+        scope_str = params.get("scope", "session")
+
+        hint = Hint(
+            action=action,
+            directive=directive,
+            priority={"high": Priority.HIGH, "medium": Priority.MEDIUM, "low": Priority.LOW}.get(priority_str, Priority.MEDIUM),
+            scope={"global": Scope.GLOBAL, "project": Scope.PROJECT, "session": Scope.SESSION, "context": Scope.CONTEXT}.get(scope_str, Scope.SESSION),
+            actionability=params.get("actionability", 0.7),
+            confidence=params.get("confidence", 0.7),
+        )
+
+        loop = FastLearningLoop()
+        result = loop.apply_hint(hint)
+
+        return {
+            "success": result.success,
+            "rule_id": result.rule_id,
+            "created": result.created,
+            "updated": result.updated,
+            "conflict_resolved": result.conflict_resolved,
+            "reason": result.reason,
+        }
+
+    def _handle_rule_quality_monitor(self, params: Dict) -> Dict:
+        """P0: Rule quality monitoring — evaluation + pruning."""
+        from claw_rl.core.fast_learning_loop import RuleStore, Rule
+        from claw_rl.core.rule_quality_monitor import RuleQualityMonitor
+
+        action = params.get("action", "status")
+
+        # For status action: return overall rule quality report
+        store = RuleStore()
+        monitor = RuleQualityMonitor(store)
+        report = monitor.evaluate_rules()
+
+        return {
+            "total_rules": report.total_rules,
+            "healthy": report.healthy,
+            "degraded": report.degraded,
+            "stale": report.stale,
+            "low_performing": report.low_performing,
+            "untested": report.untested,
+            "pruned": report.pruned,
+            "average_effectiveness": report.average_effectiveness,
+        }
 
     def run(self):
         """Run the bridge"""
