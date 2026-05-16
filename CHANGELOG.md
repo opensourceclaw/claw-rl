@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-05-14
+
+### Added
+
+**Skill Library + Triad Architecture + Self-Play RL**
+
+- **Skill Library**: Modular skill management system
+  - Dynamic skill registration and discovery
+  - Skill versioning and dependency management
+  - Skill activation and deactivation
+- **Triad Architecture**: Three-component learning system
+  - Curriculum-Executor: Generate training curricula
+  - Skill-Library: Manage learned skills
+  - Self-Play: Generate training data through self-play
+- **Self-Play RL**: Reinforcement learning through self-play
+  - Automatic curriculum generation
+  - Experience replay with prioritization
+  - Multi-agent self-play support
+- **Enhanced Bridge Integration**: P0 bridge integration
+  - Enhanced RL + OPD + learning + quality handlers
+  - Improved communication protocol
+  - Better error handling and recovery
+- **IncrementalLearner**: Efficient incremental learning
+  - Process new feedback without retraining
+  - Stable rule injection mechanism
+  - Chinese feedback support
+
+### Changed
+- Python 3.8 compatibility: Add `from __future__ import annotations`
+- Improved learning loop optimization
+- Better rule stability and quality
+
+### Technical Details
+- Triad components work together for continuous improvement
+- Self-play generates diverse training scenarios
+- Incremental learning reduces computational overhead
+
+---
+
 ## [2.12.1] - 2026-05-13
 
 ### Fixed
