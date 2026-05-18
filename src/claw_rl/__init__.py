@@ -13,10 +13,10 @@ This package provides self-learning capabilities for AI agents:
 - Multi-Armed Bandit: Intelligent strategy selection
 - Rule Portability: Export and import learned rules
 
-Version: 2.0.0-rc.2
+Version: 3.0.0
 """
 
-__version__ = "2.11.2"
+__version__ = "3.0.0"
 __author__ = "OpenClaw Team"
 
 # Pattern Recognition (Sprint 1)
